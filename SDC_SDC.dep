@@ -1,0 +1,13 @@
+Dependencies for Project 'SDC', Target 'SDC': (DO NOT MODIFY !)
+F (.\startup.s)(0x54C7D1B4)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\SDCTestMain.c)(0x55199C0C)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\sdctestmain.o --omf_browse .\sdctestmain.crf --depend .\sdctestmain.d)
+I (..//inc/tm4c123gh6pm.h)(0x54C7D19C)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (PLL.h)(0x54C7D1B4)
+I (edisk.h)(0x54C7D1B4)
+F (.\eDisk.c)(0x5519A0CD)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\edisk.o --omf_browse .\edisk.crf --depend .\edisk.d)
+I (..//inc/tm4c123gh6pm.h)(0x54C7D19C)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (edisk.h)(0x54C7D1B4)
+F (.\PLL.c)(0x54C7D1B4)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\pll.o --omf_browse .\pll.crf --depend .\pll.d)
+I (PLL.h)(0x54C7D1B4)
