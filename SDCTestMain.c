@@ -42,7 +42,10 @@
 #include "..//inc/tm4c123gh6pm.h"
 #include "PLL.h"
 #include "edisk.h"
-
+#include "Heartbeat.h"
+#include "ButtonManager.h"
+#include "ST7735.h"
+#include "GameEngine.h"
 // PF1 is profile for eDisk_WriteBlock
 // PF2 on for running, low for error
 // PF3 is profile for eDisk_ReadBlock
@@ -100,13 +103,26 @@ void PortF_Init(void){  unsigned long volatile delay;
 }
 
 int main(void){ int i=0;               
-  PLL_Init();    // bus clock at 80 MHz
-  PortF_Init();  // LaunchPad switches and LED
-  PF2 = 0x04;    // turn blue LED on
+  PLL_Init();    								// bus clock at 80 MHz
+	Heartbeat_Init();							// heartbeat
+	ButtonManager_Init();					// button interrupt enable
+	eDisk_Init(0);								// SD card reader, SSIO2 enable
+	Output_Init();								// Display, SSIO2 enable
+	GameEngine_Init();						// Will be a timer setup
+	while(1) {
+		// update game engine
+		GameEngine_update();
+		
+		// redraw
+		GameEngine_redraw();
+	}
+	
 // *******************unformatted file tests********************
-  while(1){
+  /*
+  PF2 = 0x04;    // turn blue LED on
+	while(1){
     TestDisk();
     i = i + 1;
-  }
+  }*/
 // ****************end of unformatted file tests****************
 }

@@ -24,13 +24,13 @@
  */
 
 // Backlight (pin 10) connected to +3.3 V
-// MISO (pin 9) connected to PA4 (SSI2Rx)
-// SCK (pin 8) connected to PA2 (SSI2Clk)
-// MOSI (pin 7) connected to PA5 (SSI2Tx)
-// TFT_CS (pin 6) connected to PA3 (SSI2Fss) <- GPIO high to disable TFT
+// MISO (pin 9) connected to PB6 (SSI2Rx)
+// SCK (pin 8) connected to PB4 (SSI2Clk)
+// MOSI (pin 7) connected to PB7 (SSI2Tx)
+// TFT_CS (pin 6) connected to PB5 (SSI2Fss) <- GPIO high to disable TFT
 // CARD_CS (pin 5) connected to PD7 GPIO output 
-// Data/Command (pin 4) connected to PA6 (GPIO)<- GPIO low not using TFT
-// RESET (pin 3) connected to PA7 (GPIO)<- GPIO high to disable TFT
+// Data/Command (pin 4) connected to PD3 (GPIO)<- GPIO low not using TFT
+// RESET (pin 3) connected to PB1 (GPIO)<- GPIO high to disable TFT
 // VCC (pin 2) connected to +3.3 V
 // Gnd (pin 1) connected to ground
 
@@ -69,7 +69,7 @@ void SSI2_Init(unsigned long CPSDVSR){
   GPIO_PORTB_LOCK_R = 0x4C4F434B;   // 2) unlock PortB
   GPIO_PORTB_CR_R |= 0xFF;          // allow changes to PB7-0   
   CS_Init();                            // activate CS, make it high (deselect)
-  Timer5_Init();
+  // Timer5_Init();
   GPIO_PORTB_AFSEL_R |= 0xF3;           // enable alt funct on PB4-7
   GPIO_PORTB_PUR_R |= 0xF3;             // enable weak pullup on PB4-7
   GPIO_PORTB_DEN_R |= 0xF3;             // enable digital I/O on PB4-7 
@@ -685,6 +685,7 @@ DWORD get_fattime (void){
             ;
 
 }
+
 void Timer5_Init(void){volatile unsigned short delay;
   SYSCTL_RCGCTIMER_R |= 0x20;
   delay = SYSCTL_SCGCTIMER_R;
