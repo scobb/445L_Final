@@ -105,16 +105,16 @@ void PortF_Init(void){  unsigned long volatile delay;
 int main(void){ int i=0;               
   PLL_Init();    								// bus clock at 80 MHz
 	Heartbeat_Init();							// heartbeat
-	ButtonManager_Init();					// button interrupt enable
-	eDisk_Init(0);								// SD card reader, SSIO2 enable
+	// ButtonManager_Init();					// button interrupt enable
+	// eDisk_Init(0);								// SD card reader, SSIO2 enable
 	Output_Init();								// Display, SSIO2 enable
-	GameEngine_Init();						// Will be a timer setup
+	// GameEngine_Init();						// Will be a timer setup
 	while(1) {
 		// update game engine
-		GameEngine_update();
+		// GameEngine_update();
 		
 		// redraw
-		GameEngine_redraw();
+		// GameEngine_redraw();
 	}
 	
 // *******************unformatted file tests********************

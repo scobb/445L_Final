@@ -17,42 +17,53 @@ ButtonManager.h(3): warning:  #1295-D: Deprecated declaration ButtonManager_Init
   void ButtonManager_Init();
 ButtonManager.h(5): warning:  #1-D: last line of file ends without a newline
   #endif
-SDCTestMain.c(104): warning:  #177-D: variable "i" was declared but never referenced
+GameEngine.h(5): warning:  #1295-D: Deprecated declaration GameEngine_Init - give arg types
+  void GameEngine_Init();
+GameEngine.h(6): warning:  #1295-D: Deprecated declaration GameEngine_update - give arg types
+  void GameEngine_update();
+GameEngine.h(7): warning:  #1295-D: Deprecated declaration GameEngine_redraw - give arg types
+  void GameEngine_redraw();
+GameEngine.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif
+SDCTestMain.c(105): warning:  #177-D: variable "i" was declared but never referenced
   int main(void){ int i=0;               
-SDCTestMain.c: 5 warnings, 0 errors
+SDCTestMain.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=3036 RO-data=2052 RW-data=52 ZI-data=1124  
-".\SDC.axf" - 0 Error(s), 5 Warning(s).
-Load "C:\\Users\\scobb_000\\Documents\\445L\\Final\\SDC.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-\445L\\Final\\SDC.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-).
-Target not created
-able "needCheck" was declared but never referenced
-        uint8_t needCheck = FALSE;
-ButtonManager.c: 4 warnings, 0 errors
-linking...
-Program Size: Code=2060 RO-data=32 RW-data=8 ZI-data=1120  
+Program Size: Code=2704 RO-data=2052 RW-data=52 ZI-data=1124  
 ".\SDC.axf" - 0 Error(s), 9 Warning(s).
 Load "C:\\Users\\scobb_000\\Documents\\445L\\Final\\SDC.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
-268: declaration may not appear after executable statement in block
-        buttonStatus ports[2] = {
-ButtonManager.c(77): error:  #28: expression must have a constant value
-                {PD2, FALSE, &increaseSpeedPressed},
-ButtonManager.c(78): error:  #28: expression must have a constant value
-                {PD3, FALSE ,&decreaseSpeedPressed}
-ButtonManager.c: 5 warnings, 6 errors
+ng Done.
+Verify OK.
+#endif
+Heartbeat.c: 2 warnings, 0 errors
+compiling ButtonManager.c...
+ButtonManager.h(3): warning:  #1295-D: Deprecated declaration ButtonManager_Init - give arg types
+  void ButtonManager_Init();
+ButtonManager.h(5): warning:  #1-D: last line of file ends without a newline
+  #endif
+ButtonManager.c(87): warning:  #177-D: variable "i" was declared but never referenced
+        uint8_t i;
+ButtonManager.c(88): warning:  #177-D: variable "needCheck" was declared but never referenced
+        uint8_t needCheck = FALSE;
+ButtonManager.c: 4 warnings, 0 errors
 compiling SysTick.c...
-".\SDC.axf" - 6 Error(s), 7 Warning(s).
-Target not created
+compiling ST7735.c...
+compiling GameEngine.c...
+GameEngine.h(5): warning:  #1295-D: Deprecated declaration GameEngine_Init - give arg types
+  void GameEngine_Init();
+GameEngine.h(6): warning:  #1295-D: Deprecated declaration GameEngine_update - give arg types
+  void GameEngine_update();
+GameEngine.h(7): warning:  #1295-D: Deprecated declaration GameEngine_redraw - give arg types
+  void GameEngine_redraw();
+GameEngine.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif
+GameEngine.c(17): warning:  #1-D: last line of file ends without a newline
+  }
+GameEngine.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=4360 RO-data=2052 RW-data=52 ZI-data=1124  
+".\SDC.axf" - 0 Error(s), 20 Warning(s).

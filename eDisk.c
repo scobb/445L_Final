@@ -29,7 +29,7 @@
 // MOSI (pin 7) connected to PB7 (SSI2Tx)
 // TFT_CS (pin 6) connected to PB5 (SSI2Fss) <- GPIO high to disable TFT
 // CARD_CS (pin 5) connected to PD7 GPIO output 
-// Data/Command (pin 4) connected to PD3 (GPIO)<- GPIO low not using TFT
+// Data/Command (pin 4) connected to PD2 (GPIO)<- GPIO low not using TFT
 // RESET (pin 3) connected to PB1 (GPIO)<- GPIO high to disable TFT
 // VCC (pin 2) connected to +3.3 V
 // Gnd (pin 1) connected to ground

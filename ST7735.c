@@ -52,17 +52,17 @@
 // TODO - rewrite aliases to PB values
 // PB 40005000
 // PB5
-#define TFT_CS                  (*((volatile uint32_t *)0x40005800))
+#define TFT_CS                  (*((volatile uint32_t *)0x40005080))
 #define TFT_CS_LOW              0           // CS normally controlled by hardware
 #define TFT_CS_HIGH             0xFF
 
-// PD3
-#define DC                      (*((volatile uint32_t *)0x40007100))
+// PD2
+#define DC                      (*((volatile uint32_t *)0x40007010))
 #define DC_COMMAND              0
 #define DC_DATA                 0xFF
 
 // PB1
-#define RESET                   (*((volatile uint32_t *)0x40005004))
+#define RESET                   (*((volatile uint32_t *)0x40005008))
 #define RESET_LOW               0
 #define RESET_HIGH              0xFF
 
@@ -675,18 +675,40 @@ void static commonInit(const uint8_t *cmdList) {
   volatile uint32_t delay;
   ColStart  = RowStart = 0; // May be overridden in init func
 
-  SYSCTL_RCGCSSI_R |= 0x01;  // activate SSI2
-  SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
-  while((SYSCTL_PRGPIO_R&0x01)==0){}; // allow time for clock to start
+  SYSCTL_RCGCSSI_R |= 0x04;  // activate SSI2
+  SYSCTL_RCGCGPIO_R |= 0x02; // activate port B
+  while((SYSCTL_PRGPIO_R&0x02)==0){}; // allow time for clock to start
 
   // toggle RST low to reset; CS low so it'll listen to us
   // SSI2Fss is temporarily used as GPIO
-  GPIO_PORTA_DIR_R |= 0xC8;             // make PA3,6,7 out
-  GPIO_PORTA_AFSEL_R &= ~0xC8;          // disable alt funct on PA3,6,7
-  GPIO_PORTA_DEN_R |= 0xC8;             // enable digital I/O on PA3,6,7
-                                        // configure PA3,6,7 as GPIO
-  GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0x00FF0FFF)+0x00000000;
-  GPIO_PORTA_AMSEL_R &= ~0xC8;          // disable analog functionality on PA3,6,7
+	// TODO - 
+		
+ // GPIO_PORTB_PUR_R |= 0xF2;             // enable weak pullup on PB4-7
+  GPIO_PORTB_DIR_R |= 0x22;             // PA7,PA6,PA3 output (CS to LCD)
+	GPIO_PORTB_AFSEL_R &= ~0x22;
+  GPIO_PORTB_DEN_R |= 0x22;             // enable digital I/O on PB4-7 
+                                        // configure PA2,3,4, 5 as SSI
+	//GPIO_PORTB_DIR_R &= ~0x40;						// PB6 is Rx
+  //GPIO_PORTB_DATA_R |= 0x02;            // PB0-1 high (disable LCD)
+  // GPIO_PORTB_DR4R_R |= 0xF2;            // 4mA output on outputs
+  GPIO_PORTB_PCTL_R &= ~0x00F000F0;
+  GPIO_PORTB_AMSEL_R = ~0xF2;               // disable analog functionality on PB
+		
+	// data command pd2
+  SYSCTL_RCGCGPIO_R |= 0x08; // activate port D
+  delay = SYSCTL_RCGCGPIO_R;
+  delay = SYSCTL_RCGCGPIO_R;
+  GPIO_PORTD_LOCK_R = 0x4C4F434B;   // 2) unlock PortD PD7  
+  GPIO_PORTD_CR_R |= 0xFF;          // allow changes to PD7-0       
+  GPIO_PORTD_PUR_R |= 0x04;         // enable weak pullup on PD2
+  GPIO_PORTD_DIR_R |= 0x04;         // make PD2 output 
+  //GPIO_PORTD_DR4R_R |= 0x04;        // 4mA output on outputs
+  GPIO_PORTD_PCTL_R &= ~0x00000F00;
+  GPIO_PORTD_AMSEL_R &= ~0x04; // disable analog functionality on PD2
+  GPIO_PORTD_AFSEL_R &= ~0x04; // disable alterante functionality on PD2
+  GPIO_PORTD_DEN_R |= 0x04;    // enable digital I/O on PD2
+	
+
   TFT_CS = TFT_CS_LOW;
   RESET = RESET_HIGH;
   Delay1ms(500);
@@ -694,18 +716,16 @@ void static commonInit(const uint8_t *cmdList) {
   Delay1ms(500);
   RESET = RESET_HIGH;
   Delay1ms(500);
-
+	
+	// SSI alternate function
+  GPIO_PORTB_AFSEL_R |= 0xF0;           // enable alt funct on PB4-7
+  GPIO_PORTB_DEN_R |= 0xF0;
+  GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0x0000FFFF) + 0x22220000;
+	GPIO_PORTB_AMSEL_R &= ~0xF0;
   // initialize SSI2
-  GPIO_PORTA_AFSEL_R |= 0x2C;           // enable alt funct on PA2,3,5
-  GPIO_PORTA_DEN_R |= 0x2C;             // enable digital I/O on PA2,3,5
-                                        // configure PA2,3,5 as SSI
-  GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFF0F00FF)+0x00202200;
-  GPIO_PORTA_AMSEL_R &= ~0x2C;          // disable analog functionality on PA2,3,5
   SSI2_CR1_R &= ~SSI_CR1_SSE;           // disable SSI
   SSI2_CR1_R &= ~SSI_CR1_MS;            // master mode
                                         // configure for system clock/PLL baud clock source
-//  SSI2_CC_R = (SSI2_CC_R&~SSI_CC_CS_M)+SSI_CC_CS_SYSPLL;
-//                                        // clock divider for 3.125 MHz SSIClk (50 MHz PIOSC/16)
   SSI2_CPSR_R = (SSI2_CPSR_R&~SSI_CPSR_CPSDVSR_M)+16;
                                         // clock divider for 8 MHz SSIClk (80 MHz PLL/24)
                                         // SysClk/(CPSDVSR*(1+SCR))
