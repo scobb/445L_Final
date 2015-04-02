@@ -1,0 +1,9 @@
+*.htm
+*.o
+*.d
+*.axf
+*.map
+*.bak
+*.uvgui.*
+*.uvopt
+*.crf

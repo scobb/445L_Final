@@ -3,33 +3,56 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\scobb_000\Downloads\LaunchPadware\SDC_4C123\SDC.uvproj
-Project File Date:  01/27/2015
+C:\Users\scobb_000\Documents\445L\Final\SDC.uvproj
+Project File Date:  03/30/2015
 
 <h2>Output:</h2>
 Build target 'SDC'
-compiling eDisk.c...
+compiling SDCTestMain.c...
+Heartbeat.h(4): warning:  #1295-D: Deprecated declaration Heartbeat_Init - give arg types
+  void Heartbeat_Init();
+Heartbeat.h(6): warning:  #1-D: last line of file ends without a newline
+  #endif
+ButtonManager.h(3): warning:  #1295-D: Deprecated declaration ButtonManager_Init - give arg types
+  void ButtonManager_Init();
+ButtonManager.h(5): warning:  #1-D: last line of file ends without a newline
+  #endif
+SDCTestMain.c(104): warning:  #177-D: variable "i" was declared but never referenced
+  int main(void){ int i=0;               
+SDCTestMain.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=3564 RO-data=32 RW-data=8 ZI-data=1632  
-".\SDC.axf" - 0 Error(s), 0 Warning(s).
-Load "C:\\Users\\scobb_000\\Downloads\\LaunchPadware\\SDC_4C123\\SDC.axf" 
+Program Size: Code=3036 RO-data=2052 RW-data=52 ZI-data=1124  
+".\SDC.axf" - 0 Error(s), 5 Warning(s).
+Load "C:\\Users\\scobb_000\\Documents\\445L\\Final\\SDC.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
-gramming Done.
-Verify OK.
-
-Erase Done.
-Programming Done.
-Verify OK.
-Load "C:\\Users\\scobb_000\\Downloads\\LaunchPadware\\SDC_4C123\\SDC.axf" 
+\445L\\Final\\SDC.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
-Load "C:\\Users\\scobb_000\\Downloads\\LaunchPadware\\SDC_4C123\\SDC.axf" 
+).
+Target not created
+able "needCheck" was declared but never referenced
+        uint8_t needCheck = FALSE;
+ButtonManager.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=2060 RO-data=32 RW-data=8 ZI-data=1120  
+".\SDC.axf" - 0 Error(s), 9 Warning(s).
+Load "C:\\Users\\scobb_000\\Documents\\445L\\Final\\SDC.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+268: declaration may not appear after executable statement in block
+        buttonStatus ports[2] = {
+ButtonManager.c(77): error:  #28: expression must have a constant value
+                {PD2, FALSE, &increaseSpeedPressed},
+ButtonManager.c(78): error:  #28: expression must have a constant value
+                {PD3, FALSE ,&decreaseSpeedPressed}
+ButtonManager.c: 5 warnings, 6 errors
+compiling SysTick.c...
+".\SDC.axf" - 6 Error(s), 7 Warning(s).
+Target not created
