@@ -18,8 +18,13 @@ typedef struct {
 	uint8_t isLow;
 	void(*handler)(void);
 } buttonStatus;
-
+void PortD_Init();
+void PortE_Init();
 void ButtonManager_Init(){
+	PortD_Init();
+	PortE_Init();
+}
+void PortD_Init() {
 	volatile uint32_t delay;
 	// for button on PD3
   SYSCTL_RCGCGPIO_R |= 0x00000008;  // 1) activate clock for Port D
@@ -34,12 +39,16 @@ void ButtonManager_Init(){
   GPIO_PORTD_IS_R &= ~0x08;     // (d) PD0, 1 is edge-sensitive
   GPIO_PORTD_IBE_R &= ~0x08;    //     PD0, 1 is not both edges
   GPIO_PORTD_IEV_R &= ~0x08;    //     PD0, 1 falling edge event
+  GPIO_PORTD_DR2R_R |= 0x08;        // 2mA output on outputs
   GPIO_PORTD_ICR_R = 0x08;      // (e) clear flag4
   GPIO_PORTD_IM_R |= 0x08;      // (f) arm interrupt on PD1-0 *** No IME bit as mentioned in Book ***
   NVIC_PRI0_R = (NVIC_PRI0_R&0x0FFFFFFF)|0xA0000000; // (g) priority 6
   NVIC_EN0_R |= NVIC_EN0_INT3;      // (h) enable interrupt 19 in NVIC
-	
+}
+
+void PortE_Init() {
 	// for button on PE0-3
+	long delay;
   SYSCTL_RCGCGPIO_R |= 0x00000010;  // 1) activate clock for Port E
   delay = SYSCTL_RCGCGPIO_R;        // allow time for clock to start
   GPIO_PORTE_AFSEL_R &= ~0x0F;        // 6) disable alt funct on PD1-0
@@ -52,12 +61,11 @@ void ButtonManager_Init(){
   GPIO_PORTE_IS_R &= ~0x0F;     // (d) PD0, 1 is edge-sensitive
   GPIO_PORTE_IBE_R &= ~0x0F;    //     PD0, 1 is not both edges
   GPIO_PORTE_IEV_R &= ~0x0F;    //     PD0, 1 falling edge event
+  GPIO_PORTE_DR2R_R |= 0x0F;        // 2mA output on outputs
   GPIO_PORTE_ICR_R = 0x0F;      // (e) clear flag4
   GPIO_PORTE_IM_R |= 0x0F;      // (f) arm interrupt on PD1-0 *** No IME bit as mentioned in Book ***
-	// TODO - check these
   NVIC_PRI0_R = (NVIC_PRI1_R&0xFFFFFF0F)|0x000000A0; // (g) priority 6
   NVIC_EN0_R |= NVIC_EN0_INT4;      // (h) enable interrupt 19 in NVIC
-	
 	
 }
 void upPressed(){
@@ -80,18 +88,21 @@ void CheckDebounce(buttonStatus* buttons, uint8_t numPorts){
 	}
 }
 void GPIOPortE_Handler(void){
-	// TODO 
+	GPIO_PORTE_ICR_R |= 0x0F;      // acknowledge flag PE3-0
+	printf("PortE\n");
+	// TODO - processing here
 }
 void GPIOPortD_Handler(void){
 	// handler for port D -- all 5 buttons
 	uint8_t i;
 	uint8_t needCheck = FALSE;
 	
+	GPIO_PORTD_ICR_R |= 0x08;      // acknowledge flag PD3
+	printf("PortD\n");
 	/*// TODO - processing here
 	buttonStatus ports[NUM_ON_D] = {
 		{PD3, FALSE ,&upPressed},
 	};
-	GPIO_PORTD_ICR_R = 0x08;      // acknowledge flag 0-1
 	
 	// check all ports to see if any is low
 	for (i=0; i < NUM_ON_D; i++){

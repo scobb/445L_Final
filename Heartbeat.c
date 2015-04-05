@@ -14,16 +14,17 @@ void Heartbeat_blink(){
 }
 
 void Heartbeat_Init(){
-	// assumes PORTD already initialized
+	// Interfaces with a 1.5 kohm resistor
 	volatile uint32_t delay;
   SYSCTL_RCGCGPIO_R |= 0x00000008;  // 1) activate clock for Port F
   delay = SYSCTL_RCGCGPIO_R;        // allow time for clock to start
   GPIO_PORTD_LOCK_R = GPIO_LOCK_KEY;   // 2) unlock GPIO Port F
   GPIO_PORTD_CR_R |= 0x01;           // allow changes to PF4-0
-	GPIO_PORTD_DIR_R |= 0x01;        // make PF1 output (PF1 built-in LEDs)
-  GPIO_PORTD_AFSEL_R &= ~0x01;     // disable alt funct on PF1
-  GPIO_PORTD_DEN_R |= 0x01;        // enable digital I/O on PF1
-                                   // configure PF1 as GPIO
+	GPIO_PORTD_DIR_R |= 0x01;        // make PD0 output
+  GPIO_PORTD_AFSEL_R &= ~0x01;     // disable alt funct on PD0
+  GPIO_PORTD_DEN_R |= 0x01;        // enable digital I/O on PD0
+  GPIO_PORTD_DR2R_R |= 0x01;        // 2mA output on outputs
+                                   // configure PD0 as GPIO
   GPIO_PORTD_PCTL_R = (GPIO_PORTD_PCTL_R&0xFFFFFFF0)+0x00000000;
   GPIO_PORTD_AMSEL_R &= ~0x01;
 	

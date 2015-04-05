@@ -76,7 +76,7 @@ void SSI2_Init(unsigned long CPSDVSR){
                                         // configure PA2,3,4, 5 as SSI
   GPIO_PORTB_DIR_R |= 0xF3;             // PA7,PA6,PA3 output (CS to LCD)
   //GPIO_PORTB_DATA_R |= 0x03;            // PB0-1 high (disable LCD)
-	GPIO_PORTB_DATA_R |= 0xF3		//Ryan's code set all SSI ports high
+	GPIO_PORTB_DATA_R |= 0xF3;		//Ryan's code set all SSI ports high
   GPIO_PORTB_DR4R_R |= 0xF3;            // 4mA output on outputs
   GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0xFF0000FF)+0x00222200;
   GPIO_PORTB_AMSEL_R = 0;               // disable analog functionality on PB
