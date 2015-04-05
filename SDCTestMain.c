@@ -107,8 +107,8 @@ int main(void){ int i=0;
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
 	eDisk_Init(0);								// SD card reader, SSIO2 enable
-	//Output_Init();								// Display, SSIO2 enable
-	//printf("Hi");
+	Output_Init();								// Display, SSIO2 enable
+	printf("Hi");
 	// GameEngine_Init();						// Will be a timer setup
 	while(1) {
 		// update game engine
