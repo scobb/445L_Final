@@ -102,13 +102,20 @@ void PortF_Init(void){  unsigned long volatile delay;
   GPIO_PORTF_AMSEL_R = 0;      // disable analog functionality on PF
 }
 
-int main(void){ int i=0;               
+int main(void){ int i=0;   
+	BYTE buff[512]; DRESULT res;            
   PLL_Init();    								// bus clock at 80 MHz
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
-	eDisk_Init(0);								// SD card reader, SSIO2 enable
 	Output_Init();								// Display, SSIO2 enable
-	printf("Hi");
+	printf("Hi\n");
+	eDisk_Init(0);								// SD card reader, SSIO2 enable
+	// res = eDisk_WriteBlock(&buff[0], 0);
+	// print("Write: %d\n", res);
+	printf("buff[0]: %d\n", buff[0]);
+	res = eDisk_ReadBlock(&buff[0], 0);
+	printf("Read: %d\n", res);
+	printf("buff[0]: %d\n", buff[0]);
 	// GameEngine_Init();						// Will be a timer setup
 	while(1) {
 		// update game engine
