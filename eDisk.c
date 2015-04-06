@@ -71,11 +71,9 @@ void DC_Init(){
   SYSCTL_RCGCGPIO_R |= 0x08; // activate port D
   delay = SYSCTL_RCGCGPIO_R;
   delay = SYSCTL_RCGCGPIO_R;     
-  //GPIO_PORTD_PUR_R |= 0x04;         // enable weak pullup on PD2
   GPIO_PORTD_DIR_R |= 0x04;         // make PD2 output 
   GPIO_PORTD_DR4R_R |= 0x04;        // 4mA output on output
   GPIO_PORTD_AMSEL_R &= ~0x04;        // 4mA output on output
-  //GPIO_PORTD_DEN_R |= 0x04;    // enable digital I/O on PD2
 	
 }
 /* 
@@ -90,19 +88,19 @@ PA7 => PB1 - RESET - high to disable TFT
 */ 
 void SSI2_Init(unsigned long CPSDVSR){
   SYSCTL_RCGCGPIO_R |= 0x02;   // activate port B
-  SYSCTL_RCGCSSI_R |= 0x04;    // activate SSI2
-  GPIO_PORTB_LOCK_R = 0x4C4F434B;   // 2) unlock PortB
-  GPIO_PORTB_CR_R |= 0xFF;          // allow changes to PB7-0   
+  SYSCTL_RCGCSSI_R |= 0x04;    // activate SSI2   
   CS_Init();                            // activate CS, make it high (deselect)
 	DC_Init();
   Timer5_Init();
-  GPIO_PORTB_AFSEL_R |= 0xF3;           // enable alt funct on PB4-7
-  GPIO_PORTB_PUR_R |= 0xF3;             // enable weak pullup on PB4-7
-  GPIO_PORTB_DEN_R |= 0xF3;             // enable digital I/O on PB4-7 
+  GPIO_PORTB_AFSEL_R |= 0xF0;           // enable alt funct on PB4-7
+  GPIO_PORTB_PUR_R |= 0xF0;             // enable weak pullup on PB4-7
+  GPIO_PORTB_DEN_R |= 0xF0;             // enable digital I/O on PB4-7 
                                         // configure PA2,3,4, 5 as SSI
-  GPIO_PORTB_DIR_R |= 0xF3;             // PB1, 5 output (CS to LCD)
-  GPIO_PORTB_DATA_R |= 0xF3;            // PB1, PB5 high (disable LCD)
-  GPIO_PORTB_DR4R_R |= 0xF3;            // 4mA output on outputs
+  GPIO_PORTB_DIR_R |= 0x22;             // PB1, 5 output (CS to LCD)
+  GPIO_PORTB_DATA_R |= 0x22;            // PB1, PB5 high (disable LCD)
+  GPIO_PORTB_DR4R_R |= 0xF0;            // 4mA output on outputs
+	
+	// activate SSI2
   GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0x0000FFFF)+0x22220000;
   GPIO_PORTB_AMSEL_R = 0;               // disable analog functionality on PB
   SSI2_CR1_R &= ~SSI_CR1_SSE;           // disable SSI

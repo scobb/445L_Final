@@ -110,8 +110,8 @@ int main(void){ int i=0;
 	Output_Init();								// Display, SSIO2 enable
 	printf("Hi\n");
 	eDisk_Init(0);								// SD card reader, SSIO2 enable
-	// res = eDisk_WriteBlock(&buff[0], 0);
-	// print("Write: %d\n", res);
+	res = eDisk_WriteBlock(&buff[0], 0);
+	printf("Write: %d\n", res);
 	printf("buff[0]: %d\n", buff[0]);
 	res = eDisk_ReadBlock(&buff[0], 0);
 	printf("Read: %d\n", res);
