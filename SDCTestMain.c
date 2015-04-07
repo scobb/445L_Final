@@ -46,6 +46,8 @@
 #include "ButtonManager.h"
 #include "ST7735.h"
 #include "GameEngine.h"
+#include "MAX5353.h"
+#include "FrequencyTimer.h"
 // PF1 is profile for eDisk_WriteBlock
 // PF2 on for running, low for error
 // PF3 is profile for eDisk_ReadBlock
@@ -57,6 +59,7 @@ unsigned char buffer[512];
 
 void diskError(char* errtype, unsigned long n){
   PF2 = 0x00;      // turn LED off to indicate error
+	//printf("FAIL");
   while(1){};
 }
 void TestDisk(void){  DSTATUS result;  unsigned short block;  int i; unsigned long n;
@@ -102,29 +105,30 @@ void PortF_Init(void){  unsigned long volatile delay;
   GPIO_PORTF_AMSEL_R = 0;      // disable analog functionality on PF
 }
 
-int main(void){ int i=0;   
-	BYTE buff[512]; DRESULT res;            
-  PLL_Init();    								// bus clock at 80 MHz
-	Heartbeat_Init();							// heartbeat
+int main(void){  
+	DRESULT res;            
+	int i = 0;
+	PLL_Init();    								// bus clock at 80 MHz
+	//Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
-	Output_Init();								// Display, SSIO2 enable
+	Output_Init();								// Display, SSI2 enable
 	printf("Hi\n");
-	eDisk_Init(0);								// SD card reader, SSIO2 enable
-	res = eDisk_WriteBlock(&buff[0], 0);
+	//eDisk_Init(0);								// SD card reader, SSI2 enable
+	DAC_Init(2048);								// SSI0 enable
+	FrequencyTimer_Init();
+	FrequencyTimer_arm(A4);
+	//printf("Hi again\n");
+	/*res = eDisk_WriteBlock(&buffer[0], 0);
 	printf("Write: %d\n", res);
-	printf("buff[0]: %d\n", buff[0]);
-	res = eDisk_ReadBlock(&buff[0], 0);
+	printf("buff[0]: %d\n", buffer[0]);
+	res = eDisk_ReadBlock(&buffer[0], 0);
 	printf("Read: %d\n", res);
-	printf("buff[0]: %d\n", buff[0]);
+	printf("buff[0]: %d\n", buffer[0]);*/
+	//PortF_Init();
+  //PF2 = 0x04;    // turn blue LED on
 	// GameEngine_Init();						// Will be a timer setup
 	while(1) {
-		// update game engine
-		// GameEngine_update();
-		
-		// redraw
-		// GameEngine_redraw();
 	}
-	
 // *******************unformatted file tests********************
   /*
   PF2 = 0x04;    // turn blue LED on

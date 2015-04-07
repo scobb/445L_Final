@@ -669,6 +669,17 @@ void static commandList(const uint8_t *addr) {
   }
 }
 
+#define SDC_DC   (*((volatile unsigned long *)0x40007010))  
+void mDC_Init(){
+	long delay;
+  SYSCTL_RCGCGPIO_R |= 0x08; // activate port D
+  delay = SYSCTL_RCGCGPIO_R;
+  delay = SYSCTL_RCGCGPIO_R;     
+  GPIO_PORTD_DIR_R |= 0x04;         // make PD2 output 
+  GPIO_PORTD_DR4R_R |= 0x04;        // 4mA output on output
+  GPIO_PORTD_AMSEL_R &= ~0x04;        // 4mA output on output
+	
+}
 
 // Initialization code common to both 'B' and 'R' type displays
 void static commonInit(const uint8_t *cmdList) {
@@ -681,34 +692,24 @@ void static commonInit(const uint8_t *cmdList) {
 
   // toggle RST low to reset; CS low so it'll listen to us
   // SSI2Fss is temporarily used as GPIO
-	// TODO - 
-		
- // GPIO_PORTB_PUR_R |= 0xF2;             // enable weak pullup on PB4-7
-  GPIO_PORTB_DIR_R |= 0x22;             // PA7,PA6,PA3 output (CS to LCD)
-	GPIO_PORTB_AFSEL_R &= ~0x22;
-  GPIO_PORTB_DEN_R |= 0x22;             // enable digital I/O on PB4-7 
-                                        // configure PA2,3,4, 5 as SSI
-	//GPIO_PORTB_DIR_R &= ~0x40;						// PB6 is Rx
-  //GPIO_PORTB_DATA_R |= 0x02;            // PB0-1 high (disable LCD)
-  // GPIO_PORTB_DR4R_R |= 0xF2;            // 4mA output on outputs
-  GPIO_PORTB_PCTL_R &= ~0x00F000F0;
-  GPIO_PORTB_AMSEL_R = ~0xF2;               // disable analog functionality on PB
+
+  GPIO_PORTB_DIR_R |= 0x22;             // PB1, 5 output
+	GPIO_PORTB_AFSEL_R &= ~0x22;					// PB1, 5 GPIO
+  GPIO_PORTB_DEN_R |= 0x22;             // enable digital I/O on PB1, 5
+  GPIO_PORTB_PCTL_R &= ~0x00F000F0;			// PB1, 5 GPIO
+  GPIO_PORTB_AMSEL_R = ~0x22;           // disable analog functionality on PB1, 5
 		
 	// data command pd2
-  SYSCTL_RCGCGPIO_R |= 0x08; // activate port D
+  SYSCTL_RCGCGPIO_R |= 0x08; 						// activate port D
   delay = SYSCTL_RCGCGPIO_R;
-  delay = SYSCTL_RCGCGPIO_R;
-  GPIO_PORTD_LOCK_R = 0x4C4F434B;   // 2) unlock PortD PD7  
-  GPIO_PORTD_CR_R |= 0xFF;          // allow changes to PD7-0       
-  GPIO_PORTD_PUR_R |= 0x04;         // enable weak pullup on PD2
-  GPIO_PORTD_DIR_R |= 0x04;         // make PD2 output 
-  //GPIO_PORTD_DR4R_R |= 0x04;        // 4mA output on outputs
-  GPIO_PORTD_PCTL_R &= ~0x00000F00;
-  GPIO_PORTD_AMSEL_R &= ~0x04; // disable analog functionality on PD2
-  GPIO_PORTD_AFSEL_R &= ~0x04; // disable alterante functionality on PD2
-  GPIO_PORTD_DEN_R |= 0x04;    // enable digital I/O on PD2
+  delay = SYSCTL_RCGCGPIO_R;     
+  GPIO_PORTD_PUR_R |= 0x04;         		// enable weak pullup on PD2
+  GPIO_PORTD_DIR_R |= 0x04;         		// make PD2 output 
+  GPIO_PORTD_PCTL_R &= ~0x00000F00;			// 
+  GPIO_PORTD_AMSEL_R &= ~0x04; 					// disable analog functionality on PD2
+  GPIO_PORTD_AFSEL_R &= ~0x04; 					// disable alterante functionality on PD2
+  GPIO_PORTD_DEN_R |= 0x04;    					// enable digital I/O on PD2
 	
-
   TFT_CS = TFT_CS_LOW;
   RESET = RESET_HIGH;
   Delay1ms(500);
@@ -726,11 +727,12 @@ void static commonInit(const uint8_t *cmdList) {
   SSI2_CR1_R &= ~SSI_CR1_SSE;           // disable SSI
   SSI2_CR1_R &= ~SSI_CR1_MS;            // master mode
                                         // configure for system clock/PLL baud clock source
-  SSI2_CPSR_R = (SSI2_CPSR_R&~SSI_CPSR_CPSDVSR_M)+16;
+  //SSI2_CPSR_R = (SSI2_CPSR_R&~SSI_CPSR_CPSDVSR_M)+16;
                                         // clock divider for 8 MHz SSIClk (80 MHz PLL/24)
                                         // SysClk/(CPSDVSR*(1+SCR))
                                         // 80/(10*(1+0)) = 8 MHz (slower than 4 MHz)
-  SSI2_CPSR_R = (SSI2_CPSR_R&~SSI_CPSR_CPSDVSR_M)+10; // must be even number
+  // +8 lines up with set_max_speed from the micro sd card
+	SSI2_CPSR_R = (SSI2_CPSR_R&~SSI_CPSR_CPSDVSR_M)+8; // must be even number
   SSI2_CR0_R &= ~(SSI_CR0_SCR_M |       // SCR = 0 (8 Mbps data rate)
                   SSI_CR0_SPH |         // SPH = 0
                   SSI_CR0_SPO);         // SPO = 0

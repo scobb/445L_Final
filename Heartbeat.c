@@ -50,7 +50,7 @@ void Timer0_Init(void){volatile unsigned short delay;
   EndCritical(sr);
 }
 // Executed every 10 ms
-void Timer0A_Handler(void){ 
+/*void Timer0A_Handler(void){ 
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;       // acknowledge timer0A timeout
   Heartbeat_blink();
-}
+}*/

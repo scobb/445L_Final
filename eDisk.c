@@ -27,10 +27,10 @@
 // MISO (pin 9) connected to PB6 (SSI2Rx)
 // SCK (pin 8) connected to PB4 (SSI2Clk)
 // MOSI (pin 7) connected to PB7 (SSI2Tx)
-// TFT_CS (pin 6) connected to PB5 (SSI2Fss) <- GPIO high to disable TFT
+// TFT_CS (pin 6) connected to PB5 (SSI2Fss)   <- GPIO high to disable TFT
 // CARD_CS (pin 5) connected to PD7 GPIO output 
 // Data/Command (pin 4) connected to PD2 (GPIO)<- GPIO low not using TFT
-// RESET (pin 3) connected to PB1 (GPIO)<- GPIO high to disable TFT
+// RESET (pin 3) connected to PB1 (GPIO)			 <- GPIO high to disable TFT
 // VCC (pin 2) connected to +3.3 V
 // Gnd (pin 1) connected to ground
 
@@ -74,6 +74,7 @@ void DC_Init(){
   GPIO_PORTD_DIR_R |= 0x04;         // make PD2 output 
   GPIO_PORTD_DR4R_R |= 0x04;        // 4mA output on output
   GPIO_PORTD_AMSEL_R &= ~0x04;        // 4mA output on output
+  GPIO_PORTD_DEN_R |= 0x04;    // enable digital I/O on PD2
 	
 }
 /* 
@@ -86,6 +87,7 @@ PA6 => PD2 - DC (low == not using display)
 PA7 => PB1 - RESET - high to disable TFT
 
 */ 
+#define TFT_CS   (*((volatile unsigned long *)0x40005008)) 
 void SSI2_Init(unsigned long CPSDVSR){
   SYSCTL_RCGCGPIO_R |= 0x02;   // activate port B
   SYSCTL_RCGCSSI_R |= 0x04;    // activate SSI2   
@@ -118,13 +120,26 @@ void SSI2_Init(unsigned long CPSDVSR){
   SSI2_CR0_R = (SSI2_CR0_R&~SSI_CR0_DSS_M)+SSI_CR0_DSS_8;
   SSI2_CR1_R |= SSI_CR1_SSE;            // enable SSI
 }
+
+void MakeFsshigh(void){
+  GPIO_PORTB_AFSEL_R &= ~0x20;           // disable alt funct on PB5
+  GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0xFF0FFFFF);
+  GPIO_PORTB_DATA_R |= 0x22;            // PB5, PB1 high 
+	SDC_DC = 0x00;
+}
+void MakeFssSSI(void){
+	GPIO_PORTB_DATA_R &= ~0x22;
+  GPIO_PORTB_AFSEL_R |= 0x20;           // enable alt funct on PB5
+  GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0xFF0FFFFF)+0x00200000;
+	SDC_DC = 0xFF;
+}
 void MakeTxhigh(void){
-  GPIO_PORTB_AFSEL_R &= ~0x80;           // disable alt funct on PA5
+  GPIO_PORTB_AFSEL_R &= ~0x80;           // disable alt funct on PB7
   GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0x0FFFFFFF);
   GPIO_PORTB_DATA_R |= 0x80;            // PB7 high 
 }
 void MakeTxSSI(void){
-  GPIO_PORTB_AFSEL_R |= 0x80;           // enable alt funct on PA5
+  GPIO_PORTB_AFSEL_R |= 0x80;           // enable alt funct on PB7
   GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0x0FFFFFFF)+0x20000000;
 }
 //********SSI2_Out*****************
@@ -169,14 +184,20 @@ unsigned short SSI2_Out(unsigned short code){
 #define CMD55    (0x40+55)    /* APP_CMD */
 #define CMD58    (0x40+58)    /* READ_OCR */
 
+static BYTE wait_ready();
 // asserts the CS pin to the card
 static void SELECT(void){
+	//MakeFsshigh();
+	
+	//wait_ready();
   SDC_CS = 0;
 }
 
 // de-asserts the CS pin to the card
 static void DESELECT(void){
   SDC_CS = 0xFF;
+	//wait_ready();
+	//MakeFssSSI();
 }
 
 
