@@ -72,38 +72,7 @@ void diskError(char *errtype, int32_t code, int32_t block){
   ST7735_OutUDec(block);
   while(1){};
 }
-// The simple unformatted test will destroy the formatting and
-// erase everything on the SD card.
-void SimpleUnformattedTest(void){ DSTATUS result; uint16_t block; int i; uint32_t n; uint32_t errors = 0;
-  // simple test of eDisk
-  result = disk_initialize(0);  // initialize disk
-  if(result) diskError("disk_initialize", result, 0);
-  n = 1;    // seed
-  for(block = 0; block < MAXBLOCKS; block++){
-    for(i=0; i<512; i++){
-      n = (16807*n)%2147483647; // pseudo random sequence
-      buffer[i] = 0xFF&n;
-    }
-    result = disk_write (0,buffer, block, 1);
-    if(result) diskError("disk_write", result, block); // save to disk
-  }
-  n = 1;  // reseed, start over to get the same sequence
-  for(block = 0; block < MAXBLOCKS; block++){
-    result = disk_read (0,buffer, block,1);
-    if(result) diskError("disk_read ", result, block); // read from disk
-    for(i=0; i<512; i++){
-      n = (16807*n)%2147483647; // pseudo random sequence
-      if(buffer[i] != (0xFF&n)){
-        errors = errors + 1;
-      }
-    }
-  }
-  ST7735_DrawString(0, 0, "Test done", ST7735_Color565(0, 255, 0));
-  ST7735_DrawString(0, 1, "Mismatches:", ST7735_Color565(0, 255, 0));
-  ST7735_SetCursor(12, 1);
-  ST7735_SetTextColor(ST7735_Color565(0, 255, 0));
-  ST7735_OutUDec(errors);
-}
+
 #define FILETESTSIZE 10000
 void FileSystemTest(void){
   UINT successfulreads, successfulwrites;
@@ -208,16 +177,11 @@ int main(void){
   ButtonManager_Init();					// button interrupt enable
 	Output_Init();								// Display, SSI2 enable
 	printf("Hi\n");
-	//eDisk_Init(0);								// SD card reader, SSI2 enable
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
 	FrequencyTimer_arm(A4);
-  PLL_Init();    // 80 MHz
-  ST7735_InitR(INITR_REDTAB);
-  ST7735_FillScreen(0);                 // set screen to black
   EnableInterrupts();
-  //SimpleUnformattedTest();              // comment this out if continuing to the advanced file system tests
-  //FileSystemTest();                     // comment this out if file system works
+  // FileSystemTest();                     // comment this out if file system works
   MountFresult = f_mount(&g_sFatFs, "", 0);
   if(MountFresult){
     ST7735_DrawString(0, 0, "f_mount error", ST7735_Color565(0, 0, 255));
