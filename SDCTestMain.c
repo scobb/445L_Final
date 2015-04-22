@@ -85,6 +85,7 @@ void FileSystemTest(void){
   Fresult = f_open(&Handle2, "testFile.txt", FA_CREATE_ALWAYS|FA_WRITE);
   if(Fresult){
     ST7735_DrawString(0, 0, "testFile error", ST7735_Color565(0, 0, 255));
+		printf("\n%d\n", Fresult);
     while(1){};
   } else{
     for(i=0; i<FILETESTSIZE; i++){
@@ -173,7 +174,7 @@ int main(void){
   uint8_t c, x, y;
 	int i = 0;
 	PLL_Init();    								// bus clock at 80 MHz
-	//Heartbeat_Init();							// heartbeat
+	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
 	Output_Init();								// Display, SSI2 enable
 	printf("Hi\n");
@@ -181,7 +182,7 @@ int main(void){
 	FrequencyTimer_Init();
 	FrequencyTimer_arm(A4);
   EnableInterrupts();
-  // FileSystemTest();                     // comment this out if file system works
+  //FileSystemTest();                     // comment this out if file system works
   MountFresult = f_mount(&g_sFatFs, "", 0);
   if(MountFresult){
     ST7735_DrawString(0, 0, "f_mount error", ST7735_Color565(0, 0, 255));

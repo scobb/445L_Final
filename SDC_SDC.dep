@@ -1,36 +1,56 @@
 Dependencies for Project 'SDC', Target 'SDC': (DO NOT MODIFY !)
-F (.\startup.s)(0x5519A17B)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\SDCTestMain.c)(0x551D77CA)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\sdctestmain.o --omf_browse .\sdctestmain.crf --depend .\sdctestmain.d)
-I (..//inc/tm4c123gh6pm.h)(0x54CEB128)
+F (.\startup.s)(0x5519A17B)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\SDCTestMain.c)(0x5537FD74)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\sdctestmain.o --omf_browse .\sdctestmain.crf --depend .\sdctestmain.d)
+I (../inc/tm4c123gh6pm.h)(0x54CEB128)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (diskio.h)(0x5523CCA5)
+I (integer.h)(0x5523CCA5)
+I (ff.h)(0x5523CCA5)
+I (ffconf.h)(0x5523CCA5)
 I (PLL.h)(0x5519A17B)
-I (edisk.h)(0x5519A17B)
+I (ST7735.h)(0x5523CCA5)
 I (Heartbeat.h)(0x551C36DF)
 I (ButtonManager.h)(0x54F07C9F)
-I (ST7735.h)(0x54D10AB2)
 I (GameEngine.h)(0x551C464A)
-F (.\eDisk.c)(0x551D6BA0)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\edisk.o --omf_browse .\edisk.crf --depend .\edisk.d)
-I (..//inc/tm4c123gh6pm.h)(0x54CEB128)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
-I (edisk.h)(0x5519A17B)
-F (.\PLL.c)(0x5519A17B)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\pll.o --omf_browse .\pll.crf --depend .\pll.d)
+I (MAX5353.h)(0x54EE4A40)
+I (FrequencyTimer.h)(0x552354AF)
+F (.\PLL.c)(0x5519A17B)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\pll.o --omf_browse .\pll.crf --depend .\pll.d)
 I (PLL.h)(0x5519A17B)
-F (.\Heartbeat.c)(0x551D6750)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\heartbeat.o --omf_browse .\heartbeat.crf --depend .\heartbeat.d)
+F (.\Heartbeat.c)(0x5537F8C3)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\heartbeat.o --omf_browse .\heartbeat.crf --depend .\heartbeat.d)
 I (Heartbeat.h)(0x551C36DF)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
-F (.\ButtonManager.c)(0x551C41A3)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\buttonmanager.o --omf_browse .\buttonmanager.crf --depend .\buttonmanager.d)
+F (.\ButtonManager.c)(0x5537F297)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\buttonmanager.o --omf_browse .\buttonmanager.crf --depend .\buttonmanager.d)
 I (ButtonManager.h)(0x54F07C9F)
 I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (SysTick.h)(0x54C7D1BC)
-F (.\SysTick.c)(0x54EB8C3F)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\systick.o --omf_browse .\systick.crf --depend .\systick.d)
+F (.\SysTick.c)(0x54EB8C3F)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\systick.o --omf_browse .\systick.crf --depend .\systick.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
-F (.\ST7735.c)(0x551D77A1)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\st7735.o --omf_browse .\st7735.crf --depend .\st7735.d)
+F (.\ST7735.c)(0x5523D555)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\st7735.o --omf_browse .\st7735.crf --depend .\st7735.d)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C8A654)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
-I (ST7735.h)(0x54D10AB2)
-I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
-F (.\GameEngine.c)(0x551C46D7)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\gameengine.o --omf_browse .\gameengine.crf --depend .\gameengine.d)
+I (ST7735.h)(0x5523CCA5)
+I (../inc/tm4c123gh6pm.h)(0x54CEB128)
+F (.\GameEngine.c)(0x551C46D7)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\gameengine.o --omf_browse .\gameengine.crf --depend .\gameengine.d)
 I (GameEngine.h)(0x551C464A)
+F (.\MAX5353.c)(0x5537F0B4)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\max5353.o --omf_browse .\max5353.crf --depend .\max5353.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
+F (.\FrequencyTimer.c)(0x5537F09A)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\frequencytimer.o --omf_browse .\frequencytimer.crf --depend .\frequencytimer.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C8A654)
+I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
+I (FrequencyTimer.h)(0x552354AF)
+I (MAX5353.h)(0x54EE4A40)
+F (.\diskio.c)(0x5523DD5C)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\diskio.o --omf_browse .\diskio.crf --depend .\diskio.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (..\inc\tm4c123gh6pm.h)(0x54CEB128)
+I (integer.h)(0x5523CCA5)
+I (diskio.h)(0x5523CCA5)
+F (.\ff.c)(0x5523CCA5)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\ff.o --omf_browse .\ff.crf --depend .\ff.d)
+I (ff.h)(0x5523CCA5)
+I (integer.h)(0x5523CCA5)
+I (ffconf.h)(0x5523CCA5)
+I (diskio.h)(0x5523CCA5)

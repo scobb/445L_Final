@@ -221,7 +221,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -416,14 +416,54 @@
               <FilePath>.\SDCTestMain.c</FilePath>
             </File>
             <File>
-              <FileName>eDisk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\eDisk.c</FilePath>
-            </File>
-            <File>
               <FileName>PLL.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\PLL.c</FilePath>
+            </File>
+            <File>
+              <FileName>Heartbeat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Heartbeat.c</FilePath>
+            </File>
+            <File>
+              <FileName>ButtonManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ButtonManager.c</FilePath>
+            </File>
+            <File>
+              <FileName>SysTick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SysTick.c</FilePath>
+            </File>
+            <File>
+              <FileName>ST7735.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ST7735.c</FilePath>
+            </File>
+            <File>
+              <FileName>GameEngine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GameEngine.c</FilePath>
+            </File>
+            <File>
+              <FileName>MAX5353.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MAX5353.c</FilePath>
+            </File>
+            <File>
+              <FileName>FrequencyTimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FrequencyTimer.c</FilePath>
+            </File>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ff.c</FilePath>
             </File>
           </Files>
         </Group>
