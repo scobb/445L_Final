@@ -1,6 +1,16 @@
 #include "GameEngine.h"
 #include "stdint.h"
 #include "ST7735.h"
+typedef struct {
+	int8_t hor;
+	int8_t vert;
+} coord;
+coord directions[4] = {
+	{0, 1},			// UP
+	{0, -1},		// DOWN
+	{-1, 0},		// LEFT
+	{1, 0}			// RIGHT
+};
 #define EMPTY 0
 #define PACMAN 1
 #define GHOST 2
@@ -55,13 +65,24 @@ const unsigned short r_ghost[] = {
 
 
 
-sprite p = {1, 1, STATIONARY, pacman};
-sprite rg = {1, 20, STATIONARY, r_ghost};
+sprite p = {1, 20, RIGHT, {pacman, pacman, pacman, pacman}, 5, 5};
+sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4};
 
+// private helper functions
 void ind_to_pix(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix) {
 	*x_pix = BOARD_START_X + SQUARE_WIDTH * (x_ind);
 	*y_pix = BOARD_START_Y + SQUARE_HEIGHT * (y_ind );
 }
+void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix){
+	ind_to_pix(x_ind, y_ind, x_pix, y_pix);
+}
+
+void drawSprite(sprite* s){
+	uint8_t x_pix, y_pix;
+	drawCommon(s->x, s->y, &x_pix, &y_pix);
+	ST7735_DrawBitmap(x_pix - 2, y_pix + 6, s->bmp[s->motion], s->width, s->height);
+}
+// public functions
 void GameEngine_Init(){
 	// set initial position, number of ghosts, dots
 	uint8_t i, j, x_pix, y_pix;
@@ -72,16 +93,19 @@ void GameEngine_Init(){
 				ind_to_pix(j, i, &x_pix, &y_pix);
 				ST7735_DrawPixel(x_pix, y_pix + 4, ST7735_WHITE);
 			} else if (board[i][j] == PACMAN) { 
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_DrawBitmap(x_pix - 2, y_pix + 5, pacman, 5, 5);
+				//drawSprite(p);
+				/*ind_to_pix(j, i, &x_pix, &y_pix);
+				ST7735_DrawBitmap(x_pix - 2, y_pix + 5, pacman, p.width, p.height);*/
 			} else if (board[i][j] == GHOST) {
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_DrawBitmap(x_pix - 2, y_pix + 5, r_ghost, 5, 4);
+				//ind_to_pix(j, i, &x_pix, &y_pix);
+				//ST7735_DrawBitmap(x_pix - 2, y_pix + 5, r_ghost, rg.width, rg.height);
 			} else if (board[i][j] == WALL) {
 				ind_to_pix(j, i, &x_pix, &y_pix);
 				ST7735_FillRect(x_pix -2, y_pix + 2, SQUARE_WIDTH, SQUARE_HEIGHT, ST7735_BLUE);
 			}
 		}
+		drawSprite(&p);
+		drawSprite(&rg);
 	}
 }
 
@@ -92,6 +116,7 @@ void GameEngine_update(){
 	// update pacman's location
 	// check collision against dots, make note of which to undraw
 	// check collision against ghosts
+	
 }
 void GameEngine_redraw(){
 	// NOT A FULL REDRAW
