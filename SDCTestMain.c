@@ -182,6 +182,8 @@ int main(void){
 	FrequencyTimer_Init();
 	FrequencyTimer_arm(A4);
   EnableInterrupts();
+	GameEngine_Init();
+	while (1) {}
   //FileSystemTest();                     // comment this out if file system works
   MountFresult = f_mount(&g_sFatFs, "", 0);
   if(MountFresult){

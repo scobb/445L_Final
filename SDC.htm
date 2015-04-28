@@ -3,21 +3,21 @@
 <title>Static Call Graph - [.\SDC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\SDC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed Apr 22 14:58:55 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Apr 27 23:15:38 2015
 <BR><P>
-<H3>Maximum Stack Usage =        368 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        176 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; f_open &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
+fputc &rArr; ST7735_OutChar &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 <P>
 <H3>
 Functions with no stack information
 </H3><UL>
  <LI><a href="#[7e]">Reset_Handler</a>
- <LI><a href="#[e6]">DisableInterrupts</a>
- <LI><a href="#[da]">EnableInterrupts</a>
+ <LI><a href="#[b0]">DisableInterrupts</a>
+ <LI><a href="#[a9]">EnableInterrupts</a>
  <LI><a href="#[89]">StartCritical</a>
  <LI><a href="#[8a]">EndCritical</a>
- <LI><a href="#[e7]">WaitForInterrupt</a>
+ <LI><a href="#[b1]">WaitForInterrupt</a>
 </UL>
 </UL>
 <P>
@@ -33,9 +33,6 @@ Mutually Recursive functions
  <LI><a href="#[8]">PendSV_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[8]">PendSV_Handler</a><BR>
  <LI><a href="#[9]">SysTick_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[9]">SysTick_Handler</a><BR>
  <LI><a href="#[18]">ADC0Seq0_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[18]">ADC0Seq0_Handler</a><BR>
- <LI><a href="#[c0]">send_cmd</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[c0]">send_cmd</a><BR>
- <LI><a href="#[c1]">disk_ioctl</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[c1]">disk_ioctl</a><BR>
- <LI><a href="#[a3]">fillmessage</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[a3]">fillmessage</a><BR>
  <LI><a href="#[82]">Delay</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[82]">Delay</a><BR>
 </UL>
 <P>
@@ -575,7 +572,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reset_Handler
 </UL>
 
-<P><STRONG><a name="[e0]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[aa]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[80]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
@@ -585,15 +582,15 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[e1]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[ab]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[e2]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[ac]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[e3]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[ad]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[e4]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[ae]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[e5]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[af]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
 <P><STRONG><a name="[82]"></a>Delay</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, st7735.o(.emb_text))
 <BR><BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay
@@ -602,30 +599,30 @@ Global Symbols
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay
 </UL>
 
-<P><STRONG><a name="[e6]"></a>DisableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
+<P><STRONG><a name="[b0]"></a>DisableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
 
-<P><STRONG><a name="[da]"></a>EnableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<P><STRONG><a name="[a9]"></a>EnableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[89]"></a>StartCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_Init
+<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_Init
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FrequencyTimer_arm
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FrequencyTimer_Init
 </UL>
 
 <P><STRONG><a name="[8a]"></a>EndCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_Init
+<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_Init
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FrequencyTimer_arm
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FrequencyTimer_Init
 </UL>
 
-<P><STRONG><a name="[e7]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
+<P><STRONG><a name="[b1]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
 
-<P><STRONG><a name="[e8]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
+<P><STRONG><a name="[b2]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 
-<P><STRONG><a name="[a9]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
+<P><STRONG><a name="[a5]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
 <P><STRONG><a name="[81]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -634,7 +631,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[e9]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[b3]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
 <P><STRONG><a name="[84]"></a>ButtonManager_Init</STRONG> (Thumb, 12 bytes, Stack size 4 bytes, buttonmanager.o(i.ButtonManager_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = ButtonManager_Init &rArr; PortD_Init
@@ -645,20 +642,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[94]"></a>CS_Init</STRONG> (Thumb, 148 bytes, Stack size 0 bytes, diskio.o(i.CS_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSI2_Init
-</UL>
-
-<P><STRONG><a name="[d9]"></a>DAC_Init</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, max5353.o(i.DAC_Init))
+<P><STRONG><a name="[a8]"></a>DAC_Init</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, max5353.o(i.DAC_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a4]"></a>DAC_Out</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, max5353.o(i.DAC_Out))
+<P><STRONG><a name="[a0]"></a>DAC_Out</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, max5353.o(i.DAC_Out))
 <BR><BR>[Called By]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0A_Handler
 </UL>
 
-<P><STRONG><a name="[ac]"></a>DC_Init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, st7735.o(i.DC_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
+<P><STRONG><a name="[a6]"></a>DC_Init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, st7735.o(i.DC_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
 </UL>
 
 <P><STRONG><a name="[87]"></a>Delay1ms</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, st7735.o(i.Delay1ms))
@@ -666,8 +659,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
+<BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
 </UL>
 
 <P><STRONG><a name="[88]"></a>FrequencyTimer_Init</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, frequencytimer.o(i.FrequencyTimer_Init))
@@ -704,29 +697,37 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[8d]"></a>Heartbeat_Init</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, heartbeat.o(i.Heartbeat_Init))
+<P><STRONG><a name="[8d]"></a>GameEngine_Init</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, gameengine.o(i.GameEngine_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = GameEngine_Init &rArr; ST7735_DrawBitmap &rArr; setAddrWindow &rArr; writedata
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawBitmap
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[8f]"></a>Heartbeat_Init</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, heartbeat.o(i.Heartbeat_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = Heartbeat_Init &rArr; TIMER1_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_Init
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER1_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a5]"></a>Heartbeat_blink</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, heartbeat.o(i.Heartbeat_blink))
+<P><STRONG><a name="[a1]"></a>Heartbeat_blink</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, heartbeat.o(i.Heartbeat_blink))
 <BR><BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer1A_Handler
 </UL>
 
-<P><STRONG><a name="[8f]"></a>Output_Init</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, st7735.o(i.Output_Init))
+<P><STRONG><a name="[91]"></a>Output_Init</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, st7735.o(i.Output_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = Output_Init &rArr; ST7735_InitR &rArr; ST7735_FillScreen &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d8]"></a>PLL_Init</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, pll.o(i.PLL_Init))
+<P><STRONG><a name="[a7]"></a>PLL_Init</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, pll.o(i.PLL_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -740,160 +741,123 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ButtonManager_Init
 </UL>
 
-<P><STRONG><a name="[92]"></a>SSI2_Init</STRONG> (Thumb, 288 bytes, Stack size 4 bytes, diskio.o(i.SSI2_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = SSI2_Init
+<P><STRONG><a name="[8e]"></a>ST7735_DrawBitmap</STRONG> (Thumb, 280 bytes, Stack size 40 bytes, st7735.o(i.ST7735_DrawBitmap))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ST7735_DrawBitmap &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer5_Init
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CS_Init
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_spi
-</UL>
-
-<P><STRONG><a name="[db]"></a>ST7735_Color565</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, st7735.o(i.ST7735_Color565))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ST7735_Color565
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 </UL>
 
-<P><STRONG><a name="[95]"></a>ST7735_DrawChar</STRONG> (Thumb, 256 bytes, Stack size 56 bytes, st7735.o(i.ST7735_DrawChar))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = ST7735_DrawChar &rArr; setAddrWindow &rArr; writedata
-</UL>
-<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pushColor
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[98]"></a>ST7735_DrawCharS</STRONG> (Thumb, 232 bytes, Stack size 48 bytes, st7735.o(i.ST7735_DrawCharS))
+<P><STRONG><a name="[96]"></a>ST7735_DrawCharS</STRONG> (Thumb, 232 bytes, Stack size 48 bytes, st7735.o(i.ST7735_DrawCharS))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutUDec
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
 </UL>
 
-<P><STRONG><a name="[99]"></a>ST7735_DrawPixel</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, st7735.o(i.ST7735_DrawPixel))
+<P><STRONG><a name="[97]"></a>ST7735_DrawPixel</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, st7735.o(i.ST7735_DrawPixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = ST7735_DrawPixel &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pushColor
+<BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pushColor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 </UL>
 
-<P><STRONG><a name="[9b]"></a>ST7735_DrawString</STRONG> (Thumb, 86 bytes, Stack size 32 bytes, st7735.o(i.ST7735_DrawString))
+<P><STRONG><a name="[9a]"></a>ST7735_DrawString</STRONG> (Thumb, 86 bytes, Stack size 32 bytes, st7735.o(i.ST7735_DrawString))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutUDec
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
 </UL>
 
-<P><STRONG><a name="[9a]"></a>ST7735_FillRect</STRONG> (Thumb, 164 bytes, Stack size 32 bytes, st7735.o(i.ST7735_FillRect))
+<P><STRONG><a name="[98]"></a>ST7735_FillRect</STRONG> (Thumb, 164 bytes, Stack size 32 bytes, st7735.o(i.ST7735_FillRect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
 </UL>
 
-<P><STRONG><a name="[91]"></a>ST7735_FillScreen</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, st7735.o(i.ST7735_FillScreen))
+<P><STRONG><a name="[93]"></a>ST7735_FillScreen</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, st7735.o(i.ST7735_FillScreen))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = ST7735_FillScreen &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
 </UL>
 
-<P><STRONG><a name="[90]"></a>ST7735_InitR</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, st7735.o(i.ST7735_InitR))
+<P><STRONG><a name="[92]"></a>ST7735_InitR</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, st7735.o(i.ST7735_InitR))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = ST7735_InitR &rArr; ST7735_FillScreen &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetCursor
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetCursor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
 </UL>
 
-<P><STRONG><a name="[a1]"></a>ST7735_OutChar</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, st7735.o(i.ST7735_OutChar))
+<P><STRONG><a name="[9f]"></a>ST7735_OutChar</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, st7735.o(i.ST7735_OutChar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = ST7735_OutChar &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[a2]"></a>ST7735_OutUDec</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, st7735.o(i.ST7735_OutUDec))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = ST7735_OutUDec &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fillmessage
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawCharS
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[9e]"></a>ST7735_SetCursor</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, st7735.o(i.ST7735_SetCursor))
+<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
 </UL>
 
-<P><STRONG><a name="[a0]"></a>ST7735_SetCursor</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, st7735.o(i.ST7735_SetCursor))
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[dc]"></a>ST7735_SetTextColor</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, st7735.o(i.ST7735_SetTextColor))
-<BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[8e]"></a>TIMER1_Init</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, heartbeat.o(i.TIMER1_Init))
+<P><STRONG><a name="[90]"></a>TIMER1_Init</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, heartbeat.o(i.TIMER1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
 <LI>Call Chain = TIMER1_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heartbeat_Init
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heartbeat_Init
 </UL>
 
 <P><STRONG><a name="[1d]"></a>Timer0A_Handler</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, frequencytimer.o(i.Timer0A_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Timer0A_Handler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Out
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Out
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
 <P><STRONG><a name="[1f]"></a>Timer1A_Handler</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, heartbeat.o(i.Timer1A_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = Timer1A_Handler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heartbeat_blink
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heartbeat_blink
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
 <P><STRONG><a name="[4e]"></a>Timer5A_Handler</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, diskio.o(i.Timer5A_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = Timer5A_Handler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_timerproc
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_timerproc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[93]"></a>Timer5_Init</STRONG> (Thumb, 84 bytes, Stack size 0 bytes, diskio.o(i.Timer5_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSI2_Init
+<P><STRONG><a name="[a3]"></a>__0printf$1</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[a7]"></a>__0printf$1</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
-</UL>
-
-<P><STRONG><a name="[ea]"></a>__1printf$1</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
+<P><STRONG><a name="[b4]"></a>__1printf$1</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
 
 <P><STRONG><a name="[8c]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
@@ -903,622 +867,106 @@ Global Symbols
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[eb]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[b5]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[ec]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[b6]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[ed]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[b7]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[bb]"></a>clust2sect</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, ff.o(i.clust2sect))
-<BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-</UL>
-
-<P><STRONG><a name="[be]"></a>disk_initialize</STRONG> (Thumb, 330 bytes, Stack size 24 bytes, diskio.o(i.disk_initialize))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = disk_initialize &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_spi
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-</UL>
-<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-</UL>
-
-<P><STRONG><a name="[c1]"></a>disk_ioctl</STRONG> (Thumb, 544 bytes, Stack size 56 bytes, diskio.o(i.disk_ioctl))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112 + In Cycle
-<LI>Call Chain = disk_ioctl &rArr;  disk_ioctl (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_ready
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_datablock
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-</UL>
-
-<P><STRONG><a name="[c5]"></a>disk_read</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, diskio.o(i.disk_read))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = disk_read &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_datablock
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-</UL>
-
-<P><STRONG><a name="[d7]"></a>disk_status</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, diskio.o(i.disk_status))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-</UL>
-
-<P><STRONG><a name="[a6]"></a>disk_timerproc</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, diskio.o(i.disk_timerproc))
+<P><STRONG><a name="[a2]"></a>disk_timerproc</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, diskio.o(i.disk_timerproc))
 <BR><BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer5A_Handler
-</UL>
-
-<P><STRONG><a name="[c6]"></a>disk_write</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, diskio.o(i.disk_write))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xmit_datablock
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
-</UL>
-
-<P><STRONG><a name="[c8]"></a>f_close</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, ff.o(i.f_close))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = f_close &rArr; f_sync &rArr; sync_fs &rArr; disk_ioctl &rArr;  disk_ioctl (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[cb]"></a>f_lseek</STRONG> (Thumb, 382 bytes, Stack size 32 bytes, ff.o(i.f_lseek))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = f_lseek &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clust2sect
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_chain
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[cc]"></a>f_mount</STRONG> (Thumb, 86 bytes, Stack size 40 bytes, ff.o(i.f_mount))
-<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = f_mount &rArr; find_volume &rArr; check_fs &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ldnumber
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[cf]"></a>f_open</STRONG> (Thumb, 348 bytes, Stack size 80 bytes, ff.o(i.f_open))
-<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = f_open &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_clust
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_clust
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[d4]"></a>f_read</STRONG> (Thumb, 414 bytes, Stack size 64 bytes, ff.o(i.f_read))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clust2sect
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cpy
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[c9]"></a>f_sync</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, ff.o(i.f_sync))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = f_sync &rArr; sync_fs &rArr; disk_ioctl &rArr;  disk_ioctl (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_clust
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-</UL>
-
-<P><STRONG><a name="[d6]"></a>f_write</STRONG> (Thumb, 470 bytes, Stack size 64 bytes, ff.o(i.f_write))
-<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = f_write &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clust2sect
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cpy
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_chain
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[a3]"></a>fillmessage</STRONG> (Thumb, 64 bytes, Stack size 12 bytes, st7735.o(i.fillmessage))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12 + In Cycle
-<LI>Call Chain = fillmessage &rArr;  fillmessage (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fillmessage
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fillmessage
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutUDec
 </UL>
 
 <P><STRONG><a name="[7d]"></a>fputc</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, st7735.o(i.fputc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = fputc &rArr; ST7735_OutChar &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutChar
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printf1.o(i.__0printf$1)
 </UL>
-<P><STRONG><a name="[ae]"></a>get_fat</STRONG> (Thumb, 242 bytes, Stack size 32 bytes, ff.o(i.get_fat))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
+<P><STRONG><a name="[7c]"></a>main</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, sdctestmain.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96 + Unknown Stack Size
+<LI>Call Chain = main &rArr; Output_Init &rArr; ST7735_InitR &rArr; ST7735_FillScreen &rArr; ST7735_FillRect &rArr; setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_chain
-</UL>
-
-<P><STRONG><a name="[7c]"></a>main</STRONG> (Thumb, 730 bytes, Stack size 24 bytes, sdctestmain.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 368 + Unknown Stack Size
-<LI>Call Chain = main &rArr; f_open &rArr; follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetTextColor
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetCursor
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_OutUDec
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawString
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawChar
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_Color565
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heartbeat_Init
+<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_Init
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heartbeat_Init
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GameEngine_Init
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FrequencyTimer_arm
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FrequencyTimer_Init
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Init
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ButtonManager_Init
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
-</UL>
-<P><STRONG><a name="[af]"></a>put_fat</STRONG> (Thumb, 326 bytes, Stack size 32 bytes, ff.o(i.put_fat))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_chain
-</UL>
-<P>
+</UL><P>
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[9e]"></a>commandList</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, st7735.o(i.commandList))
+<P><STRONG><a name="[9c]"></a>commandList</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, st7735.o(i.commandList))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = commandList &rArr; Delay1ms
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay1ms
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commonInit
 </UL>
 
-<P><STRONG><a name="[9d]"></a>commonInit</STRONG> (Thumb, 514 bytes, Stack size 8 bytes, st7735.o(i.commonInit))
+<P><STRONG><a name="[9b]"></a>commonInit</STRONG> (Thumb, 514 bytes, Stack size 8 bytes, st7735.o(i.commonInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = commonInit &rArr; commandList &rArr; Delay1ms
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay1ms
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DC_Init
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DC_Init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
 </UL>
 
-<P><STRONG><a name="[97]"></a>pushColor</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, st7735.o(i.pushColor))
+<P><STRONG><a name="[99]"></a>pushColor</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, st7735.o(i.pushColor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = pushColor &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawChar
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
 </UL>
 
-<P><STRONG><a name="[96]"></a>setAddrWindow</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, st7735.o(i.setAddrWindow))
+<P><STRONG><a name="[94]"></a>setAddrWindow</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, st7735.o(i.setAddrWindow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = setAddrWindow &rArr; writedata
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawChar
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawPixel
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawBitmap
 </UL>
 
-<P><STRONG><a name="[9f]"></a>writecommand</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, st7735.o(i.writecommand))
+<P><STRONG><a name="[9d]"></a>writecommand</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, st7735.o(i.writecommand))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = writecommand
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
 </UL>
 
-<P><STRONG><a name="[9c]"></a>writedata</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, st7735.o(i.writedata))
+<P><STRONG><a name="[95]"></a>writedata</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, st7735.o(i.writedata))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = writedata
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pushColor
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_InitR
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillRect
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_DrawBitmap
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pushColor
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;commandList
 </UL>
 
-<P><STRONG><a name="[b3]"></a>deselect</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, diskio.o(i.deselect))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = deselect &rArr; xchg_spi
+<P><STRONG><a name="[a4]"></a>_printf_core</STRONG> (Thumb, 334 bytes, Stack size 88 bytes, printf1.o(i._printf_core), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
-</UL>
-
-<P><STRONG><a name="[bf]"></a>init_spi</STRONG> (Thumb, 34 bytes, Stack size 4 bytes, diskio.o(i.init_spi))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = init_spi &rArr; SSI2_Init
-</UL>
-<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSI2_Init
-</UL>
-<BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
-</UL>
-
-<P><STRONG><a name="[c3]"></a>rcvr_datablock</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, diskio.o(i.rcvr_datablock))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = rcvr_datablock &rArr; rcvr_spi_multi
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_spi_multi
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-</UL>
-
-<P><STRONG><a name="[de]"></a>rcvr_spi</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, diskio.o(i.rcvr_spi))
-<BR><BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_spi_multi
-</UL>
-
-<P><STRONG><a name="[dd]"></a>rcvr_spi_multi</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, diskio.o(i.rcvr_spi_multi))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = rcvr_spi_multi
-</UL>
-<BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_spi
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_datablock
-</UL>
-
-<P><STRONG><a name="[c2]"></a>select</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, diskio.o(i.select))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = select &rArr; wait_ready &rArr; xchg_spi
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_ready
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-</UL>
-
-<P><STRONG><a name="[c0]"></a>send_cmd</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, diskio.o(i.send_cmd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56 + In Cycle
-<LI>Call Chain = send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-</UL>
-
-<P><STRONG><a name="[c4]"></a>wait_ready</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, diskio.o(i.wait_ready))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = wait_ready &rArr; xchg_spi
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xmit_datablock
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
-</UL>
-
-<P><STRONG><a name="[b4]"></a>xchg_spi</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, diskio.o(i.xchg_spi))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = xchg_spi
-</UL>
-<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;deselect
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xmit_datablock
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_ready
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_cmd
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rcvr_datablock
-</UL>
-
-<P><STRONG><a name="[c7]"></a>xmit_datablock</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, diskio.o(i.xmit_datablock))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = xmit_datablock &rArr; wait_ready &rArr; xchg_spi
-</UL>
-<BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xmit_spi_multi
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xchg_spi
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_ready
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-</UL>
-
-<P><STRONG><a name="[df]"></a>xmit_spi_multi</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, diskio.o(i.xmit_spi_multi))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = xmit_spi_multi
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xmit_datablock
-</UL>
-
-<P><STRONG><a name="[aa]"></a>check_fs</STRONG> (Thumb, 140 bytes, Stack size 16 bytes, ff.o(i.check_fs))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = check_fs &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-</UL>
-<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-</UL>
-
-<P><STRONG><a name="[b2]"></a>chk_chr</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, ff.o(i.chk_chr))
-<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_name
-</UL>
-
-<P><STRONG><a name="[ad]"></a>create_chain</STRONG> (Thumb, 214 bytes, Stack size 32 bytes, ff.o(i.create_chain))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-</UL>
-
-<P><STRONG><a name="[b0]"></a>create_name</STRONG> (Thumb, 418 bytes, Stack size 48 bytes, ff.o(i.create_name))
-<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = create_name &rArr; mem_set
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chk_chr
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
-</UL>
-
-<P><STRONG><a name="[b5]"></a>dir_alloc</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, ff.o(i.dir_alloc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = dir_alloc &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-</UL>
-<BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
-</UL>
-
-<P><STRONG><a name="[b8]"></a>dir_find</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, ff.o(i.dir_find))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cmp
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
-</UL>
-
-<P><STRONG><a name="[b7]"></a>dir_next</STRONG> (Thumb, 270 bytes, Stack size 24 bytes, ff.o(i.dir_next))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clust2sect
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_chain
-</UL>
-<BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_alloc
-</UL>
-
-<P><STRONG><a name="[bc]"></a>dir_register</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, ff.o(i.dir_register))
-<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = dir_register &rArr; dir_alloc &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cpy
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_alloc
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-</UL>
-
-<P><STRONG><a name="[b6]"></a>dir_sdi</STRONG> (Thumb, 158 bytes, Stack size 24 bytes, ff.o(i.dir_sdi))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = dir_sdi &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clust2sect
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_alloc
-</UL>
-
-<P><STRONG><a name="[ce]"></a>find_volume</STRONG> (Thumb, 890 bytes, Stack size 80 bytes, ff.o(i.find_volume))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = find_volume &rArr; check_fs &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_ldnumber
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_fs
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_status
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
-</UL>
-
-<P><STRONG><a name="[d0]"></a>follow_path</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, ff.o(i.follow_path))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = follow_path &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_clust
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_name
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-</UL>
-
-<P><STRONG><a name="[cd]"></a>get_ldnumber</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, ff.o(i.get_ldnumber))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = get_ldnumber
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-</UL>
-
-<P><STRONG><a name="[d1]"></a>ld_clust</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, ff.o(i.ld_clust))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ld_clust
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
-</UL>
-
-<P><STRONG><a name="[b9]"></a>mem_cmp</STRONG> (Thumb, 38 bytes, Stack size 20 bytes, ff.o(i.mem_cmp))
-<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = mem_cmp
-</UL>
-<BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
-</UL>
-
-<P><STRONG><a name="[bd]"></a>mem_cpy</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, ff.o(i.mem_cpy))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mem_cpy
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
-</UL>
-
-<P><STRONG><a name="[b1]"></a>mem_set</STRONG> (Thumb, 20 bytes, Stack size 12 bytes, ff.o(i.mem_set))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = mem_set
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_name
-</UL>
-
-<P><STRONG><a name="[ab]"></a>move_window</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, ff.o(i.move_window))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
-<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_alloc
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_fs
-</UL>
-
-<P><STRONG><a name="[d3]"></a>remove_chain</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, ff.o(i.remove_chain))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = remove_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
-</UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-</UL>
-
-<P><STRONG><a name="[d2]"></a>st_clust</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, ff.o(i.st_clust))
-<BR><BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-</UL>
-
-<P><STRONG><a name="[d5]"></a>sync_fs</STRONG> (Thumb, 200 bytes, Stack size 16 bytes, ff.o(i.sync_fs))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = sync_fs &rArr; disk_ioctl &rArr;  disk_ioctl (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_ioctl
-</UL>
-<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-</UL>
-
-<P><STRONG><a name="[ba]"></a>sync_window</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, ff.o(i.sync_window))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = sync_window &rArr; disk_write &rArr; send_cmd &rArr;  send_cmd (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
-</UL>
-
-<P><STRONG><a name="[ca]"></a>validate</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, ff.o(i.validate))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = validate
-</UL>
-<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_status
-</UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-</UL>
-
-<P><STRONG><a name="[a8]"></a>_printf_core</STRONG> (Thumb, 334 bytes, Stack size 88 bytes, printf1.o(i._printf_core), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0printf$1
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0printf$1
 </UL>
 <P>
 <H3>

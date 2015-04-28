@@ -1,6 +1,6 @@
 Dependencies for Project 'SDC', Target 'SDC': (DO NOT MODIFY !)
 F (.\startup.s)(0x5519A17B)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\SDCTestMain.c)(0x5537FD74)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\sdctestmain.o --omf_browse .\sdctestmain.crf --depend .\sdctestmain.d)
+F (.\SDCTestMain.c)(0x553EFD3D)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\sdctestmain.o --omf_browse .\sdctestmain.crf --depend .\sdctestmain.d)
 I (../inc/tm4c123gh6pm.h)(0x54CEB128)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (diskio.h)(0x5523CCA5)
@@ -33,8 +33,10 @@ I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C8A654)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (ST7735.h)(0x5523CCA5)
 I (../inc/tm4c123gh6pm.h)(0x54CEB128)
-F (.\GameEngine.c)(0x551C46D7)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\gameengine.o --omf_browse .\gameengine.crf --depend .\gameengine.d)
+F (.\GameEngine.c)(0x553F0965)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\gameengine.o --omf_browse .\gameengine.crf --depend .\gameengine.d)
 I (GameEngine.h)(0x551C464A)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
+I (ST7735.h)(0x5523CCA5)
 F (.\MAX5353.c)(0x5537F0B4)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\max5353.o --omf_browse .\max5353.crf --depend .\max5353.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (..\inc/tm4c123gh6pm.h)(0x54CEB128)
