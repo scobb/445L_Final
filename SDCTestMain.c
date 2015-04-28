@@ -177,7 +177,7 @@ int main(void){
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
 	Output_Init();								// Display, SSI2 enable
-	printf("Hi\n");
+	printf("PACMAN Player 1\n");
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
 	FrequencyTimer_arm(A4);
