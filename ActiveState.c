@@ -1,10 +1,14 @@
 #include "ActiveState.h"
-
+#include "stdint.h"
+#ifndef TRUE
+#define TRUE 1
+#define FALSE 0
+#endif
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
+uint8_t needInitialDraw = FALSE;
 TopLevelState* activeState;
 /*
-
 	void (*update_state)(void);
 	void (*up_pressed)(void);
 	void (*down_pressed)(void);
@@ -60,6 +64,8 @@ TopLevelState* ActiveState_get(){
 void ActiveState_set(TopLevelState* newState){
 	long sr = StartCritical();
 	activeState = newState;
-	activeState->draw_initial();
+	if (!needInitialDraw){
+		needInitialDraw = TRUE;
+	}
 	EndCritical(sr);
 }

@@ -186,16 +186,16 @@ int main(void){
   EnableInterrupts();
 	GameEngine_Init();
 	while (1) {
-		// if (fullRedrawSemaphore || updateStateSemaphore){
-	if (updateStateSemaphore) {
-			ActiveState_get()->update_state(); 
+		if (updateStateSemaphore) {
+			ActiveState_updateState(); 
 			updateStateSemaphore = FALSE;
 		} 
+		if (needInitialDraw) {
+			ActiveState_drawInitial();
+			needInitialDraw = FALSE;
+		
+		}
+		
 	}
-	// if (fullRedrawSemaphore) { 
-	//  ActiveState_get()->update_state();
-	//  fullRedrawSemaphore = FALSE;
-	// }
-	
 }
 

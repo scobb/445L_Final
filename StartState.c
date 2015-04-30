@@ -2,7 +2,12 @@
 #include "stdint.h"
 #define TOP 1
 #define BOTTOM 0
+#ifndef FALSE
+#define FALSE 0
+#define TRUE 1
+#endif
 uint8_t cursorLocation = TOP;
+uint8_t needRedraw = FALSE;
 TopLevelState Start =  {
 	&StartState_updateState,
 	&StartState_upPressed,
@@ -21,14 +26,18 @@ void StartState_startPressed(void){
 }
 void StartState_upPressed(void){
 	cursorLocation ^= 1;
+	needRedraw = TRUE;
 }
 void StartState_downPressed(void){
 	cursorLocation ^= 1;
+	needRedraw = TRUE;
 }
 void StartState_drawInitial(void){
 	// TODO - draw title screen
 	// TODO - draw cursor
 }
 void StartState_updateState(void){
-	// TODO - erase cursor if needed, redraw cursor
+	if (needRedraw){
+		// TODO - erase opposite cursor position, draw current cursor position
+	}
 }
