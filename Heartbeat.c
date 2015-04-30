@@ -1,7 +1,7 @@
 #include "Heartbeat.h"
 #include <stdint.h>
 #include "inc/tm4c123gh6pm.h"
-#define LED (*((volatile uint32_t *)0x40007004)) //Uses PD0. Looks like mainly for colors (1=red)
+#define LED (*((volatile uint32_t *)0x40004004)) //Uses PD0. Looks like mainly for colors (1=red)
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -16,18 +16,18 @@ void Heartbeat_blink(){
 void Heartbeat_Init(){
 	// Interfaces with a 1.5 kohm resistor
 	volatile uint32_t delay;
-  SYSCTL_RCGCGPIO_R |= 0x00000008;  // 1) activate clock for Port D
-	while (!(SYSCTL_RCGCGPIO_R & 0x00000008)){}
+  SYSCTL_RCGCGPIO_R |= 0x00000001;  // 1) activate clock for Port D
+	while (!(SYSCTL_RCGCGPIO_R & 0x00000001)){}
   delay = SYSCTL_RCGCGPIO_R;        // allow time for clock to start
-  GPIO_PORTD_LOCK_R = GPIO_LOCK_KEY;   // 2) unlock GPIO Port D
-  GPIO_PORTD_CR_R |= 0x01;           // allow changes to PD0
-	GPIO_PORTD_DIR_R |= 0x01;        // make PD0 output
-  GPIO_PORTD_AFSEL_R &= ~0x01;     // disable alt funct on PD0
-  GPIO_PORTD_DEN_R |= 0x01;        // enable digital I/O on PD0
+  GPIO_PORTA_LOCK_R = GPIO_LOCK_KEY;   // 2) unlock GPIO Port D
+  GPIO_PORTA_CR_R |= 0x01;           // allow changes to PD0
+	GPIO_PORTA_DIR_R |= 0x01;        // make PD0 output
+  GPIO_PORTA_AFSEL_R &= ~0x01;     // disable alt funct on PD0
+  GPIO_PORTA_DEN_R |= 0x01;        // enable digital I/O on PD0
                                    // configure PD0 as GPIO
-  GPIO_PORTD_PCTL_R = (GPIO_PORTD_PCTL_R&0xFFFFFFF0)+0x00000000;
-  GPIO_PORTD_AMSEL_R &= ~0x01;
-	GPIO_PORTD_PUR_R |= 0x01;
+  GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFFFFFFF0)+0x00000000;
+  GPIO_PORTA_AMSEL_R &= ~0x01;
+	GPIO_PORTA_PUR_R |= 0x01;
 	
 	LED = 0x01;
 	TIMER1_Init();
