@@ -1,6 +1,22 @@
 #include "GameEngine.h"
 #include "stdint.h"
 #include "ST7735.h"
+#include "ActiveState.h"
+#include "PauseState.h"
+
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
+
+TopLevelState InGame = {
+	&GameEngine_updateState,
+	&GameEngine_upPressed,
+	&GameEngine_downPressed,
+	&GameEngine_leftPressed,
+	&GameEngine_rightPressed,
+	&GameEngine_startPressed,
+	&GameEngine_playSound,
+	&GameEngine_drawInitial,
+};
 typedef struct {
 	int8_t hor;
 	int8_t vert;
@@ -109,9 +125,33 @@ void GameEngine_Init(){
 	}
 }
 
-void GameEngine_updatePlayerMotion(uint8_t dir) {
-	p.motion = dir;
+void GameEngine_updateState(){
+	// TODO - iterate over sprite array, update matrix, check collisions, update score
+	// TODO - redraw sprites that move.
 }
+void GameEngine_upPressed(){
+	p.motion = UP;
+}
+void GameEngine_downPressed(){
+	p.motion = DOWN;
+}
+void GameEngine_rightPressed(){
+	p.motion = RIGHT;
+}
+void GameEngine_leftPressed(){
+	p.motion = LEFT;
+}
+void GameEngine_startPressed(){
+	ActiveState_set(&Paused);
+}
+void GameEngine_playSound(){
+	// TODO - have at least one active sound wave to step through
+}
+void GameEngine_drawInitial(){
+	// TODO - full board redraw
+	
+}
+
 void GameEngine_update(){
 	// update pacman's location
 	// check collision against dots, make note of which to undraw

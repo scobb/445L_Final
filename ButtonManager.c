@@ -1,6 +1,7 @@
 #include "ButtonManager.h"
 #include "inc/tm4c123gh6pm.h"
 #include "SysTick.h"
+#include "ActiveState.h"
 #include <stdint.h>
 
 long StartCritical (void);    // previous I bit, disable interrupts
@@ -14,7 +15,7 @@ void EndCritical(long sr);    // restore I bit to previous value
 #define TRUE 1
 #define FALSE 0
 typedef struct {
-  uint32_t readValue;
+  volatile uint32_t* readValue;
 	uint8_t isLow;
 	void(*handler)(void);
 } buttonStatus;
@@ -71,12 +72,19 @@ void PortE_Init() {
 	
 }
 void upPressed(){
+	ActiveState_get()->up_pressed();
 }
 void downPressed(){
+	ActiveState_get()->down_pressed();
 }
 void leftPressed(){
+	ActiveState_get()->left_pressed();
 }
 void rightPressed(){
+	ActiveState_get()->right_pressed();
+}
+void startPressed(){
+	ActiveState_get()->start_pressed();
 }
 void CheckDebounce(buttonStatus* buttons, uint8_t numPorts){
 	// private function to allow us to debounce all buttons
@@ -98,22 +106,22 @@ void GPIOPortD_Handler(void){
 	// handler for port D -- all 5 buttons
 	uint8_t i;
 	uint8_t needCheck = FALSE;
+	buttonStatus ports[NUM_ON_D] = {
+		{&PD3, FALSE ,&upPressed},
+	};
 	
 	GPIO_PORTD_ICR_R |= 0x08;      // acknowledge flag PD3
 	printf("PortD\n");
-	/*// TODO - processing here
-	buttonStatus ports[NUM_ON_D] = {
-		{PD3, FALSE ,&upPressed},
-	};
+	// TODO - processing here
 	
 	// check all ports to see if any is low
 	for (i=0; i < NUM_ON_D; i++){
-		if (ports[i].readValue == 0){
+		if (*ports[i].readValue == 0){
 			ports[i].isLow = TRUE;
 			needCheck = TRUE;
 		}
 	}
 	if (needCheck)
-		CheckDebounce(&ports[0], 2);*/
+		CheckDebounce(&ports[0], 2);
 }
 

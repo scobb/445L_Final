@@ -1,7 +1,7 @@
 #ifndef _GAME_ENGINE_H_
 #define _GAME_ENGINE_H_
 #include "stdint.h"
-
+#include "TopLevelState.h"
 // definitions
 #define STATIONARY -1
 #define UP 0
@@ -9,6 +9,15 @@
 #define LEFT 2
 #define RIGHT 3
 
+extern TopLevelState InGame;
+void GameEngine_updateState();
+void GameEngine_upPressed();
+void GameEngine_downPressed();
+void GameEngine_rightPressed();
+void GameEngine_leftPressed();
+void GameEngine_startPressed();
+void GameEngine_playSound();
+void GameEngine_drawInitial();
 typedef struct{
 	uint8_t x;
 	uint8_t y;

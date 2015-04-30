@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include "inc/tm4c123gh6pm.h"
 #define LED (*((volatile uint32_t *)0x40007004)) //Uses PD0. Looks like mainly for colors (1=red)
-
+uint8_t updateStateSemaphore = FALSE;
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 long StartCritical (void);    // previous I bit, disable interrupts
@@ -57,4 +57,7 @@ void TIMER1_Init(void){volatile unsigned short delay;
 void Timer1A_Handler(void){ 
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;       // acknowledge TIMER1A timeout
   Heartbeat_blink();
+	if (!updateStateSemaphore){
+		updateStateSemaphore = TRUE;
+	}
 }
