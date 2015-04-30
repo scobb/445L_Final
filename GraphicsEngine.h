@@ -20,3 +20,4 @@ void GraphicsEngine_drawInitial(TopLevelState* state);
 void GraphicsEngine_redraw(TopLevelState* state);
 
 #endif
+
