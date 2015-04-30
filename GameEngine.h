@@ -18,16 +18,7 @@ void GameEngine_leftPressed(void);
 void GameEngine_startPressed(void);
 void GameEngine_playSound(void);
 void GameEngine_drawInitial(void);
-typedef struct{
-	uint8_t x;
-	uint8_t y;
-	uint8_t motion;
-	// four bitmaps for up, down, left, right
-	const unsigned short* bmp[4];
-	// TODO - include prev_x, prev_y, erase
-	uint8_t width;
-	uint8_t height;
-} sprite;
+
 
 // public functions
 // requires ST7735 to be initialized
