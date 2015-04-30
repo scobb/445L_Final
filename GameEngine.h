@@ -10,14 +10,14 @@
 #define RIGHT 3
 
 extern TopLevelState InGame;
-void GameEngine_updateState();
-void GameEngine_upPressed();
-void GameEngine_downPressed();
-void GameEngine_rightPressed();
-void GameEngine_leftPressed();
-void GameEngine_startPressed();
-void GameEngine_playSound();
-void GameEngine_drawInitial();
+void GameEngine_updateState(void);
+void GameEngine_upPressed(void);
+void GameEngine_downPressed(void);
+void GameEngine_rightPressed(void);
+void GameEngine_leftPressed(void);
+void GameEngine_startPressed(void);
+void GameEngine_playSound(void);
+void GameEngine_drawInitial(void);
 typedef struct{
 	uint8_t x;
 	uint8_t y;
@@ -31,9 +31,9 @@ typedef struct{
 
 // public functions
 // requires ST7735 to be initialized
-void GameEngine_Init();
-void GameEngine_update();
-void GameEngine_redraw();
+void GameEngine_Init(void);
+void GameEngine_update(void);
+void GameEngine_redraw(void);
 void GameEngine_updatePlayerMotion(uint8_t dir);
 
 #endif
