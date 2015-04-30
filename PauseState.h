@@ -3,6 +3,6 @@
 #include "TopLevelState.h"
 
 extern TopLevelState Paused;
-void PauseState_startPressed();
-void PauseState_drawInitial();
+void PauseState_startPressed(void);
+void PauseState_drawInitial(void);
 #endif

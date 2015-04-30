@@ -50,9 +50,10 @@
 #include "MAX5353.h"
 #include "FrequencyTimer.h"
 #include "ActiveState.h"
+#include "stdio.h"
 void EnableInterrupts(void);
 
-static FATFS g_sFatFs;
+//static FATFS g_sFatFs;
 FIL Handle,Handle2;
 FRESULT MountFresult;
 FRESULT Fresult;
@@ -185,10 +186,16 @@ int main(void){
   EnableInterrupts();
 	GameEngine_Init();
 	while (1) {
+		// if (fullRedrawSemaphore || updateStateSemaphore){
 	if (updateStateSemaphore) {
 			ActiveState_get()->update_state(); 
 			updateStateSemaphore = FALSE;
 		} 
 	}
+	// if (fullRedrawSemaphore) { 
+	//  ActiveState_get()->update_state();
+	//  fullRedrawSemaphore = FALSE;
+	// }
+	
 }
 

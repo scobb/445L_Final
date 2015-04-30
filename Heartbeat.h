@@ -1,7 +1,7 @@
 #ifndef _HEARTBEAT_H_
 #define _HEARTBEAT_H_
 #include "stdint.h"
-void Heartbeat_Init();
+void Heartbeat_Init(void);
 extern uint8_t updateStateSemaphore;
 #ifndef TRUE
 #define FALSE 0

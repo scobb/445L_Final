@@ -8,9 +8,10 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 #define NUM_ON_D 1
 #define NUM_ON_E 4
-#define PD0       (*((volatile uint32_t *)0x40007004))
-#define PD1       (*((volatile uint32_t *)0x40007008))
-#define PD2       (*((volatile uint32_t *)0x40007010))
+#define PE0       (*((volatile uint32_t *)0x4005C004))
+#define PE1       (*((volatile uint32_t *)0x4005C008))
+#define PE2       (*((volatile uint32_t *)0x4005C010))
+#define PE3       (*((volatile uint32_t *)0x4005C020))
 #define PD3       (*((volatile uint32_t *)0x40007020))
 #define TRUE 1
 #define FALSE 0
@@ -19,18 +20,16 @@ typedef struct {
 	uint8_t isLow;
 	void(*handler)(void);
 } buttonStatus;
-void PortD_Init();
-void PortE_Init();
-void ButtonManager_Init(){
+void PortD_Init(void);
+void PortE_Init(void);
+void ButtonManager_Init(void){
 	PortD_Init();
 	PortE_Init();
 }
 void PortD_Init() {
-	volatile uint32_t delay;
 	// for button on PD3
   SYSCTL_RCGCGPIO_R |= 0x00000008;  // 1) activate clock for Port D
 	while (!(SYSCTL_RCGCGPIO_R & 0x00000008)){}
-  delay = SYSCTL_RCGCGPIO_R;        // allow time for clock to start
   GPIO_PORTD_AFSEL_R &= ~0x08;        // 6) disable alt funct on PD3
   GPIO_PORTD_DIR_R &= ~0x08;          // 5) PD3 are in
   GPIO_PORTD_AMSEL_R &= ~0x08;        // 3) disable analog on PD
@@ -50,10 +49,8 @@ void PortD_Init() {
 
 void PortE_Init() {
 	// for button on PE0-3
-	long delay;
   SYSCTL_RCGCGPIO_R |= 0x00000010;  // 1) activate clock for Port E
 	while (!(SYSCTL_RCGCGPIO_R & 0x00000010)){} 
-  delay = SYSCTL_RCGCGPIO_R;        // allow time for clock to start
   GPIO_PORTE_AFSEL_R &= ~0x0F;        // 6) disable alt funct on PE3-0
   GPIO_PORTE_DIR_R &= ~0x0F;          // 5) PE3-0 are in
   GPIO_PORTE_AMSEL_R &= ~0x0F;        // 3) disable analog on PE
@@ -71,21 +68,6 @@ void PortE_Init() {
   NVIC_EN0_R |= NVIC_EN0_INT4;      // (h) enable interrupt 4 in NVIC
 	
 }
-void upPressed(){
-	ActiveState_get()->up_pressed();
-}
-void downPressed(){
-	ActiveState_get()->down_pressed();
-}
-void leftPressed(){
-	ActiveState_get()->left_pressed();
-}
-void rightPressed(){
-	ActiveState_get()->right_pressed();
-}
-void startPressed(){
-	ActiveState_get()->start_pressed();
-}
 void CheckDebounce(buttonStatus* buttons, uint8_t numPorts){
 	// private function to allow us to debounce all buttons
 	uint8_t i;
@@ -98,23 +80,38 @@ void CheckDebounce(buttonStatus* buttons, uint8_t numPorts){
 	}
 }
 void GPIOPortE_Handler(void){
+	// local variables
+	uint8_t i;
+	uint8_t needCheck = FALSE;
+	buttonStatus ports[NUM_ON_E] = {
+		{&PE0, FALSE ,&ActiveState_upPressed},
+		{&PE1, FALSE, &ActiveState_downPressed},
+		{&PE2, FALSE, &ActiveState_leftPressed},
+		{&PE3, FALSE, &ActiveState_rightPressed}
+	};
+	
+	// process the interrupt
 	GPIO_PORTE_ICR_R |= 0x0F;      // acknowledge flag PE3-0
-	printf("PortE\n");
-	// TODO - processing here
+	for (i=0; i < NUM_ON_E; i++){
+		if (*ports[i].readValue == 0){
+			ports[i].isLow = TRUE;
+			needCheck = TRUE;
+		}
+	}
+	if (needCheck)
+		CheckDebounce(&ports[0], 2);
 }
 void GPIOPortD_Handler(void){
-	// handler for port D -- all 5 buttons
+	// local variables
 	uint8_t i;
 	uint8_t needCheck = FALSE;
 	buttonStatus ports[NUM_ON_D] = {
-		{&PD3, FALSE ,&upPressed},
+		{&PD3, FALSE ,&ActiveState_startPressed},
 	};
 	
+	// process the interrupt
 	GPIO_PORTD_ICR_R |= 0x08;      // acknowledge flag PD3
-	printf("PortD\n");
-	// TODO - processing here
 	
-	// check all ports to see if any is low
 	for (i=0; i < NUM_ON_D; i++){
 		if (*ports[i].readValue == 0){
 			ports[i].isLow = TRUE;

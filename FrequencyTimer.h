@@ -43,5 +43,5 @@ void FrequencyTimer_getNotes(Note** notes);
 void FrequencyTimer_getInstruments(Instrument** instruments);
 void FrequencyTimer_getPosition(uint8_t* position);*/
 void FrequencyTimer_arm(uint32_t periodCycles);
-void FrequencyTimer_disarm();
+void FrequencyTimer_disarm(void);
 #endif // __TIMER0AINTS_H__
