@@ -155,10 +155,6 @@ void drawSprite(sprite* s){
 	ST7735_DrawBitmap(x_pix - 2, y_pix + 6, s->bmp[s->motion], s->width, s->height);
 }
 
-void GraphicsEngine_drawSprite(sprite* character){
-	
-}
-
 void GraphicsEngine_drawInitBoard(){
 	// set initial position, number of ghosts, dots
 	uint8_t i, j, x_pix, y_pix;
@@ -193,9 +189,6 @@ void GraphicsEngine_drawInitBoard(){
 		}
 		drawSprite(&p);
 		drawSprite(&rg);
-		drawSprite(&lbg);
-		drawSprite(&pg);
-		drawSprite(&ge);
 	}
 }
 void GraphicsEngine_drawBoard(){

@@ -33,11 +33,14 @@ coord directions[4] = {
 void GameEngine_Init(){
 	//TODO: initialize the game engine
 	GraphicsEngine_drawInitBoard();
+	ActiveState_set(&InGame);
 }
 
 void GameEngine_updateState(){
 	// TODO - iterate over sprite array, update matrix, check collisions, update score
 	// TODO - redraw sprites that move.
+	rg.x++;
+	drawSprite(&rg);
 }
 void GameEngine_upPressed(){
 	//Check to make sure that this move is valid
