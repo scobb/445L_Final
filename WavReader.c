@@ -3,8 +3,8 @@
 #include "PLL.h"
 //#include "DAC.h"
 #include "MAX5353.h"
-#include "Timer0A.h"
-#include "Timer1A.h"
+//#include "Timer0A.h"
+//#include "Timer1A.h"
 #include "Timer2A.h"
 #include <stdint.h>
 #include <stdlib.h>
@@ -93,11 +93,11 @@ void handler2(void);
 
 
 void music_play(const char* fileName){
-	chunkid = 0;
 	uint8_t datachunk = 0; 	//this variable will act as a boolean
 	uint8_t gotFormat = 0;
 	uint16_t skipsize;
 	uint16_t extradata;
+	chunkid = 0;
 	
 	index = 0;
 	sampleNum = 0;

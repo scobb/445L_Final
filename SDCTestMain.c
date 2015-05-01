@@ -39,7 +39,7 @@
 // Gnd (pin 1) connected to ground
 
 
-#include "../inc/tm4c123gh6pm.h"
+#include "inc/tm4c123gh6pm.h"
 #include "diskio.h"
 #include "ff.h"
 #include "PLL.h"
@@ -51,13 +51,16 @@
 #include "FrequencyTimer.h"
 #include "ActiveState.h"
 #include "stdio.h"
+#include "WavReader.h"
 void EnableInterrupts(void);
 
 //static FATFS g_sFatFs;
+/*
 FIL Handle,Handle2;
 FRESULT MountFresult;
 FRESULT Fresult;
 unsigned char buffer[512];
+*/
 #define MAXBLOCKS 100
 // Describe the error with text on the LCD and then stall.  If
 // the error was caused by a mistake in configuring SSI0, then
@@ -169,6 +172,20 @@ void FileSystemTest(void){
 
 const char inFilename[] = "test.txt";   // 8 characters or fewer
 const char outFilename[] = "out.txt";   // 8 characters or fewer
+extern uint8_t needMore;
+
+void music_test(void){
+	music_init();
+	//music_play("8PCMtest.wav");
+	//music_play("laugh.wav");
+	//music_play("PCMtest.wav");
+	music_play("opening.wav");
+	while(1){
+		if(needMore){
+			load_more();
+		}
+	}
+}	
 
 int main(void){  
 	/*DRESULT res;            
@@ -183,6 +200,7 @@ int main(void){
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
 	FrequencyTimer_arm(A4);
+	music_test();
   EnableInterrupts();
 	GameEngine_Init();
 	while (1) {
