@@ -151,8 +151,10 @@ void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix){
 }
 
 void drawSprite(sprite* s){
+	//Note: This only deals with horizontal movement right now. Need to change later
 	uint8_t x_pix, y_pix;
 	drawCommon(s->x, s->y, &x_pix, &y_pix);
+	ST7735_FillRect(x_pix - 4 + Heartbeat_count, y_pix + 3, 2, s->height, 0);//Trying to erase sprite remnants
 	ST7735_DrawBitmap(x_pix - 2 + Heartbeat_count, y_pix + 6, s->bmp[s->motion], s->width, s->height);
 }
 
