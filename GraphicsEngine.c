@@ -4,6 +4,7 @@
 #include "PauseState.h"
 #include "GraphicsEngine.h"
 #include "GameEngine.h"
+#include "Heartbeat.h"
 
 #define EMPTY 0
 #define PACMAN 1
@@ -152,7 +153,7 @@ void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix){
 void drawSprite(sprite* s){
 	uint8_t x_pix, y_pix;
 	drawCommon(s->x, s->y, &x_pix, &y_pix);
-	ST7735_DrawBitmap(x_pix - 2, y_pix + 6, s->bmp[s->motion], s->width, s->height);
+	ST7735_DrawBitmap(x_pix - 2 + Heartbeat_count, y_pix + 6, s->bmp[s->motion], s->width, s->height);
 }
 
 void GraphicsEngine_drawInitBoard(){

@@ -4,6 +4,7 @@
 #include "ActiveState.h"
 #include "PauseState.h"
 #include "GraphicsEngine.h"
+#include "Heartbeat.h"
 
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
@@ -39,7 +40,7 @@ void GameEngine_Init(){
 void GameEngine_updateState(){
 	// TODO - iterate over sprite array, update matrix, check collisions, update score
 	// TODO - redraw sprites that move.
-	rg.x++;
+	if (Heartbeat_count == 0) rg.x++;
 	drawSprite(&rg);
 }
 void GameEngine_upPressed(){

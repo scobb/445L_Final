@@ -10,6 +10,9 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 void WaitForInterrupt(void);  // low power mode
 void TIMER1_Init(void);
+
+uint8_t Heartbeat_count;
+
 void Heartbeat_blink(){
 	LED ^= 1;
 }
@@ -31,6 +34,7 @@ void Heartbeat_Init(){
 	GPIO_PORTA_PUR_R |= 0x01;
 	
 	LED = 0x01;
+	Heartbeat_count = 0;
 	TIMER1_Init();
 	
 }
@@ -43,7 +47,8 @@ void TIMER1_Init(void){volatile unsigned short delay;
   TIMER1_CTL_R &= ~0x00000001;     // 1) disable TIMER1A during setup
   TIMER1_CFG_R = 0x00000000;       // 2) configure for 32-bit timer mode
   TIMER1_TAMR_R = 0x00000002;      // 3) configure for periodic mode, default down-count settings
-  TIMER1_TAILR_R = 40000000;				// .5 s
+  //TIMER1_TAILR_R = 40000000;				// .5 s
+	TIMER1_TAILR_R = 8000000;						// .1 
 	TIMER1_TAPR_R = 0;               // 5) 12.5ns TIMER1A
   TIMER1_ICR_R = 0x00000001;       // 6) clear TIMER1A timeout flag
   NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFF1FFF)|0x00006000; // 8) priority 3
@@ -57,7 +62,12 @@ void TIMER1_Init(void){volatile unsigned short delay;
 // Executed every 500 ms
 void Timer1A_Handler(void){ 
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;       // acknowledge TIMER1A timeout
-  Heartbeat_blink();
+	Heartbeat_count++;
+	if (Heartbeat_count == 5){
+		Heartbeat_blink();
+		Heartbeat_count = 0;
+	}
+	
 	if (!updateStateSemaphore){
 		updateStateSemaphore = TRUE;
 	}
