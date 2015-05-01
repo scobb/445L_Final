@@ -32,6 +32,7 @@ coord directions[4] = {
 // public functions
 void GameEngine_Init(){
 	//TODO: initialize the game engine
+	GraphicsEngine_drawInitBoard();
 }
 
 void GameEngine_updateState(){
@@ -39,6 +40,7 @@ void GameEngine_updateState(){
 	// TODO - redraw sprites that move.
 }
 void GameEngine_upPressed(){
+	//Check to make sure that this move is valid
 	p.motion = UP;
 }
 void GameEngine_downPressed(){

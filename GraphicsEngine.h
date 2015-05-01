@@ -16,8 +16,12 @@ typedef struct{
 
 extern sprite p;
 extern sprite rg;
-void GraphicsEngine_drawInitial(TopLevelState* state);
-void GraphicsEngine_redraw(TopLevelState* state);
+void ind_to_pix(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix);
+void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix);
+void drawSprite(sprite* s);
+void GraphicsEngine_drawSprite(sprite* character);
+void GraphicsEngine_drawInitBoard();
+void GraphicsEngine_drawBoard();
 
 #endif
 
