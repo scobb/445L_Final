@@ -6,24 +6,21 @@
 #include "GameEngine.h"
 #include "Heartbeat.h"
 
-#define EMPTY 0
-#define PACMAN 1
-#define GHOST 2
-#define DOT 3
-#define BIGDOT 4
-#define WALL 5
-#define FRUIT 6
 #define BOARD_START_X 8
 #define BOARD_END_Y 148
 #define BOARD_START_Y BOARD_END_Y - BOARD_SIZE_UD * SQUARE_HEIGHT
 #define BOARD_END_X BOARD_START_X + BOARD_SIZE_LR * SQUARE_WIDTH
-#define BOARD_SIZE_LR 19
 #define BOARD_SIZE_LR_PIX 128
-#define BOARD_SIZE_UD 22
 #define BOARD_SIZE_UD_PIX 128
 #define SQUARE_HEIGHT 6
 #define SQUARE_WIDTH 6
-
+#define FILL_RECT_OFFSET_X -2
+#define FILL_RECT_OFFSET_Y 2
+#define FILL_RECT_MOTION_OFFSET_X -1
+#define FILL_RECT_MOTION_OFFSET_Y -1
+#define DRAW_BITMAP_OFFSET_X -2
+#define DRAW_BITMAP_OFFSET_Y 6
+extern coord directions[4];
 const unsigned short pacman_r[] = {
  0x0000, 0x0208, 0x0471, 0x02EB, 0x0000, 0x0228, 0x07FF, 0x075D, 0x07FF, 0x0228, 0x0471, 0x075D, 0x0679, 0x0000, 0x0000, 0x0124,
  0x07FF, 0x077D, 0x07FF, 0x01C7, 0x0000, 0x00A2, 0x030C, 0x0165, 0x0000,
@@ -135,9 +132,16 @@ uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 };
 
 
-sprite p = {1, 20, RIGHT, {pacman_u, pacman_d, pacman_l, pacman_r}, 5, 5};
-sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4};
-
+sprite p = {1, BOARD_SIZE_UD - 2, RIGHT, {pacman_u, pacman_d, pacman_l, pacman_r}, 5, 5,
+						RIGHT, &GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2,};
+sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4, RIGHT, &GameEngine_ghostUpdateMotion,1, 1};
+sprite bg = {BOARD_SIZE_LR - 2, 1, RIGHT,
+						 {blue_ghost, blue_ghost, blue_ghost, blue_ghost}, 5, 4, RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1};
+sprite og = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {orange_ghost, orange_ghost, orange_ghost, orange_ghost}, 5, 4,
+						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2,};
+sprite pg = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {purple_ghost, purple_ghost, purple_ghost, purple_ghost},
+						5, 4, RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2,};
+sprite* sprites[NUM_SPRITES] = {&p, &rg, &bg, &og, &pg};
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 
@@ -152,10 +156,20 @@ void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix){
 
 void drawSprite(sprite* s){
 	//Note: This only deals with horizontal movement right now. Need to change later
-	uint8_t x_pix, y_pix;
+	uint8_t erase_x_pix, erase_y_pix, x_pix, y_pix;
+	drawCommon(s->erase_x, s->erase_y, &erase_x_pix, &erase_y_pix);
 	drawCommon(s->x, s->y, &x_pix, &y_pix);
-	ST7735_FillRect(x_pix - 4 + Heartbeat_count, y_pix + 3, 2, s->height, 0);//Trying to erase sprite remnants
-	ST7735_DrawBitmap(x_pix - 2 + Heartbeat_count, y_pix + 6, s->bmp[s->motion], s->width, s->height);
+	// erase
+	ST7735_FillRect(erase_x_pix + FILL_RECT_OFFSET_X + Heartbeat_count * (x_pix - erase_x_pix) / 5,		// TODO check offset
+								  erase_y_pix + FILL_RECT_OFFSET_Y + Heartbeat_count * (y_pix - erase_y_pix) / 5,	// TODO check offset
+									s->width,			// TODO - make width function of direction
+									s->height,		// TODO - make height function of direction
+									ST7735_WHITE);						// DONE - black
+	
+	// draw
+	ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + Heartbeat_count * directions[s->motion].hor,
+										y_pix + DRAW_BITMAP_OFFSET_Y + Heartbeat_count * directions[s->motion].vert,
+										s->bmp[s->motion], s->width, s->height);
 }
 
 void GraphicsEngine_drawInitBoard(){
@@ -190,8 +204,9 @@ void GraphicsEngine_drawInitBoard(){
 			}
 			//TODO - small/large blobs, fruits
 		}
-		drawSprite(&p);
-		drawSprite(&rg);
+	}
+	for (i = 0; i < NUM_SPRITES; ++i){
+		drawSprite(sprites[i]);
 	}
 }
 void GraphicsEngine_drawBoard(){
@@ -226,7 +241,5 @@ void GraphicsEngine_drawBoard(){
 			}
 			//TODO - small/large blobs, fruits
 		}
-		drawSprite(&p);
-		drawSprite(&rg);
 	}
 }

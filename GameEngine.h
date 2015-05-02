@@ -2,14 +2,26 @@
 #define _GAME_ENGINE_H_
 #include "stdint.h"
 #include "TopLevelState.h"
+#include "GraphicsEngine.h"
+
 // definitions
-#define STATIONARY -1
 #define UP 0
 #define DOWN 1
 #define LEFT 2
 #define RIGHT 3
+#define STATIONARY 4
 
+#define NUM_SPRITES 5
+// data structures
+typedef struct {
+	int8_t hor;
+	int8_t vert;
+} coord;
+
+// variables
 extern TopLevelState InGame;
+
+// interface methods
 void GameEngine_updateState(void);
 void GameEngine_upPressed(void);
 void GameEngine_downPressed(void);
@@ -26,5 +38,7 @@ void GameEngine_Init(void);
 void GameEngine_update(void);
 void GameEngine_redraw(void);
 void GameEngine_updatePlayerMotion(uint8_t dir);
+void GameEngine_pacmanUpdateMotion(sprite* s);
+void GameEngine_ghostUpdateMotion(sprite* s);
 
 #endif
