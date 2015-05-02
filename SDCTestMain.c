@@ -179,7 +179,8 @@ void music_test(void){
 	//music_play("8PCMtest.wav");
 	//music_play("laugh.wav");
 	//music_play("PCMtest.wav");
-	music_play("opening.wav");
+	//music_play("opening.wav");
+	music_play("waka.wav");
 	while(1){
 		if(needMore){
 			load_more();
@@ -192,6 +193,7 @@ int main(void){
   UINT successfulreads, successfulwrites;
   uint8_t c, x, y;
 	int i = 0;*/
+	uint8_t x_pix, y_pix;
 	PLL_Init();    								// bus clock at 80 MHz
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
@@ -199,10 +201,11 @@ int main(void){
 	printf("PACMAN Player 1\n");
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
-	FrequencyTimer_arm(A4);
-	music_test();
+	//FrequencyTimer_arm(A4);
+	//music_test();
   EnableInterrupts();
 	GameEngine_Init();
+	
 	while (1) {
 		if (updateStateSemaphore) {
 			ActiveState_updateState(); 
