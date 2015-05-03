@@ -22,14 +22,13 @@ TopLevelState InGame = {
 };
 coord directions[4] = {
 	{0, -1},			// UP
-	{0, 1},		// DOWN
-	{-1, 0},		// LEFT
-	{1, 0}			// RIGHT
+	{0, 1},				// DOWN
+	{-1, 0},			// LEFT
+	{1, 0}				// RIGHT
 };
 
 // public functions
 void GameEngine_Init(){
-	//TODO: initialize the game engine
 	GraphicsEngine_drawInitBoard();
 	ActiveState_set(&InGame);
 	srand(0);
@@ -38,8 +37,6 @@ void GameEngine_Init(){
 void GameEngine_updateState(){
 	// TODO - iterate over sprite array, update matrix, check collisions, update score
 	// TODO - redraw sprites that move.
-	// update pacman's location
-	// check collision against dots, make note of which to undraw
 	// check collision against ghosts
 	uint8_t i;
 	if (Heartbeat_count == 0) { 
@@ -91,10 +88,11 @@ void GameEngine_drawInitial(){
 	
 }
 void GameEngine_pacmanUpdateMotion(sprite* this) {
-	if (this->motion != this->scheduled_motion) {
+	this->motion = this->scheduled_motion;
+	/*if (this->motion != this->scheduled_motion) {
 		this->in_motion = TRUE;
 		this->motion = this->scheduled_motion;
-	}
+	}*/
 }
 void GameEngine_ghostUpdateMotion(sprite* this) {
 	static uint8_t num = 0;
@@ -102,12 +100,25 @@ void GameEngine_ghostUpdateMotion(sprite* this) {
 	this->motion = DOWN;
 }
 void GameEngine_updatePositionCommon(sprite* this) {
+	static int count = 0;
 	this->erase_x = this->x;
 	this->erase_y = this->y;
+	// first check if the way we're going will put us in the wall
 	if (board[this->y + directions[this->motion].vert][this->x + directions[this->motion].hor] != WALL){
-		this->x += directions[this->motion].hor;
-		this->y += directions[this->motion].vert;
+		if (this == &p) {
+			ST7735_SetCursor(0,0);
+			printf("%d, %u", count++, this->in_motion);
+		}
+		// update the sprite
+		if (this->in_motion) {
+			this->x += directions[this->motion].hor;
+			this->y += directions[this->motion].vert;
+		}
 		this->need_redraw = TRUE;
+		// update the matrix
+		board[this->y][this->x] = this->code;
+		
+		// check again, so we don't have smooth motion into the wall
 		if (board[this->y + directions[this->motion].vert][this->x + directions[this->motion].hor] != WALL){
 			this->in_motion = TRUE;
 		} else {
