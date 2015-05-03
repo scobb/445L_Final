@@ -108,23 +108,23 @@ void GameEngine_ghostUpdateMotion(sprite* this) {
 	this->in_motion = TRUE;
 }
 void GameEngine_updatePositionCommon(sprite* this) {
-	static int count = 0;
+	// replace what was there before
+	
+	//ST7735_SetCursor(0, 1);
+	//printf("stored: %u,", this->stored_code);
+	board[this->y][this->x] = this->stored_code;
 	this->erase_x = this->x;
 	this->erase_y = this->y;
 	// first check if the way we're going will put us in the wall
 	if (board[this->y + directions[this->motion].vert][this->x + directions[this->motion].hor] != WALL){
-		if (this == &p) {
-			ST7735_SetCursor(0,0);
-			printf("%d, %u", count++, this->in_motion);
-		}
 		// update the sprite
 		if (this->in_motion) {
 			this->x += directions[this->motion].hor;
 			this->y += directions[this->motion].vert;
+			// save what was there--we might use it
+			this->stored_code = board[this->y][this->x];
 		}
 		this->need_redraw = TRUE;
-		// update the matrix
-		board[this->y][this->x] = this->code;
 		
 		// check again, so we don't have smooth motion into the wall
 		if (board[this->y + directions[this->motion].vert][this->x + directions[this->motion].hor] != WALL){
@@ -138,22 +138,48 @@ void GameEngine_updatePositionCommon(sprite* this) {
 	}
 }
 void GameEngine_pacmanUpdatePosition(sprite* this) {
+	static int8_t c;
 	GameEngine_updatePositionCommon(this);
+	
 	// TODO - check collision, kill pacman, update score, update board
-	switch (board[this->y][this->x]){
+	switch (this->stored_code){
 		case EMPTY : {
 			
 		} break;
 		case DOT : {
+			// increment score
+			ST7735_SetCursor(0,0);
+			printf("Dot!");
+			board[this->y][this->x] = EMPTY;
 			
 		} break;
 		case BIGDOT : {
+			// increment score
+			// change state of ghosts
+			board[this->y][this->x] = EMPTY;
+			
+		} break;
+		case GHOST : {
+			ST7735_SetCursor(0,0);
+			printf("DEAD %u, %u!", this->x, this->y);
 			
 		} break;
 	}
+	// update the matrix
+	board[this->y][this->x] = this->code;
+	// pacman eats what was there
+	this->stored_code = EMPTY;
 }
 void GameEngine_ghostUpdatePosition(sprite* this) {
 	GameEngine_updatePositionCommon(this);
 	// TODO - check collision, kill pacman
+	if (board[this->y][this->x] == PACMAN) {
+		// change state
+		ST7735_SetCursor(0,0);
+		printf("GHOST SAYS DEAD!");
+	}
+	
+	// update the matrix
+	board[this->y][this->x] = this->code;
 }
 

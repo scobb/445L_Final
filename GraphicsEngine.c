@@ -138,16 +138,16 @@ uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 
 
 sprite p = {1, BOARD_SIZE_UD - 2, RIGHT, {pacman_u, pacman_d, pacman_l, pacman_r}, 5, 5,
-						RIGHT, &GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, PACMAN};
+						RIGHT, &GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, PACMAN, EMPTY};
 sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4, RIGHT,
-						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST};
+						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
 sprite bg = {BOARD_SIZE_LR - 2, 1, RIGHT,
 						 {blue_ghost, blue_ghost, blue_ghost, blue_ghost}, 5, 4,
-						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, GHOST};
+						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
 sprite og = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {orange_ghost, orange_ghost, orange_ghost, orange_ghost}, 5, 4,
-						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, GHOST};
+						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
 sprite pg = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {purple_ghost, purple_ghost, purple_ghost, purple_ghost},
-						5, 4, RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, GHOST};
+						5, 4, RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
 sprite* sprites[NUM_SPRITES] = {&p, &rg, &bg, &og, &pg};
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value

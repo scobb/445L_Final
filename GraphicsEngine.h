@@ -19,6 +19,7 @@ typedef struct spriteStruct{
 	uint8_t need_redraw;
 	uint8_t in_motion;
 	uint8_t code;
+	uint8_t stored_code;
 } sprite;
 #define NUM_SPRITES 5
 #define BOARD_SIZE_LR 19
