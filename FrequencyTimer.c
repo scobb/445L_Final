@@ -30,6 +30,7 @@
 #include "inc/tm4c123gh6pm.h"
 #include "FrequencyTimer.h"
 #include "MAX5353.h"
+#include "ActiveState.h"
 #define PF4       (*((volatile uint32_t *)0x40025040))
 
 void DisableInterrupts(void); // Disable interrupts
@@ -136,10 +137,11 @@ void FrequencyTimer_getPosition(uint8_t* position){
 */
 void Timer0A_Handler(void){
 	// two(notes[0].periodCycles, notes[1].periodCycles);
-	static int8_t ind = 0;
-	int8_t size = 32;
+	/*static int8_t ind = 0;
+	int8_t size = 32;*/
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge timer0A timeout
-	ind = (ind + 1) % size;
+	/*ind = (ind + 1) % size;
 	wavePos = ind;
-	DAC_Out(waveForm[ind]);
+	DAC_Out(waveForm[ind]);*/
+	ActiveState_playSound();
 }

@@ -6,6 +6,7 @@
 #include "GraphicsEngine.h"
 #include "Heartbeat.h"
 #include "stdlib.h"
+#include "WavReader.h"
 
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
@@ -82,8 +83,13 @@ void GameEngine_leftPressed(){
 void GameEngine_startPressed(){
 	ActiveState_set(&Paused);
 }
+extern uint8_t needMore;
 void GameEngine_playSound(){
 	// TODO - have at least one active sound wave to step through
+	music_play("waka.wav");
+	if(needMore){
+		load_more();
+	}
 }
 void GameEngine_drawInitial(){
 	// TODO - full board redraw

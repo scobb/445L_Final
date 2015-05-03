@@ -203,8 +203,8 @@ int main(void){
 	printf("PACMAN Player 1\n");
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
-	//FrequencyTimer_arm(A4);
-	//music_test();
+	//FrequencyTimer_arm(5000000);
+	// music_test();
   EnableInterrupts();
 	GameEngine_Init();
 	

@@ -19,27 +19,27 @@ TopLevelState* activeState;
 	void (*draw_initial)(void);
 */
 void ActiveState_updateState(){
-	if (activeState->update_state){
+	if (activeState && activeState->update_state){
 		activeState->update_state();
 	}
 }
 void ActiveState_upPressed(){
-	if (activeState->up_pressed){
+	if (activeState && activeState->up_pressed){
 		activeState->up_pressed();
 	}
 }
 void ActiveState_downPressed(){
-	if (activeState->down_pressed){
+	if (activeState && activeState->down_pressed){
 		activeState->down_pressed();
 	}
 }
 void ActiveState_leftPressed(){
-	if (activeState->left_pressed){
+	if (activeState && activeState->left_pressed){
 		activeState->left_pressed();
 	}
 }
 void ActiveState_rightPressed(){
-	if (activeState->right_pressed){
+	if (activeState && activeState->right_pressed){
 		activeState->right_pressed();
 	}
 }
@@ -49,12 +49,12 @@ void ActiveState_startPressed(){
 	}
 }
 void ActiveState_playSound(){
-	if (activeState->play_sound){
+	if (activeState && activeState->play_sound){
 		activeState->play_sound();
 	}
 }
 void ActiveState_drawInitial(){
-	if (activeState->draw_initial){
+	if (activeState && activeState->draw_initial){
 		activeState->draw_initial();
 	}
 }

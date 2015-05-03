@@ -250,7 +250,6 @@ void GraphicsEngine_drawBoard(){
 			} else if (board[i][j] == FRUIT) {
 				//probably do nothing. we may just draw the fruit along with Pacman and the ghosts outside of this loops
 			}
-			//TODO - small/large blobs, fruits
 		}
 	}
 }
