@@ -3,11 +3,11 @@
 #include "inc//tm4c123gh6pm.h"
 #include "GraphicsEngine.h"
 #include "ScoreEngine.h"
-#include "ST7735.h";
+#include "ST7735.h"
 #include "stdio.h"
-#include "ff.h";
+#include "ff.h"
 #include "diskio.h"
-#include "WavReader.h";
+#include "WavReader.h"
 
 #define FILETESTSIZE 10000
 #define SCORE_SIZE 5
@@ -170,4 +170,7 @@ void ScoreEngine_displayScores(){
       while(1){};
     }
   }
+	
+	//If we decide to allow another game to be played, we will need to reset the score back to 0
+	score = 0;
 }
