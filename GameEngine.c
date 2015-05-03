@@ -52,20 +52,22 @@ void GameEngine_updateState(){
 		}
 	}
 }
-void scheduleIfValidDirection(uint8_t dir) {
-	//p.scheduled_motion = dir;
-	uint8_t y_ind = p.y + directions[dir].vert;
-	uint8_t x_ind = p.x + directions[dir].hor;
-	if (p.in_motion){
-		y_ind += directions[p.motion].vert;
-		x_ind += directions[p.motion].hor;
+uint8_t isValidDirection(sprite* this, uint8_t dir){
+	
+	uint8_t y_ind = this->y + directions[dir].vert;
+	uint8_t x_ind = this->x + directions[dir].hor;
+	if (this->in_motion){
+		y_ind += directions[this->motion].vert;
+		x_ind += directions[this->motion].hor;
 	}
-	if (board[y_ind][x_ind] != WALL){
+	return board[y_ind][x_ind] != WALL;
+}
+void scheduleIfValidDirection(uint8_t dir) {
+	if (isValidDirection(&p, dir)){
 		p.scheduled_motion = dir;
 	}
 }
 void GameEngine_upPressed(){
-	//Check to make sure that this move is valid
 	scheduleIfValidDirection(UP);
 }
 void GameEngine_downPressed(){
@@ -89,15 +91,21 @@ void GameEngine_drawInitial(){
 }
 void GameEngine_pacmanUpdateMotion(sprite* this) {
 	this->motion = this->scheduled_motion;
-	/*if (this->motion != this->scheduled_motion) {
-		this->in_motion = TRUE;
-		this->motion = this->scheduled_motion;
-	}*/
 }
 void GameEngine_ghostUpdateMotion(sprite* this) {
-	static uint8_t num = 0;
-	//this->motion = rand() % 4;
-	this->motion = DOWN;
+	uint8_t i;
+	// hack
+	this->in_motion = FALSE;
+	if (!isValidDirection(this, this->motion)){
+		while (1){
+			i = rand() % 4;
+			if (isValidDirection(this, i)){
+				this->motion = i;
+				break;
+			}
+		}
+	}
+	this->in_motion = TRUE;
 }
 void GameEngine_updatePositionCommon(sprite* this) {
 	static int count = 0;
