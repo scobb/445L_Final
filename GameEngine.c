@@ -45,27 +45,32 @@ void GameEngine_updateState(){
 	if (Heartbeat_count == 0) { 
 		// update all sprite positions
 		for (i = 0; i < NUM_SPRITES; ++i){
-			// TODO - update sprite motion to scheduled
 			sprites[i]->update_position(sprites[i]);
 			sprites[i]->update_motion(sprites[i]);
 		}
 	}
 	for (i = 0; i < NUM_SPRITES; ++i){
-		drawSprite(sprites[i]);
+		if (sprites[i]->need_redraw) {
+			drawSprite(sprites[i]);
+		}
 	}
 }
 void GameEngine_upPressed(){
 	//Check to make sure that this move is valid
 	p.scheduled_motion = UP;
+	printf("schedmot: %u\n", p.scheduled_motion);
 }
 void GameEngine_downPressed(){
 	p.scheduled_motion = DOWN;
+	printf("schedmot: %u\n", p.scheduled_motion);
 }
 void GameEngine_rightPressed(){
 	p.scheduled_motion = RIGHT;
+	printf("schedmot: %u\n", p.scheduled_motion);
 }
 void GameEngine_leftPressed(){
 	p.scheduled_motion = LEFT;
+	printf("schedmot: %u\n", p.scheduled_motion);
 }
 void GameEngine_startPressed(){
 	ActiveState_set(&Paused);
@@ -77,24 +82,29 @@ void GameEngine_drawInitial(){
 	// TODO - full board redraw
 	
 }
-void GameEngine_pacmanUpdateMotion(sprite* s) {
-	s->motion = s->scheduled_motion;
+void GameEngine_pacmanUpdateMotion(sprite* this) {
+	this->motion = this->scheduled_motion;
 }
-void GameEngine_ghostUpdateMotion(sprite* s) {
+void GameEngine_ghostUpdateMotion(sprite* this) {
 	static uint8_t num = 0;
-	//s->motion = rand() % 4;
-	s->motion = DOWN;
+	//this->motion = rand() % 4;
+	this->motion = DOWN;
 }
-void GameEngine_updatePositionCommon(sprite* s) {
-	s->erase_x = s->x;
-	s->x += directions[s->motion].hor;
-	s->erase_y = s->y;
-	s->y += directions[s->motion].vert;
+void GameEngine_updatePositionCommon(sprite* this) {
+	if (board[this->x + directions[this->motion].hor][this->y + directions[this->motion].vert] != WALL){
+		this->erase_x = this->x;
+		this->x += directions[this->motion].hor;
+		this->erase_y = this->y;
+		this->y += directions[this->motion].vert;
+		this->need_redraw = TRUE;
+	} else {
+		this->need_redraw = FALSE;
+	}
 }
-void GameEngine_pacmanUpdatePosition(sprite* s) {
-	GameEngine_updatePositionCommon(s);
-	// TODO - check collision
-	switch (board[s->x][s->y]){
+void GameEngine_pacmanUpdatePosition(sprite* this) {
+	GameEngine_updatePositionCommon(this);
+	// TODO - check collision, kill pacman, update score, update board
+	switch (board[this->x][this->y]){
 		case EMPTY : {
 			
 		} break;
@@ -106,7 +116,8 @@ void GameEngine_pacmanUpdatePosition(sprite* s) {
 		} break;
 	}
 }
-void GameEngine_ghostUpdatePosition(sprite* s) {
-	GameEngine_updatePositionCommon(s);
+void GameEngine_ghostUpdatePosition(sprite* this) {
+	GameEngine_updatePositionCommon(this);
+	// TODO - check collision, kill pacman
 }
 

@@ -39,6 +39,8 @@ void GameEngine_update(void);
 void GameEngine_redraw(void);
 void GameEngine_updatePlayerMotion(uint8_t dir);
 void GameEngine_pacmanUpdateMotion(sprite* s);
+void GameEngine_pacmanUpdatePosition(sprite* s);
 void GameEngine_ghostUpdateMotion(sprite* s);
+void GameEngine_ghostUpdatePosition(sprite* s);
 
 #endif

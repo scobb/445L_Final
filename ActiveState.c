@@ -29,13 +29,13 @@ void ActiveState_upPressed(){
 	}
 }
 void ActiveState_downPressed(){
-	if (activeState->left_pressed){
-		activeState->left_pressed();
+	if (activeState->down_pressed){
+		activeState->down_pressed();
 	}
 }
 void ActiveState_leftPressed(){
-	if (activeState->update_state){
-		activeState->update_state();
+	if (activeState->left_pressed){
+		activeState->left_pressed();
 	}
 }
 void ActiveState_rightPressed(){

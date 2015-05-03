@@ -52,6 +52,7 @@
 #include "ActiveState.h"
 #include "stdio.h"
 #include "WavReader.h"
+#include "SysTick.h"
 void EnableInterrupts(void);
 
 //static FATFS g_sFatFs;
@@ -195,6 +196,7 @@ int main(void){
 	int i = 0;*/
 	uint8_t x_pix, y_pix;
 	PLL_Init();    								// bus clock at 80 MHz
+	SysTick_Init();
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
 	Output_Init();								// Display, SSI2 enable

@@ -8,11 +8,11 @@ long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 #define NUM_ON_D 1
 #define NUM_ON_E 4
-#define PE0       (*((volatile uint32_t *)0x4005C004))
-#define PE1       (*((volatile uint32_t *)0x4005C008))
-#define PE2       (*((volatile uint32_t *)0x4005C010))
-#define PE3       (*((volatile uint32_t *)0x4005C020))
-#define PD3       (*((volatile uint32_t *)0x40007020))
+#define PE0       ((volatile uint32_t *)0x40024004)
+#define PE1       ((volatile uint32_t *)0x40024008)
+#define PE2       ((volatile uint32_t *)0x40024010)
+#define PE3       ((volatile uint32_t *)0x40024020)
+#define PD3       ((volatile uint32_t *)0x40007020)
 #define TRUE 1
 #define FALSE 0
 typedef struct {
@@ -71,10 +71,10 @@ void PortE_Init() {
 void CheckDebounce(buttonStatus* buttons, uint8_t numPorts){
 	// private function to allow us to debounce all buttons
 	uint8_t i;
-	SysTick_Wait10ms(40);
+	SysTick_Wait10ms(1);
 	for (i=0; i < numPorts; ++i){
 		// if a button was low before and is still low, call its handler
-		if (buttons[i].isLow && buttons[i].readValue == 0){
+		if (buttons[i].isLow && *(buttons[i].readValue) == 0){
 			buttons[i].handler();
 		}
 	}
@@ -84,41 +84,41 @@ void GPIOPortE_Handler(void){
 	uint8_t i;
 	uint8_t needCheck = FALSE;
 	buttonStatus ports[NUM_ON_E] = {
-		{&PE0, FALSE ,&ActiveState_upPressed},
-		{&PE1, FALSE, &ActiveState_downPressed},
-		{&PE2, FALSE, &ActiveState_leftPressed},
-		{&PE3, FALSE, &ActiveState_rightPressed}
+		{PE0, FALSE ,&ActiveState_upPressed},
+		{PE1, FALSE, &ActiveState_downPressed},
+		{PE2, FALSE, &ActiveState_leftPressed},
+		{PE3, FALSE, &ActiveState_rightPressed}
 	};
 	
 	// process the interrupt
 	GPIO_PORTE_ICR_R |= 0x0F;      // acknowledge flag PE3-0
 	for (i=0; i < NUM_ON_E; i++){
-		if (*ports[i].readValue == 0){
+		if (*(ports[i].readValue) == 0){
 			ports[i].isLow = TRUE;
 			needCheck = TRUE;
 		}
 	}
 	if (needCheck)
-		CheckDebounce(&ports[0], 2);
+		CheckDebounce(&ports[0], NUM_ON_E);
 }
 void GPIOPortD_Handler(void){
 	// local variables
 	uint8_t i;
 	uint8_t needCheck = FALSE;
 	buttonStatus ports[NUM_ON_D] = {
-		{&PD3, FALSE ,&ActiveState_startPressed},
+		{PD3, FALSE ,&ActiveState_startPressed},
 	};
 	
 	// process the interrupt
 	GPIO_PORTD_ICR_R |= 0x08;      // acknowledge flag PD3
 	
 	for (i=0; i < NUM_ON_D; i++){
-		if (*ports[i].readValue == 0){
+		if (*(ports[i].readValue) == 0){
 			ports[i].isLow = TRUE;
 			needCheck = TRUE;
 		}
 	}
 	if (needCheck)
-		CheckDebounce(&ports[0], 2);
+		CheckDebounce(&ports[0], NUM_ON_D);
 }
 
