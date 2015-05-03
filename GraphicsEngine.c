@@ -170,11 +170,11 @@ void drawSprite(sprite* s){
 								  erase_y_pix + FILL_RECT_OFFSET_Y + Heartbeat_count * (y_pix - erase_y_pix) / 5,	
 									s->width,			
 									s->height,		
-									ST7735_WHITE);						// debug - WHITE. TODO - replace with black
+									0);						// debug - WHITE. TODO - replace with black
 	
 	// draw
-	ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + Heartbeat_count * directions[s->motion].hor,
-										y_pix + DRAW_BITMAP_OFFSET_Y + Heartbeat_count * directions[s->motion].vert,
+	ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X, // + Heartbeat_count * (x_pix - erase_x_pix) / 5,//directions[s->motion].hor,
+										y_pix + DRAW_BITMAP_OFFSET_Y, // + Heartbeat_count * (y_pix - erase_y_pix) / 5,	//directions[s->motion].vert,
 										s->bmp[s->motion], s->width, s->height);
 }
 

@@ -48,7 +48,7 @@ void TIMER1_Init(void){volatile unsigned short delay;
   TIMER1_CFG_R = 0x00000000;       // 2) configure for 32-bit timer mode
   TIMER1_TAMR_R = 0x00000002;      // 3) configure for periodic mode, default down-count settings
   //TIMER1_TAILR_R = 40000000;				// .5 s
-	TIMER1_TAILR_R = 8000000;						// .1 
+	TIMER1_TAILR_R = 4000000;						// .01 
 	TIMER1_TAPR_R = 0;               // 5) 12.5ns TIMER1A
   TIMER1_ICR_R = 0x00000001;       // 6) clear TIMER1A timeout flag
   NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFF1FFF)|0x00006000; // 8) priority 3
