@@ -91,14 +91,19 @@ uint8_t whichBuffer;
 void handler(void);
 void handler2(void);
 
-
+char* f_name;
+char* data_start = 0;
+uint8_t looped;
 void music_play(const char* fileName){
 	uint8_t datachunk = 0; 	//this variable will act as a boolean
 	uint8_t gotFormat = 0;
 	uint16_t skipsize;
 	uint16_t extradata;
 	chunkid = 0;
-	
+	// save filename for later.
+	f_name = (char*)malloc(strlen(fileName) + 1);
+	memcpy(f_name, fileName, strlen(fileName));
+	f_name[strlen(fileName)] = 0;
 	index = 0;
 	sampleNum = 0;
 	needMore = 0;
@@ -179,6 +184,7 @@ void music_play(const char* fileName){
 						//datasize = reader.ReadInt32( );
 						memcpy(&datasize, &buffer[index], sizeof datasize);
 						index+=4;
+						data_start = &buffer[index];
 						break;
 				default:
 						//int32_t skipsize = reader.ReadInt32( );
@@ -199,11 +205,10 @@ void music_play(const char* fileName){
 }
 
 void music_stop(void){
-	   Fresult = f_close(&Handle);
-		 TIMER2_CTL_R = 0x00000000;  
-		
+	Fresult = f_close(&Handle);
+	TIMER2_CTL_R = 0x00000000;  
+	free(f_name);
 }
-
 
 void load_more(void){
 	needMore = 0;
@@ -212,6 +217,13 @@ void load_more(void){
 	}
 	else{
 		Fresult = f_read(&Handle, buffer, 512, &successfulreads);
+	}
+	if (successfulreads < 512){
+		if (looped) {
+			
+		} else {
+			
+		}
 	}
 }
 
