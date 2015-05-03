@@ -5,6 +5,7 @@
 #include "GraphicsEngine.h"
 #include "GameEngine.h"
 #include "Heartbeat.h"
+#include "ScoreEngine.h"
 
 #define BOARD_START_X 8
 #define BOARD_END_Y 148
@@ -88,9 +89,9 @@ const unsigned short ghost_eyes[] = {
 
 const uint8_t init_board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-{WALL, GHOST, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
+{WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, DOT, WALL},
-{WALL, DOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, DOT, WALL},
+{WALL, BIGDOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, BIGDOT, WALL},
 {WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, DOT, WALL},
 {WALL, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, WALL},
@@ -103,19 +104,18 @@ const uint8_t init_board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 {WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL},
 {WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, DOT, WALL},
-{WALL, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, WALL},
+{WALL, BIGDOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, BIGDOT, WALL},
 {WALL, WALL, DOT, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, DOT, WALL, WALL},
 {WALL, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, WALL, DOT, WALL},
-{WALL, PACMAN, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
+{WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
 };
-
 uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
-{WALL, GHOST, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
+{WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, DOT, WALL},
-{WALL, DOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, DOT, WALL},
+{WALL, BIGDOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, BIGDOT, WALL},
 {WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, DOT, WALL},
 {WALL, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, WALL},
@@ -128,26 +128,26 @@ uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 {WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL},
 {WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, DOT, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, DOT, WALL, WALL, DOT, WALL},
-{WALL, DOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, DOT, WALL},
+{WALL, BIGDOT, DOT, WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL, DOT, BIGDOT, WALL},
 {WALL, WALL, DOT, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, DOT, WALL, WALL},
 {WALL, DOT, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, WALL, DOT, DOT, DOT, DOT, WALL},
 {WALL, DOT, WALL, WALL, WALL, WALL, WALL, WALL, DOT, WALL, DOT, WALL, WALL, WALL, WALL, WALL, WALL, DOT, WALL},
-{WALL, PACMAN, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
+{WALL, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, DOT, WALL},
 {WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL},
 };
 
 
 sprite p = {1, BOARD_SIZE_UD - 2, RIGHT, {pacman_u, pacman_d, pacman_l, pacman_r}, 5, 5, RIGHT, 
-						&GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, PACMAN, EMPTY};
+						&GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, PACMAN, EMPTY, FALSE, 0};
 sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4, RIGHT,
-						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
+						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
 sprite bg = {BOARD_SIZE_LR - 2, 1, RIGHT,
-						 {blue_ghost, blue_ghost, blue_ghost, blue_ghost}, 5, 4, RIGHT, 
-						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
+						 {light_blue_ghost, light_blue_ghost, light_blue_ghost, light_blue_ghost}, 5, 4, RIGHT, 
+						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
 sprite og = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {orange_ghost, orange_ghost, orange_ghost, orange_ghost}, 5, 4, RIGHT, 
-						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
+						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
 sprite pg = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {purple_ghost, purple_ghost, purple_ghost, purple_ghost}, 5, 4, RIGHT, 
-						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT};
+						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
 sprite* sprites[NUM_SPRITES] = {&p, &rg, &bg, &og, &pg};
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
@@ -156,6 +156,17 @@ void drawDot(uint8_t x, uint8_t y){
 	uint8_t x_pix, y_pix;
 	ind_to_pix(x, y, &x_pix, &y_pix);
 	ST7735_DrawPixel(x_pix, y_pix + 4, ST7735_WHITE);
+}
+void drawBigDot(uint8_t x, uint8_t y){
+	uint8_t x_pix, y_pix;
+	ind_to_pix(x, y, &x_pix, &y_pix);
+	ST7735_FillRect(x_pix - 1, y_pix + 4, 2, 2, ST7735_WHITE);
+}
+void drawWall(uint8_t x, uint8_t y){
+	uint8_t x_pix, y_pix;
+	ind_to_pix(x, y, &x_pix, &y_pix);
+	ST7735_FillRect(x_pix -2, y_pix + 2, SQUARE_WIDTH, SQUARE_HEIGHT, ST7735_BLUE);
+	
 }
 void ind_to_pix(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix) {
 	*x_pix = BOARD_START_X + SQUARE_WIDTH * (x_ind);
@@ -179,12 +190,19 @@ void drawSprite(sprite* s){
 								  erase_y_pix + FILL_RECT_OFFSET_Y + Heartbeat_count * (y_pix - erase_y_pix) / 5,	
 									s->width,			
 									s->height + 1,		
-									0);						// debug - WHITE. TODO - replace with black
+									0);						
 	
 	// draw
-	ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + s->in_motion * Heartbeat_count * directions[s->motion].hor,
-										y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
-										s->bmp[s->motion], s->width, s->height);
+	if (s->vulnerable && (s->vuln_count < VULN_FLASH || s->vuln_count % 2 == 1) ){
+		ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + s->in_motion * Heartbeat_count * directions[s->motion].hor,
+											y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
+											s->vuln_bmp, s->width, s->height);
+		
+	} else {
+		ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + s->in_motion * Heartbeat_count * directions[s->motion].hor,
+											y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
+											s->bmp[s->motion], s->width, s->height);
+	}
 }
 void GraphicsEngine_drawInitBoard(){
 	// set initial position, number of ghosts, dots
@@ -206,11 +224,9 @@ void GraphicsEngine_drawInitBoard(){
 				drawDot(j, i);
 			} else if (init_board[i][j] == BIGDOT) {
 				//We need to figure out the best way to draw a big dot. For now, I will leave it as a small dot
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_DrawPixel(x_pix, y_pix, ST7735_WHITE);
+				drawBigDot(j, i);
 			} else if (init_board[i][j] == WALL) {
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_FillRect(x_pix -2, y_pix + 2, SQUARE_WIDTH, SQUARE_HEIGHT, ST7735_BLUE);
+				drawWall(j, i);
 			} else if (init_board[i][j] == FRUIT) {
 				//probably do nothing. we may just draw the fruit along with Pacman and the ghosts outside of this loops
 			}
@@ -221,7 +237,12 @@ void GraphicsEngine_drawInitBoard(){
 		drawSprite(sprites[i]);
 	}
 }
-void GraphicsEngine_drawBoard(){
+
+void GraphicsEngine_drawScore(void){
+	ST7735_SetCursor(0, 0);
+	printf("Score: %u", ScoreEngine_getScore());
+}
+void GraphicsEngine_drawBoard(void){
 	// set initial position, number of ghosts, dots
 	uint8_t i, j, x_pix, y_pix;
 	

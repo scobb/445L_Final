@@ -2,6 +2,7 @@
 #define _GRAPHICS_ENGINE_H_
 #include "stdint.h"
 #include "TopLevelState.h"
+#define VULN_FLASH 20
 typedef struct spriteStruct{
 	uint8_t x;
 	uint8_t y;
@@ -20,10 +21,14 @@ typedef struct spriteStruct{
 	uint8_t in_motion;
 	uint8_t code;
 	uint8_t stored_code;
+	uint8_t vulnerable;
+	const unsigned short* vuln_bmp;
+	uint16_t vuln_count;
 } sprite;
 #define NUM_SPRITES 5
 #define BOARD_SIZE_LR 19
 #define BOARD_SIZE_UD 22
+
 #define EMPTY 0
 #define PACMAN 1
 #define GHOST 2
@@ -37,8 +42,9 @@ extern sprite rg;
 void ind_to_pix(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix);
 void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix);
 void drawSprite(sprite* s);
-void GraphicsEngine_drawInitBoard();
-void GraphicsEngine_drawBoard();
+void GraphicsEngine_drawInitBoard(void);
+void GraphicsEngine_drawBoard(void);
+void GraphicsEngine_drawScore(void);
 extern uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR];
 #endif
 

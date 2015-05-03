@@ -8,6 +8,7 @@
 #include "ff.h"
 #include "diskio.h"
 #include "WavReader.h"
+#include "GraphicsEngine.h"
 
 #define FILETESTSIZE 10000
 #define SCORE_SIZE 5
@@ -18,18 +19,22 @@ void ScoreEngine_init(){
 	score = 0;
 }
 
+uint32_t ScoreEngine_getScore(void){
+	return score;
+}
+
 void ScoreEngine_update(uint8_t object){
 	switch (object) {
-		case ghost:
+		case GHOST:
 			score += 100;
 			break;
-		case smallDot:
+		case DOT:
 			score += 25;
 			break;
-		case bigDot:
+		case BIGDOT:
 			score += 50;
 			break;
-		case fruit:
+		case FRUIT:
 			score += 200;
 			break;
 	}

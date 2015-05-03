@@ -7,7 +7,9 @@
 #include "Heartbeat.h"
 #include "stdlib.h"
 #include "WavReader.h"
+#include "ScoreEngine.h"
 
+#define VULN_TIMEOUT 30
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 
@@ -27,6 +29,7 @@ coord directions[4] = {
 	{-1, 0},			// LEFT
 	{1, 0}				// RIGHT
 };
+uint8_t ghosts_vulnerable = FALSE;
 
 // public functions
 void GameEngine_Init(){
@@ -36,10 +39,8 @@ void GameEngine_Init(){
 }
 
 void GameEngine_updateState(){
-	// TODO - iterate over sprite array, update matrix, check collisions, update score
-	// TODO - redraw sprites that move.
-	// check collision against ghosts
 	uint8_t i;
+	GraphicsEngine_drawScore();
 	if (Heartbeat_count == 0) { 
 		// update all sprite positions
 		for (i = 0; i < NUM_SPRITES; ++i){
@@ -115,9 +116,6 @@ void GameEngine_ghostUpdateMotion(sprite* this) {
 }
 void GameEngine_updatePositionCommon(sprite* this) {
 	// replace what was there before
-	
-	//ST7735_SetCursor(0, 1);
-	//printf("stored: %u,", this->stored_code);
 	board[this->y][this->x] = this->stored_code;
 	this->erase_x = this->x;
 	this->erase_y = this->y;
@@ -143,31 +141,33 @@ void GameEngine_updatePositionCommon(sprite* this) {
 		this->in_motion = FALSE;
 	}
 }
+void bigDotEaten(void){
+	uint8_t i;
+	for (i = 1; i < NUM_SPRITES; ++i){
+		sprites[i]->vulnerable = TRUE;
+		sprites[i]->vuln_count = 0;
+	}
+}
 void GameEngine_pacmanUpdatePosition(sprite* this) {
-	static int8_t c;
 	GameEngine_updatePositionCommon(this);
 	
 	// TODO - check collision, kill pacman, update score, update board
 	switch (this->stored_code){
-		case EMPTY : {
-			
-		} break;
 		case DOT : {
 			// increment score
-			ST7735_SetCursor(0,0);
-			printf("Dot!");
-			board[this->y][this->x] = EMPTY;
+			ScoreEngine_update(DOT);
 			
 		} break;
 		case BIGDOT : {
 			// increment score
 			// change state of ghosts
-			board[this->y][this->x] = EMPTY;
+			ScoreEngine_update(BIGDOT);
+			bigDotEaten();
 			
 		} break;
 		case GHOST : {
-			ST7735_SetCursor(0,0);
-			printf("DEAD %u, %u!", this->x, this->y);
+			//ST7735_SetCursor(0,0);
+			//printf("DEAD %u, %u!", this->x, this->y);
 			
 		} break;
 	}
@@ -177,12 +177,20 @@ void GameEngine_pacmanUpdatePosition(sprite* this) {
 	this->stored_code = EMPTY;
 }
 void GameEngine_ghostUpdatePosition(sprite* this) {
+	if (this->vulnerable){
+		this->vuln_count++;
+		//ST7735_SetCursor(0,0);
+		//printf("vuln_count %u", this->vuln_count);
+		if (this->vuln_count >= VULN_TIMEOUT){
+			this->vulnerable = FALSE;
+		}
+	}
 	GameEngine_updatePositionCommon(this);
 	// TODO - check collision, kill pacman
 	if (board[this->y][this->x] == PACMAN) {
 		// change state
-		ST7735_SetCursor(0,0);
-		printf("GHOST SAYS DEAD!");
+		//ST7735_SetCursor(0,0);
+		//printf("GHOST SAYS DEAD!");
 	}
 	
 	// update the matrix

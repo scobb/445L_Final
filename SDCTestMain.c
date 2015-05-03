@@ -53,6 +53,7 @@
 #include "stdio.h"
 #include "WavReader.h"
 #include "SysTick.h"
+#include "ScoreEngine.h"
 void EnableInterrupts(void);
 
 //static FATFS g_sFatFs;
@@ -205,6 +206,7 @@ int main(void){
 	FrequencyTimer_Init();
 	//FrequencyTimer_arm(5000000);
 	// music_test();
+	ScoreEngine_init();
   EnableInterrupts();
 	GameEngine_Init();
 	
