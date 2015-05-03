@@ -28,9 +28,14 @@ unsigned char buffer[512];
 #define MAXSONGBLOCKS 95
 #define FALSE 0
 #define TRUE 1
+#define OPENING "opening.wav"
+#define WAKA "waka.wav"
+#define GHOST "ghost.wav"
+#define FRUIT "cherry.wav"
+#define DEATH "die.wav"
 
 //volume is the define statement that sets the volume
-#define VOLUME 0
+#define VOLUME 4
 
 enum WavChunks {
     RiffHeader = 0x46464952,
@@ -94,17 +99,19 @@ uint8_t whichBuffer;
 void handler(void);
 void handler2(void);
 
-char* f_name;
+//char* f_name;
+char* current_song;
 char* data_start = 0;
 uint8_t looped;
 uint8_t start_play;
 uint8_t song_playing;
 uint8_t temp_count = 0;
+uint8_t debug = 0;
 
 void music_stop(void){
 	Fresult = f_close(&Handle);
 	TIMER2_CTL_R = 0x00000000;
-	if (!looped) free(f_name);
+	//if (!looped) free(f_name);
 	song_playing = FALSE;
 }
 
@@ -116,18 +123,37 @@ void music_play(const char* fileName){
 	char* temp_name;
 	chunkid = 0;
 	// save filename for later.
+	/*
 	if (f_name != NULL && !strcmp(f_name, fileName)){
 		music_stop();
 	}
 	f_name = (char*)malloc(strlen(fileName) + 1);
 	memcpy(f_name, fileName, strlen(fileName));
 	f_name[strlen(fileName)] = 0;
+	*/
+	if (song_playing) music_stop();
+	if (!strcmp(fileName, OPENING)){
+		current_song = OPENING;
+	}
+	else if (!strcmp(fileName, WAKA)){
+		current_song = WAKA;
+	}
+	else if (!strcmp(fileName, GHOST)){
+		current_song = GHOST;
+	}
+	else if (!strcmp(fileName, FRUIT)){
+		current_song = FRUIT;
+	}
+	else {
+		current_song = DEATH;
+	}
+	
 	index = 0;
 	sampleNum = 0;
 	needMore = 0;
 	whichBuffer = 1;
 	if (temp_count >= 39){
-		printf("HERE!!!\n");
+		debug = 1;
 	}
 	Fresult = f_open(&Handle, fileName, FA_READ);
 	Fresult = f_read(&Handle, buffer, 512, &successfulreads);
@@ -249,7 +275,7 @@ void load_more(void){
 	}
 	if (successfulreads < 512){
 		if (looped) {
-			music_play(f_name);
+			music_play(current_song);
 		} else {
 			music_stop();
 		}
