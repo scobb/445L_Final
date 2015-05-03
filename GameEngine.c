@@ -8,6 +8,7 @@
 #include "stdlib.h"
 #include "WavReader.h"
 #include "ScoreEngine.h"
+#include "stdio.h"
 
 #define VULN_TIMEOUT 30
 long StartCritical (void);    // previous I bit, disable interrupts
@@ -20,7 +21,7 @@ TopLevelState InGame = {
 	&GameEngine_leftPressed,
 	&GameEngine_rightPressed,
 	&GameEngine_startPressed,
-	&GameEngine_playSound,
+	&GameEngine_playWaka,
 	&GameEngine_drawInitial,
 };
 coord directions[4] = {
@@ -30,6 +31,7 @@ coord directions[4] = {
 	{1, 0}				// RIGHT
 };
 uint8_t ghosts_vulnerable = FALSE;
+uint8_t wakaing = FALSE;
 
 // public functions
 void GameEngine_Init(){
@@ -85,9 +87,14 @@ void GameEngine_startPressed(){
 	ActiveState_set(&Paused);
 }
 extern uint8_t needMore;
-void GameEngine_playSound(){
+void GameEngine_playWaka(){
 	// TODO - have at least one active sound wave to step through
-	music_play("waka.wav");
+	if (!wakaing){
+		if (song_playing) music_stop();
+		wakaing = TRUE;
+		looped = TRUE;
+		music_play("waka.wav");
+	}
 	if(needMore){
 		load_more();
 	}
@@ -98,6 +105,7 @@ void GameEngine_drawInitial(){
 }
 void GameEngine_pacmanUpdateMotion(sprite* this) {
 	this->motion = this->scheduled_motion;
+	//GameEngine_playWaka();
 }
 void GameEngine_ghostUpdateMotion(sprite* this) {
 	uint8_t i;

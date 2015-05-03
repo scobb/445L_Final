@@ -52,7 +52,7 @@ void ScoreEngine_displayFinalScore(){
 void ScoreEngine_displayScores(){
 	UINT successfulreads, successfulwrites;
   char c;
-	char* currentScore = calloc(SCORE_SIZE*(sizeof c)+1, (sizeof c));
+	char* currentScore = calloc(SCORE_SIZE*(sizeof(c))+1, (sizeof(c)));
 	char** scores;//TODO: Initialize this to some size
 	uint8_t counter, totalCounter;
   //int16_t x, y; int i; uint32_t n;
@@ -73,14 +73,14 @@ void ScoreEngine_displayScores(){
         //ST7735_DrawChar(x, y, c, ST7735_Color565(255, 255, 0), 0, 1);
 				if (c == ','){
 					(*currentScore) = 0;
-					currentScore -= counter * (sizeof counter) - sizeof counter;//Should get us to the original pointer
+					currentScore -= counter * (sizeof(counter)) - sizeof(counter);//Should get us to the original pointer
 					*scores = currentScore;
 					counter = 0;
 					totalCounter++;
 				}
 				(*currentScore) = c;
 				counter++;
-				currentScore += sizeof counter;
+				currentScore += sizeof(counter);
 				/*
         x = x + 6;
         if(x > 122){
@@ -114,7 +114,7 @@ void ScoreEngine_displayScores(){
 			printf("%d\n", score);
 		}
 		printf("%s\n", (*scores));
-		scores += sizeof (*scores);
+		scores += sizeof(*scores);
 	}
 	
 	//Now we need to write back
@@ -130,7 +130,7 @@ void ScoreEngine_displayScores(){
 			scores += sizeof (*currScore);
 			if ((uint32_t) current < score){
 				//We need to write our score in here next, before we do this other score
-				char* ourScore = calloc(SCORE_SIZE*(sizeof c)+1, (sizeof c));
+				char* ourScore = calloc(SCORE_SIZE*(sizeof(c))+1, (sizeof(c)));
 				sprintf(ourScore, "%d", score);
 				c = (*currScore);
 				while (c){
@@ -139,7 +139,7 @@ void ScoreEngine_displayScores(){
 						ST7735_DrawString(0, 0, "f_write error", ST7735_Color565(0, 0, 255));
 						while(1){};
 					}
-					currScore += sizeof c;
+					currScore += sizeof(c);
 					c = (*currScore);
 				}
 				//Now that c is 0, we have finished this string, so we need to add a comma
@@ -158,7 +158,7 @@ void ScoreEngine_displayScores(){
 					ST7735_DrawString(0, 0, "f_write error", ST7735_Color565(0, 0, 255));
 					while(1){};
 				}
-				currScore += sizeof c;
+				currScore += sizeof(c);
 				c = (*currScore);
 			}
 			//Now that c is 0, we have finished this string, so we need to add a comma

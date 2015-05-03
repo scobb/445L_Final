@@ -7,6 +7,7 @@ extern FIL Handle2;
 extern FRESULT MountFresult;
 extern FRESULT Fresult;
 extern uint8_t looped;
+extern uint8_t song_playing;
 extern unsigned char buffer[512];
 
 void music_init(void);

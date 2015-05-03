@@ -204,8 +204,10 @@ int main(void){
 	printf("PACMAN Player 1\n");
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
+	//looped = TRUE;
 	//FrequencyTimer_arm(5000000);
-	// music_test();
+	//music_test();
+	music_init();
 	ScoreEngine_init();
   EnableInterrupts();
 	GameEngine_Init();
@@ -213,6 +215,7 @@ int main(void){
 	while (1) {
 		if (updateStateSemaphore) {
 			ActiveState_updateState(); 
+			GameEngine_playWaka();
 			updateStateSemaphore = FALSE;
 		} 
 		if (needInitialDraw) {

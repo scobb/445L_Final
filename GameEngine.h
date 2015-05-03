@@ -28,7 +28,7 @@ void GameEngine_downPressed(void);
 void GameEngine_rightPressed(void);
 void GameEngine_leftPressed(void);
 void GameEngine_startPressed(void);
-void GameEngine_playSound(void);
+void GameEngine_playWaka(void);
 void GameEngine_drawInitial(void);
 
 

@@ -25,9 +25,12 @@ FRESULT MountFresult;
 FRESULT Fresult;
 unsigned char buffer[512];
 #define MAXBLOCKS 100
+#define MAXSONGBLOCKS 95
+#define FALSE 0
+#define TRUE 1
 
 //volume is the define statement that sets the volume
-#define VOLUME 16
+#define VOLUME 0
 
 enum WavChunks {
     RiffHeader = 0x46464952,
@@ -94,13 +97,28 @@ void handler2(void);
 char* f_name;
 char* data_start = 0;
 uint8_t looped;
+uint8_t start_play;
+uint8_t song_playing;
+uint8_t temp_count = 0;
+
+void music_stop(void){
+	Fresult = f_close(&Handle);
+	TIMER2_CTL_R = 0x00000000;
+	if (!looped) free(f_name);
+	song_playing = FALSE;
+}
+
 void music_play(const char* fileName){
 	uint8_t datachunk = 0; 	//this variable will act as a boolean
 	uint8_t gotFormat = 0;
 	uint16_t skipsize;
 	uint16_t extradata;
+	char* temp_name;
 	chunkid = 0;
 	// save filename for later.
+	if (f_name != NULL && !strcmp(f_name, fileName)){
+		music_stop();
+	}
 	f_name = (char*)malloc(strlen(fileName) + 1);
 	memcpy(f_name, fileName, strlen(fileName));
 	f_name[strlen(fileName)] = 0;
@@ -108,11 +126,16 @@ void music_play(const char* fileName){
 	sampleNum = 0;
 	needMore = 0;
 	whichBuffer = 1;
+	if (temp_count >= 39){
+		printf("HERE!!!\n");
+	}
 	Fresult = f_open(&Handle, fileName, FA_READ);
 	Fresult = f_read(&Handle, buffer, 512, &successfulreads);
 	if(Fresult == FR_OK){
+		temp_count++;
 		while( !datachunk ) {
 				//chunkid = reader.ReadInt32( );
+				start_play = FALSE;
 				if(index >= 512){
 					Fresult = f_read(&Handle, buffer, 512, &successfulreads);
 					index = index - 512;
@@ -204,12 +227,6 @@ void music_play(const char* fileName){
 	}
 }
 
-void music_stop(void){
-	Fresult = f_close(&Handle);
-	TIMER2_CTL_R = 0x00000000;  
-	free(f_name);
-}
-
 void load_more(void){
 	needMore = 0;
 	if(whichBuffer){
@@ -218,11 +235,23 @@ void load_more(void){
 	else{
 		Fresult = f_read(&Handle, buffer, 512, &successfulreads);
 	}
+	if (!start_play){
+		int i, count;
+		count = 0;
+		for (i=0; i<512; i++){
+			char current = buffer[i];
+			if (current == 0x80) ++count;
+		}
+		if (count < 128){
+			start_play = TRUE;
+			song_playing = TRUE;
+		}
+	}
 	if (successfulreads < 512){
 		if (looped) {
-			
+			music_play(f_name);
 		} else {
-			
+			music_stop();
 		}
 	}
 }
@@ -233,6 +262,16 @@ void handler(void){
 		//i am going to read the sample into a 32 bit integer and then convert it down
 		uint64_t sample = 0;
 		uint16_t truncated_sample = 0;
+		if (!start_play){
+			sampleNum += (bitdepth/8);
+			index+= (bitdepth/8);
+			if(index >= 512){
+				index = 0;
+				whichBuffer ^= 0x01;
+				needMore = 1;
+			}
+			return;
+		}
 		if(sampleNum > datasize){
 			music_stop();
 		}

@@ -64,6 +64,7 @@ There is a boolean flag in the WavReader.c call needMore, include this as I have
 I want the loading from the SD card to be done in the foreground do the music never has to wait for a load to output.
 check this flag constantly, and call load_more() when it is true. That's it!
 */
+/*
 void music_test(void){
 	music_init();
 	//music_play("8PCMtest.wav");
@@ -76,7 +77,7 @@ void music_test(void){
 		}
 	}
 }	
-/*
+
 int main(void){
   UINT successfulreads, successfulwrites;
   uint8_t c, x, y;
