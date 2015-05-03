@@ -9,7 +9,7 @@
 #include "WavReader.h"
 #include "ScoreEngine.h"
 #include "stdio.h"
-
+#include "StopState.h"
 #define VULN_TIMEOUT 30
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
@@ -151,10 +151,29 @@ void GameEngine_updatePositionCommon(sprite* this) {
 }
 void bigDotEaten(void){
 	uint8_t i;
+	//  make all ghosts vulnerable
 	for (i = 1; i < NUM_SPRITES; ++i){
 		sprites[i]->vulnerable = TRUE;
 		sprites[i]->vuln_count = 0;
 	}
+}
+void eatGhost(sprite* s){
+	s->eyes = TRUE;
+	s->vuln_count = 10;
+	s->vulnerable = FALSE;
+	ScoreEngine_update(GHOST);
+}
+void die(void){
+	ActiveState_set(&Stop);
+}
+void collideWithGhost(sprite* s){
+	if (s->vulnerable){
+		eatGhost(s);
+	} else if (s->eyes) {
+	} else {
+		die();
+	}
+	
 }
 void GameEngine_pacmanUpdatePosition(sprite* this) {
 	GameEngine_updatePositionCommon(this);
@@ -168,14 +187,21 @@ void GameEngine_pacmanUpdatePosition(sprite* this) {
 		} break;
 		case BIGDOT : {
 			// increment score
-			// change state of ghosts
 			ScoreEngine_update(BIGDOT);
+			// change state of ghosts
 			bigDotEaten();
 			
 		} break;
 		case GHOST : {
-			//ST7735_SetCursor(0,0);
-			//printf("DEAD %u, %u!", this->x, this->y);
+			// which ghost? linear search for now, since n = 4
+			uint8_t i;
+			for (i = 1; i < NUM_SPRITES; ++i){
+				if (sprites[i]->x == this->x && sprites[i]->y == this->y){
+					// found it.
+					break;
+				}
+			}
+			collideWithGhost(sprites[i]);
 			
 		} break;
 	}
@@ -186,19 +212,18 @@ void GameEngine_pacmanUpdatePosition(sprite* this) {
 }
 void GameEngine_ghostUpdatePosition(sprite* this) {
 	if (this->vulnerable){
-		this->vuln_count++;
-		//ST7735_SetCursor(0,0);
-		//printf("vuln_count %u", this->vuln_count);
-		if (this->vuln_count >= VULN_TIMEOUT){
+		if (++this->vuln_count >= VULN_TIMEOUT){
 			this->vulnerable = FALSE;
+		}
+	} else if (this->eyes) {
+		if (++this->vuln_count >= VULN_TIMEOUT) {
+			this->eyes = FALSE;
 		}
 	}
 	GameEngine_updatePositionCommon(this);
 	// TODO - check collision, kill pacman
 	if (board[this->y][this->x] == PACMAN) {
-		// change state
-		//ST7735_SetCursor(0,0);
-		//printf("GHOST SAYS DEAD!");
+			collideWithGhost(this);
 	}
 	
 	// update the matrix

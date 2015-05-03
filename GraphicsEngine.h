@@ -23,7 +23,10 @@ typedef struct spriteStruct{
 	uint8_t stored_code;
 	uint8_t vulnerable;
 	const unsigned short* vuln_bmp;
-	uint16_t vuln_count;
+	uint8_t vuln_count;
+	uint8_t eyes;
+	const unsigned short* eyes_bmp;
+	
 } sprite;
 #define NUM_SPRITES 5
 #define BOARD_SIZE_LR 19
