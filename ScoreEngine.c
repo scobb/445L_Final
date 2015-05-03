@@ -42,10 +42,9 @@ void ScoreEngine_update(uint8_t object){
 
 void ScoreEngine_displayFinalScore(){
 	//The big thing we want to do is move our printf to the middle of the display
-	ST7735_SetCursor(80, 59);
-	printf("Game Over\n");
-	//Note: this part should be on the next line, just trying to center it
-	ST7735_SetCursor(85, 56);
+	ST7735_SetCursor(3, 6);
+	printf("Game Over");
+	ST7735_SetCursor(3, 7);
 	printf("Final Score: %d", score);
 }
 

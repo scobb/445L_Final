@@ -2,6 +2,9 @@
 #include "ST7735.h"
 #include "GraphicsEngine.h"
 #include "GameEngine.h"
+#include "ScoreEngine.h"
+#include "ActiveState.h"
+
 #define DEATH_CYCLES 7
 #ifndef TRUE
 #define TRUE 1
@@ -65,6 +68,11 @@ TopLevelState Stop =  {
 	0,
 };
 void StopState_startPressed(void){
+	if (death_step >= DEATH_CYCLES){
+		ActiveState_set(&InGame);
+		// TODO need to write a drawInitial for InGame
+		// TODO need to reset p's bmp
+	}
 	// TODO - are we done with death animation?
 	// TODO - if so, redirect appropriately
 }
@@ -76,7 +84,7 @@ void StopState_updateState(void){
 		p.bmp[RIGHT] = bmps[death_step++];
 		drawSprite(&p);
 	} else {
-		
+		ScoreEngine_displayFinalScore();
 	}
 	// TODO - draw pacman unfold
 }
