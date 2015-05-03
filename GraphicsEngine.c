@@ -138,16 +138,16 @@ uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 
 
 sprite p = {1, BOARD_SIZE_UD - 2, RIGHT, {pacman_u, pacman_d, pacman_l, pacman_r}, 5, 5,
-						RIGHT, &GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE};
+						RIGHT, &GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE};
 sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4, RIGHT,
-						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE};
+						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE};
 sprite bg = {BOARD_SIZE_LR - 2, 1, RIGHT,
 						 {blue_ghost, blue_ghost, blue_ghost, blue_ghost}, 5, 4,
-						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_pacmanUpdatePosition, TRUE};
+						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_pacmanUpdatePosition, TRUE, TRUE};
 sprite og = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {orange_ghost, orange_ghost, orange_ghost, orange_ghost}, 5, 4,
-						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE};
+						RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE};
 sprite pg = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {purple_ghost, purple_ghost, purple_ghost, purple_ghost},
-						5, 4, RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE};
+						5, 4, RIGHT, &GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE};
 sprite* sprites[NUM_SPRITES] = {&p, &rg, &bg, &og, &pg};
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
@@ -173,8 +173,8 @@ void drawSprite(sprite* s){
 									0);						// debug - WHITE. TODO - replace with black
 	
 	// draw
-	ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X, // + Heartbeat_count * (x_pix - erase_x_pix) / 5,//directions[s->motion].hor,
-										y_pix + DRAW_BITMAP_OFFSET_Y, // + Heartbeat_count * (y_pix - erase_y_pix) / 5,	//directions[s->motion].vert,
+	ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + s->in_motion * Heartbeat_count * directions[s->motion].hor,
+										y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
 										s->bmp[s->motion], s->width, s->height);
 }
 

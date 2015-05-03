@@ -17,6 +17,7 @@ typedef struct spriteStruct{
 	uint8_t erase_y;
 	void (*update_position) (struct spriteStruct*);
 	uint8_t need_redraw;
+	uint8_t in_motion;
 } sprite;
 #define NUM_SPRITES 5
 #define BOARD_SIZE_LR 19

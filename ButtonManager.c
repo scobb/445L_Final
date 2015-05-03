@@ -95,7 +95,8 @@ void GPIOPortE_Handler(void){
 	for (i=0; i < NUM_ON_E; i++){
 		if (*(ports[i].readValue) == 0){
 			ports[i].isLow = TRUE;
-			needCheck = TRUE;
+			ports[i].handler();
+			//needCheck = TRUE;
 		}
 	}
 	if (needCheck)
