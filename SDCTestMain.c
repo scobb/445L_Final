@@ -215,7 +215,7 @@ int main(void){
 	while (1) {
 		if (updateStateSemaphore) {
 			ActiveState_updateState(); 
-			GameEngine_playWaka();
+			ActiveState_playSound();
 			updateStateSemaphore = FALSE;
 		} 
 		if (needInitialDraw) {

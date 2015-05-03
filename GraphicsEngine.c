@@ -138,16 +138,16 @@ uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR] = {
 
 
 sprite p = {1, BOARD_SIZE_UD - 2, RIGHT, {pacman_u, pacman_d, pacman_l, pacman_r}, 5, 5, RIGHT, 
-						&GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, PACMAN, EMPTY, FALSE, 0};
+						&GameEngine_pacmanUpdateMotion,1, BOARD_SIZE_UD - 2, &GameEngine_pacmanUpdatePosition, TRUE, TRUE, PACMAN, EMPTY, FALSE, 0, 0, FALSE, 0};
 sprite rg = {1, 1, RIGHT, {r_ghost, r_ghost, r_ghost, r_ghost}, 5, 4, RIGHT,
-						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
+						&GameEngine_ghostUpdateMotion,1, 1,&GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost, 0, FALSE, ghost_eyes};
 sprite bg = {BOARD_SIZE_LR - 2, 1, RIGHT,
 						 {light_blue_ghost, light_blue_ghost, light_blue_ghost, light_blue_ghost}, 5, 4, RIGHT, 
-						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
+						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, 1, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost, 0, FALSE, ghost_eyes};
 sprite og = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {orange_ghost, orange_ghost, orange_ghost, orange_ghost}, 5, 4, RIGHT, 
-						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
+						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost, 0, FALSE, ghost_eyes};
 sprite pg = {BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, RIGHT, {purple_ghost, purple_ghost, purple_ghost, purple_ghost}, 5, 4, RIGHT, 
-						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost};
+						&GameEngine_ghostUpdateMotion,BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2, &GameEngine_ghostUpdatePosition, TRUE, TRUE, GHOST, DOT, FALSE, blue_ghost, 0, FALSE, ghost_eyes};
 sprite* sprites[NUM_SPRITES] = {&p, &rg, &bg, &og, &pg};
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
@@ -198,7 +198,11 @@ void drawSprite(sprite* s){
 											y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
 											s->vuln_bmp, s->width, s->height);
 		
-	} else {
+	} else if (s->eyes) {
+		ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + s->in_motion * Heartbeat_count * directions[s->motion].hor,
+											y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
+											s->eyes_bmp, s->width, s->height);
+	} else		{
 		ST7735_DrawBitmap(x_pix + DRAW_BITMAP_OFFSET_X + s->in_motion * Heartbeat_count * directions[s->motion].hor,
 											y_pix + DRAW_BITMAP_OFFSET_Y + s->in_motion * Heartbeat_count * directions[s->motion].vert,
 											s->bmp[s->motion], s->width, s->height);
