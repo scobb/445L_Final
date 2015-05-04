@@ -50,6 +50,8 @@ void GameEngine_Init(){
 // reset sprites to their requisite corners
 void GameEngine_reset(){
 	uint8_t i;
+	p.motion = RIGHT;
+	p.scheduled_motion = RIGHT;
 	p.bmp[RIGHT] = pacman_r;
 	board[p.y][p.x] = EMPTY;
 	p.x = PACMAN_INITIAL_X;
@@ -238,8 +240,6 @@ void GameEngine_pacmanUpdatePosition(sprite* this) {
 					break;
 				}
 			}
-			ST7735_SetCursor(0, 0);
-			printf("P");
 			collideWithGhost(sprites[i]);
 			
 		} break;
@@ -262,8 +262,6 @@ void GameEngine_ghostUpdatePosition(sprite* this) {
 	GameEngine_updatePositionCommon(this);
 	// check collision, kill pacman
 	if (board[this->y][this->x] == PACMAN) {
-			ST7735_SetCursor(0, 0);
-			printf("G");
 			collideWithGhost(this);
 	}
 	

@@ -373,7 +373,7 @@ void GraphicsEngine_drawScore(void){
 }
 void GraphicsEngine_drawBoard(void){
 	// set initial position, number of ghosts, dots
-	uint8_t i, j, x_pix, y_pix;
+	uint8_t i, j;
 	
 	//We need to first clear the screen
 	ST7735_FillScreen(0);
