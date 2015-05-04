@@ -86,6 +86,7 @@ void ScoreEngine_displayScores(){
 		while (buffer[i] != 0){
 			char c = buffer[i];
 			if (c != ','){
+				if (c == '!') break;
 				//digit, so let's add it to a string
 				scores[total_index][index] = c;
 				index++;
@@ -120,11 +121,11 @@ void ScoreEngine_displayScores(){
 		//Means we finished a game
 		uint8_t found_score = FALSE;
 		for (i = 0; i < total_index+1; i++){
-			if (i < total_index && atoi(scores[i]) > score){
+			if ((i < total_index && atoi(scores[i]) > score) || found_score){
 				//This means we print the score we read in
 				printf("%s\n", scores[i]);
 			}
-			else if (i < total_index && atoi(scores[i]) <= score){
+			else if (i < total_index && atoi(scores[i]) <= score && !found_score){
 				printf("%u\n", score);
 				printf("%s\n", scores[i]);
 				found_score = TRUE;
@@ -135,16 +136,55 @@ void ScoreEngine_displayScores(){
 		}
 	}
 	
-	/*
-	Fresult = f_open(&Handle, "scores.txt", FA_READ);
+	Fresult = f_open(&Handle, "scores.txt", FA_WRITE);
 	if (Fresult == FR_OK){
-		i = 0;
-		for (i; i < total_index; i++){
+		uint8_t found_score = FALSE;
+		for (i = 0; i < total_index; i++){
+			char current_score[7];
+			int j;
 			
+			if (atoi(scores[i]) <= score && !found_score){
+				//We need to put our score in first
+				char our_score[7];
+				int j;
+				sprintf(our_score, "%u", score);
+				while (our_score[j] != 0) j++;
+				our_score[j] = ',';
+				j++;
+				/*
+				for (; j < 7; j++){
+					our_score[j] = 0;
+				}
+				*/
+				f_write(&Handle, our_score, j, &writes);
+				found_score = TRUE;
+			}
+			
+			for (j = 0; j < 7; j++){
+				if (scores[i][j] != 0) current_score[j] = scores[i][j];
+				else {
+					//We need to put a comma here
+					current_score[j] = ',';
+					break;
+				}
+			}
+			f_write(&Handle, current_score, ++j, &writes);
 		}
-	printf("total_index: %u\n", total_index);
-	for (i = 0; i < total_index; i++){
-		printf("%s\n", scores[i]);
+		
+		if (!found_score && score != 0){
+			char our_score[7];
+			int j;
+			sprintf(our_score, "%u", score);
+			while (our_score[j] != 0) j++;
+			our_score[j] = ',';
+			for (; j < 7; j++){
+				our_score[j] = 0;
+			}
+			f_write(&Handle, our_score, 7, &writes);
+		}
+		
+		//Write the sentinel
+		f_write(&Handle, "!", 1, &writes);
 	}
-	*/
+	Fresult = f_close(&Handle);
 }
