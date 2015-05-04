@@ -69,14 +69,16 @@ void ScoreEngine_displayFinalScore(){
 
 void ScoreEngine_displayScores(){
 	//f_open and f_read/f_write
-	unsigned char current_score[5];
+	unsigned char current_score[6];
+	unsigned char* scores[512];
 	uint8_t index = 0;
+	uint32_t total_index = 0;
+	int i = 0;
 	
 	ST7735_FillScreen(0);
 	Fresult = f_open(&Handle, "scores.txt", FA_READ);
 	Fresult = f_read(&Handle, buffer, 512, &reads);
 	if (Fresult == FR_OK){
-		int i = 0;
 		while (buffer[i] != 0){
 			char c = buffer[i];
 			if (c != ','){
@@ -91,13 +93,23 @@ void ScoreEngine_displayScores(){
 						current_score[index] = 0;
 					}
 				}
+				current_score[5] = 0;
 				printf("%s\n", current_score);
+				scores[total_index] = current_score;
+				total_index++;
 				index = 0;
 			}
 			i++;
 		}
 	}
 	else {
-		
+		printf("We're sorry, the scores on the \nSD card were too high to print to \nthis screen.");
+	}
+	Fresult = f_close(&Handle);
+	
+	//Now let's loop through and print to the screen
+	i = 0;
+	for (i; i < total_index; i++){
+		printf("%s\n", scores[i]);
 	}
 }
