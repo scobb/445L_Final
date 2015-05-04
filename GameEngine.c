@@ -44,7 +44,7 @@ int8_t num_lives = 0;
 // public functions
 void GameEngine_Init(){
 	// spare lives
-	num_lives = 0;
+	num_lives = 2;
 }
 
 // reset sprites to their requisite corners

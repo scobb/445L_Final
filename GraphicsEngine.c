@@ -371,11 +371,10 @@ void GraphicsEngine_drawScore(void){
 }
 void GraphicsEngine_drawBoard(void){
 	// set initial position, number of ghosts, dots
-	uint8_t i, j;
+	uint8_t i, j, old_x, old_y;
 	
 	//We need to first clear the screen
 	ST7735_FillScreen(0);
-	
 	for (i = 0; i < BOARD_SIZE_UD; ++i){
 		for (j = 0; j < BOARD_SIZE_LR; ++j){
 			if (board[i][j] == DOT) { 
@@ -391,6 +390,11 @@ void GraphicsEngine_drawBoard(void){
 	}
 	for (i = 0; i < NUM_SPRITES; ++i){
 		drawSprite(sprites[i]);
+	}
+	for (i = 0; i < num_lives; ++i){
+		ST7735_DrawBitmap(120 - 6 * i,
+											10,
+											pacman_r, 5, 6);
 	}
 }
 
