@@ -80,6 +80,8 @@ void ScoreEngine_displayScores(){
 	int i = 0;
 	
 	ST7735_FillScreen(0);
+	ST7735_SetCursor(0, 0);
+	printf("High Scores");
 	Fresult = f_open(&Handle, "scores.txt", FA_READ);
 	Fresult = f_read(&Handle, buffer, 512, &reads);
 	if (Fresult == FR_OK){
