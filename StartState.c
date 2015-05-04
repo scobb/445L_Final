@@ -44,6 +44,7 @@ void StartState_startPressed(void){
 		music_stop();
 	}
 	if (cursorLocation == TOP){
+		GameEngine_Init();
 		GameEngine_reset();
 		GraphicsEngine_initBoard();
 		playing = FALSE;

@@ -80,6 +80,7 @@ void StopState_startPressed(void){
 				die_play = FALSE;
 				die_done = FALSE;
 				death_step = 0;
+				see_scores = FALSE;
 				ActiveState_set(&TopScores);
 			}
 		}
