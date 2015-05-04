@@ -94,7 +94,7 @@ void ScoreEngine_displayScores(){
 					}
 				}
 				current_score[5] = 0;
-				printf("%s\n", current_score);
+				//printf("%s\n", current_score);
 				scores[total_index] = current_score;
 				total_index++;
 				index = 0;
@@ -109,7 +109,38 @@ void ScoreEngine_displayScores(){
 	
 	//Now let's loop through and print to the screen
 	i = 0;
-	for (i; i < total_index; i++){
-		printf("%s\n", scores[i]);
+	if (score == 0){
+		//Means we got here from the home screen
+		for (i; i < total_index; i++){
+			printf("%s\n", scores[i]);
+		}
 	}
+	else {
+		//Means we finished a game
+		uint8_t found_score = FALSE;
+		for (i; i < total_index+1; i++){
+			if (i < total_index && atoi(scores[i]) > score){
+				//This means we print the score we read in
+				printf("%s\n", scores[i]);
+			}
+			else if (i < total_index && atoi(scores[i]) <= score){
+				printf("%u\n", score);
+				printf("%s\n", scores[i]);
+				found_score = TRUE;
+			}
+			else if (!found_score && i == total_index){
+				printf("%u\n", score);
+			}
+		}
+	}
+	
+	/*
+	Fresult = f_open(&Handle, "scores.txt", FA_READ);
+	if (Fresult == FR_OK){
+		i = 0;
+		for (i; i < total_index; i++){
+			
+		}
+	}
+	*/
 }
