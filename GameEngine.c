@@ -43,8 +43,8 @@ int8_t num_lives = 0;
 
 // public functions
 void GameEngine_Init(){
-	//ActiveState_set(&InGame);
-	num_lives = 3;
+	// spare lives
+	num_lives = 0;
 }
 
 // reset sprites to their requisite corners
@@ -215,7 +215,7 @@ void collideWithGhost(sprite* s){
 void GameEngine_pacmanUpdatePosition(sprite* this) {
 	GameEngine_updatePositionCommon(this);
 	
-	// TODO - check collision, kill pacman, update score, update board
+	// check collision, kill pacman, update score, update board
 	switch (this->stored_code){
 		case DOT : {
 			// increment score
@@ -238,6 +238,8 @@ void GameEngine_pacmanUpdatePosition(sprite* this) {
 					break;
 				}
 			}
+			ST7735_SetCursor(0, 0);
+			printf("P");
 			collideWithGhost(sprites[i]);
 			
 		} break;
@@ -258,8 +260,10 @@ void GameEngine_ghostUpdatePosition(sprite* this) {
 		}
 	}
 	GameEngine_updatePositionCommon(this);
-	// TODO - check collision, kill pacman
+	// check collision, kill pacman
 	if (board[this->y][this->x] == PACMAN) {
+			ST7735_SetCursor(0, 0);
+			printf("G");
 			collideWithGhost(this);
 	}
 	

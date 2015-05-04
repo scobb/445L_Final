@@ -109,7 +109,7 @@ void StopState_updateState(void){
 	}
 }
 void StopState_playSound(void){
-	// TODO - pacman death sound
+	// pacman death sound
 	if (!die_play){
 		if (song_playing) music_stop();
 		looped = FALSE;

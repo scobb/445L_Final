@@ -48,7 +48,7 @@ extern sprite rg;
 void ind_to_pix(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix);
 void drawCommon(uint8_t x_ind, uint8_t y_ind, uint8_t* x_pix, uint8_t* y_pix);
 void drawSprite(sprite* s);
-void GraphicsEngine_drawInitBoard(void);
+void GraphicsEngine_initBoard(void);
 void GraphicsEngine_drawBoard(void);
 void GraphicsEngine_drawScore(void);
 void GraphicsEngine_drawTitle(void);

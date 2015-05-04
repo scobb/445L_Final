@@ -6,6 +6,7 @@
 #include "GraphicsEngine.h"
 #include "ScoreEngine.h"
 #include "WavReader.h"
+#include "ST7735.h"
 #ifndef FALSE
 #define FALSE 0
 #define TRUE 1
@@ -43,8 +44,12 @@ void StartState_startPressed(void){
 		music_stop();
 	}
 	if (cursorLocation == TOP){
+		GameEngine_reset();
+		GraphicsEngine_initBoard();
+		playing = FALSE;
 		ActiveState_set(&InGame);
 	} else {
+		playing = FALSE;
 		ActiveState_set(&TopScores);
 	}
 }
