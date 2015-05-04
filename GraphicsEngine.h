@@ -48,6 +48,7 @@ void drawSprite(sprite* s);
 void GraphicsEngine_drawInitBoard(void);
 void GraphicsEngine_drawBoard(void);
 void GraphicsEngine_drawScore(void);
+void GraphicsEngine_drawTitle(void);
 extern uint8_t board[BOARD_SIZE_UD][BOARD_SIZE_LR];
 #endif
 

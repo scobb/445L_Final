@@ -20,6 +20,7 @@ typedef struct {
 
 // variables
 extern TopLevelState InGame;
+extern uint8_t eat_ghost;
 
 // interface methods
 void GameEngine_updateState(void);
@@ -28,7 +29,7 @@ void GameEngine_downPressed(void);
 void GameEngine_rightPressed(void);
 void GameEngine_leftPressed(void);
 void GameEngine_startPressed(void);
-void GameEngine_playWaka(void);
+void GameEngine_playSound(void);
 void GameEngine_drawInitial(void);
 
 

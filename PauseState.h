@@ -4,5 +4,6 @@
 
 extern TopLevelState Paused;
 void PauseState_startPressed(void);
+void PauseState_playSound(void);
 void PauseState_drawInitial(void);
 #endif

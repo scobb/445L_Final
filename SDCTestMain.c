@@ -54,6 +54,7 @@
 #include "WavReader.h"
 #include "SysTick.h"
 #include "ScoreEngine.h"
+#include "StartState.h"
 void EnableInterrupts(void);
 
 //static FATFS g_sFatFs;
@@ -201,7 +202,7 @@ int main(void){
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
 	Output_Init();								// Display, SSI2 enable
-	printf("PACMAN Player 1\n");
+	//printf("PACMAN Player 1\n");
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
 	//looped = TRUE;
@@ -210,7 +211,10 @@ int main(void){
 	music_init();
 	ScoreEngine_init();
   EnableInterrupts();
+	ScoreEngine_displayScores();
+	/*
 	GameEngine_Init();
+	ActiveState_set(&Start);
 	
 	while (1) {
 		if (updateStateSemaphore) {
@@ -225,5 +229,6 @@ int main(void){
 		}
 		
 	}
+	*/
 }
 

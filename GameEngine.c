@@ -9,6 +9,7 @@
 #include "WavReader.h"
 #include "ScoreEngine.h"
 #include "stdio.h"
+#include "StartState.h"
 #include "StopState.h"
 #define VULN_TIMEOUT 30
 long StartCritical (void);    // previous I bit, disable interrupts
@@ -21,7 +22,7 @@ TopLevelState InGame = {
 	&GameEngine_leftPressed,
 	&GameEngine_rightPressed,
 	&GameEngine_startPressed,
-	&GameEngine_playWaka,
+	&GameEngine_playSound,
 	&GameEngine_drawInitial,
 };
 coord directions[4] = {
@@ -32,11 +33,11 @@ coord directions[4] = {
 };
 uint8_t ghosts_vulnerable = FALSE;
 uint8_t wakaing = FALSE;
+uint8_t eat_ghost = FALSE;
 
 // public functions
 void GameEngine_Init(){
-	GraphicsEngine_drawInitBoard();
-	ActiveState_set(&InGame);
+	//ActiveState_set(&InGame);
 	srand(0);
 }
 
@@ -86,8 +87,8 @@ void GameEngine_leftPressed(){
 void GameEngine_startPressed(){
 	ActiveState_set(&Paused);
 }
-extern uint8_t needMore;
-void GameEngine_playWaka(){
+
+void GameEngine_playSound(){
 	// TODO - have at least one active sound wave to step through
 	if (!wakaing){
 		if (song_playing) music_stop();
@@ -95,13 +96,23 @@ void GameEngine_playWaka(){
 		looped = TRUE;
 		music_play("waka.wav");
 	}
+	else {
+		//Need to decide whether we want to keep wakaing or switch songs
+		if (eat_ghost) {
+			if (song_playing) music_stop();
+			wakaing = TRUE;
+			looped = FALSE;
+			music_play("ghost.wav");
+			eat_ghost = FALSE;
+		}
+	}
 	if(needMore){
 		load_more();
 	}
 }
 void GameEngine_drawInitial(){
 	// TODO - full board redraw
-	
+	GraphicsEngine_drawInitBoard();
 }
 void GameEngine_pacmanUpdateMotion(sprite* this) {
 	this->motion = this->scheduled_motion;
@@ -162,6 +173,7 @@ void eatGhost(sprite* s){
 	s->vuln_count = 10;
 	s->vulnerable = FALSE;
 	ScoreEngine_update(GHOST);
+	eat_ghost = TRUE;
 }
 void die(void){
 	ActiveState_set(&Stop);

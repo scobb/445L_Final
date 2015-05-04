@@ -12,8 +12,11 @@
 
 #define FILETESTSIZE 10000
 #define SCORE_SIZE 5
+#define FALSE 0
+#define TRUE 1
 
 uint32_t score;
+uint8_t found_score = FALSE;
 
 void ScoreEngine_init(){
 	score = 0;
@@ -42,6 +45,7 @@ void ScoreEngine_update(uint8_t object){
 
 void ScoreEngine_displayFinalScore(){
 	//The big thing we want to do is move our printf to the middle of the display
+	ST7735_FillScreen(0);
 	ST7735_SetCursor(3, 6);
 	printf("Game Over");
 	ST7735_SetCursor(3, 7);
@@ -66,20 +70,22 @@ void ScoreEngine_displayScores(){
 	Fresult = f_open(&Handle, "scores.txt", FA_READ);
   if(Fresult == FR_OK){
     ST7735_DrawString(0, 0, "Opened scores.txt", ST7735_Color565(0, 0, 255));
-    for(i=0; i<FILETESTSIZE; i++){
+    for(i=0; i<6; i++){
       Fresult = f_read(&Handle, &c, 1, &successfulreads);
       if((successfulreads == 1) && (Fresult == FR_OK)){
         //ST7735_DrawChar(x, y, c, ST7735_Color565(255, 255, 0), 0, 1);
 				if (c == ','){
 					(*currentScore) = 0;
-					currentScore -= counter * (sizeof(counter)) - sizeof(counter);//Should get us to the original pointer
-					*scores = currentScore;
+					currentScore -= (counter+1) * (sizeof(counter)) - sizeof(counter);//Should get us to the original pointer
+					(*scores) = currentScore;
 					counter = 0;
 					totalCounter++;
 				}
-				(*currentScore) = c;
-				counter++;
-				currentScore += sizeof(counter);
+				else {
+					(*currentScore) = c;
+					counter++;
+					currentScore += sizeof(counter);
+				}
 				/*
         x = x + 6;
         if(x > 122){
@@ -111,10 +117,13 @@ void ScoreEngine_displayScores(){
 		long current = strtol(*scores, NULL, 10);
 		if ((uint32_t) current < score){
 			printf("%d\n", score);
+			found_score = TRUE;
 		}
 		printf("%s\n", (*scores));
 		scores += sizeof(*scores);
 	}
+	
+	if (!found_score) printf("%d\n", score);
 	
 	//Now we need to write back
 	Fresult = f_open(&Handle2, "scores.txt", FA_CREATE_ALWAYS|FA_WRITE);
@@ -123,23 +132,23 @@ void ScoreEngine_displayScores(){
 		printf("\n%d\n", Fresult);
     while(1){};
   } else{
-    for(i=0; i<(totalCounter+1); i++){
+    for(i=0; i<totalCounter; i++){
 			char* currScore = (*scores);
 			long current = strtol(currScore, NULL, 10);
 			scores += sizeof (*currScore);
-			if ((uint32_t) current < score){
+			if ((found_score) && (uint32_t) current < score){
 				//We need to write our score in here next, before we do this other score
 				char* ourScore = calloc(SCORE_SIZE*(sizeof(c))+1, (sizeof(c)));
 				sprintf(ourScore, "%d", score);
-				c = (*currScore);
+				c = (*ourScore);
 				while (c){
 					Fresult = f_write(&Handle2, &c, 1, &successfulwrites);
 					if((successfulwrites != 1) || (Fresult != FR_OK)){
 						ST7735_DrawString(0, 0, "f_write error", ST7735_Color565(0, 0, 255));
 						while(1){};
 					}
-					currScore += sizeof(c);
-					c = (*currScore);
+					ourScore += sizeof(c);
+					c = (*ourScore);
 				}
 				//Now that c is 0, we have finished this string, so we need to add a comma
 				c = ',';
@@ -168,6 +177,28 @@ void ScoreEngine_displayScores(){
 				while(1){};
 			}
     }
+		
+		if (!found_score) {
+			char* ourScore = calloc(SCORE_SIZE*(sizeof(c))+1, (sizeof(c)));
+			sprintf(ourScore, "%d", score);
+			c = (*ourScore);
+			while (c){
+				Fresult = f_write(&Handle2, &c, 1, &successfulwrites);
+				if((successfulwrites != 1) || (Fresult != FR_OK)){
+					ST7735_DrawString(0, 0, "f_write error", ST7735_Color565(0, 0, 255));
+					while(1){};
+				}
+				ourScore += sizeof(c);
+				c = (*ourScore);
+			}
+			//Now that c is 0, we have finished this string, so we need to add a comma
+			c = ',';
+			Fresult = f_write(&Handle2, &c, 1, &successfulwrites);
+			if((successfulwrites != 1) || (Fresult != FR_OK)){
+				ST7735_DrawString(0, 0, "f_write error", ST7735_Color565(0, 0, 255));
+				while(1){};
+			}
+		}
     Fresult = f_close(&Handle2);
     if(Fresult){
       ST7735_DrawString(0, 0, "file2 f_close error", ST7735_Color565(0, 0, 255));

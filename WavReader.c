@@ -13,6 +13,7 @@
 #include "integer.h"
 #include <stdio.h>
 #include <string.h>
+#include "GameEngine.h"
 
 //this file was adapted from code from this webpage 
 //http://stackoverflow.com/questions/16075233/reading-and-processing-wav-file-data-in-c-c
@@ -35,7 +36,7 @@ unsigned char buffer[512];
 #define DEATH "die.wav"
 
 //volume is the define statement that sets the volume
-#define VOLUME 4
+#define VOLUME 16
 
 enum WavChunks {
     RiffHeader = 0x46464952,
@@ -105,7 +106,6 @@ char* data_start = 0;
 uint8_t looped;
 uint8_t start_play;
 uint8_t song_playing;
-uint8_t temp_count = 0;
 uint8_t debug = 0;
 
 void music_stop(void){
@@ -148,17 +148,13 @@ void music_play(const char* fileName){
 		current_song = DEATH;
 	}
 	
-	index = 0;
 	sampleNum = 0;
 	needMore = 0;
 	whichBuffer = 1;
-	if (temp_count >= 39){
-		debug = 1;
-	}
 	Fresult = f_open(&Handle, fileName, FA_READ);
 	Fresult = f_read(&Handle, buffer, 512, &successfulreads);
+	index = 0;
 	if(Fresult == FR_OK){
-		temp_count++;
 		while( !datachunk ) {
 				//chunkid = reader.ReadInt32( );
 				start_play = FALSE;
@@ -278,6 +274,11 @@ void load_more(void){
 			music_play(current_song);
 		} else {
 			music_stop();
+			if (!strcmp(current_song, "ghost.wav")){
+				//This needs to immediately translate to waka.wav
+				looped = TRUE;
+				music_play("waka.wav");
+			}
 		}
 	}
 }

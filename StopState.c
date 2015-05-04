@@ -4,6 +4,7 @@
 #include "GameEngine.h"
 #include "ScoreEngine.h"
 #include "ActiveState.h"
+#include "WavReader.h"
 
 #define DEATH_CYCLES 7
 #ifndef TRUE
@@ -51,7 +52,7 @@ const unsigned short pacman_death_7[] = {
 
 };
 
-
+uint8_t die_play = FALSE;
 
 
 const unsigned short* bmps[DEATH_CYCLES] = {pacman_death_1, pacman_death_2, pacman_death_3, pacman_death_4,
@@ -67,8 +68,12 @@ TopLevelState Stop =  {
 	&StopState_playSound,
 	0,
 };
+
+uint8_t see_scores = FALSE;
+
 void StopState_startPressed(void){
 	if (death_step >= DEATH_CYCLES){
+		GraphicsEngine_drawBoard();
 		ActiveState_set(&InGame);
 		// TODO need to write a drawInitial for InGame
 		// TODO need to reset p's bmp
@@ -84,10 +89,22 @@ void StopState_updateState(void){
 		p.bmp[RIGHT] = bmps[death_step++];
 		drawSprite(&p);
 	} else {
-		ScoreEngine_displayFinalScore();
+		if (!see_scores){
+			ScoreEngine_displayFinalScore();
+			see_scores = TRUE;
+		}
 	}
 	// TODO - draw pacman unfold
 }
 void StopState_playSound(void){
 	// TODO - pacman death sound
+	if (!die_play){
+		if (song_playing) music_stop();
+		looped = FALSE;
+		die_play = TRUE;
+		music_play("die.wav");
+	}
+	if(needMore){
+		load_more();
+	}
 }
