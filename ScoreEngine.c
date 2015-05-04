@@ -69,8 +69,8 @@ void ScoreEngine_displayFinalScore(){
 
 void ScoreEngine_displayScores(){
 	//f_open and f_read/f_write
-	unsigned char current_score[6];
-	unsigned char* scores[512];
+	//unsigned char current_score[6];
+	unsigned char scores[25][6];
 	uint8_t index = 0;
 	uint32_t total_index = 0;
 	int i = 0;
@@ -83,19 +83,18 @@ void ScoreEngine_displayScores(){
 			char c = buffer[i];
 			if (c != ','){
 				//digit, so let's add it to a string
-				current_score[index] = c;
+				scores[total_index][index] = c;
 				index++;
 			}
 			else {
 				if (index < 5){
 					//score is lower than 5 digits, so let's fill the back end of this array with 0's
 					for (index; index <= 5; index++){
-						current_score[index] = 0;
+						scores[total_index][index] = 0;
 					}
 				}
-				current_score[5] = 0;
+				scores[total_index][5] = 0;
 				//printf("%s\n", current_score);
-				scores[total_index] = current_score;
 				total_index++;
 				index = 0;
 			}
