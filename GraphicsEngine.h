@@ -2,6 +2,7 @@
 #define _GRAPHICS_ENGINE_H_
 #include "stdint.h"
 #include "TopLevelState.h"
+
 #define VULN_FLASH 20
 typedef struct spriteStruct{
 	uint8_t x;
@@ -39,6 +40,8 @@ typedef struct spriteStruct{
 #define BIGDOT 4
 #define WALL 5
 #define FRUIT 6
+#define PACMAN_INITIAL_X 1
+#define PACMAN_INITIAL_Y BOARD_SIZE_UD - 2
 extern sprite* sprites[NUM_SPRITES];
 extern sprite p;
 extern sprite rg;

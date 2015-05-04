@@ -18,9 +18,12 @@ typedef struct {
 	int8_t vert;
 } coord;
 
+extern const coord ghost_init[4];
 // variables
 extern TopLevelState InGame;
 extern uint8_t eat_ghost;
+extern int8_t num_lives;
+extern const unsigned short pacman_r[];
 
 // interface methods
 void GameEngine_updateState(void);
@@ -38,6 +41,7 @@ void GameEngine_drawInitial(void);
 void GameEngine_Init(void);
 void GameEngine_update(void);
 void GameEngine_redraw(void);
+void GameEngine_reset(void);
 void GameEngine_updatePlayerMotion(uint8_t dir);
 void GameEngine_pacmanUpdateMotion(sprite* s);
 void GameEngine_pacmanUpdatePosition(sprite* s);

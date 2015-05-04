@@ -74,13 +74,16 @@ uint8_t see_scores = FALSE;
 
 void StopState_startPressed(void){
 	if (death_step >= DEATH_CYCLES){
-		GraphicsEngine_drawBoard();
-		ActiveState_set(&InGame);
-		// TODO need to write a drawInitial for InGame
-		// TODO need to reset p's bmp
+		if ( see_scores && die_done ) {
+			if (num_lives == 0){
+				// display top scores
+				die_play = FALSE;
+				die_done = FALSE;
+				death_step = 0;
+				ActiveState_set(&TopScores);
+			}
+		}
 	}
-	// TODO - are we done with death animation?
-	// TODO - if so, redirect appropriately
 }
 void StopState_updateState(void){
 	ST7735_SetCursor(0, 0);
@@ -91,8 +94,17 @@ void StopState_updateState(void){
 		drawSprite(&p);
 	} else {
 		if (!see_scores && die_done){
-			ScoreEngine_displayFinalScore();
-			see_scores = TRUE;
+			if (num_lives > 0) {
+				--num_lives;
+				GameEngine_reset();
+				die_done = FALSE;
+				die_play = FALSE;
+				death_step = 0;
+				ActiveState_set(&InGame);
+			} else {
+				ScoreEngine_displayFinalScore();
+				see_scores = TRUE;
+			}
 		}
 	}
 }

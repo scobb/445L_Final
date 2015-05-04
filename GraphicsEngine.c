@@ -406,22 +406,12 @@ void GraphicsEngine_drawBoard(void){
 	//ST7735_DrawBitmap(BOARD_START_X, BOARD_END_Y, pacmanmap_96, BOARD_SIZE_LR_PIX, BOARD_SIZE_UD_PIX);
 	for (i = 0; i < BOARD_SIZE_UD; ++i){
 		for (j = 0; j < BOARD_SIZE_LR; ++j){
-			if (board[i][j] == EMPTY){
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_DrawPixel(x_pix, y_pix + 4, ST7735_WHITE);
-			} else if (board[i][j] == PACMAN) { 
-				//do nothing
-			} else if (board[i][j] == GHOST) {
-				//do nothing
-			} else if (board[i][j] == DOT) { 
+			if (board[i][j] == DOT) { 
 				drawDot(j, i);
 			} else if (board[i][j] == BIGDOT) {
-				//We need to figure out the best way to draw a big dot. For now, I will leave it as a small dot
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_DrawPixel(x_pix, y_pix, ST7735_WHITE);
+				drawBigDot(j, i);
 			} else if (board[i][j] == WALL) {
-				ind_to_pix(j, i, &x_pix, &y_pix);
-				ST7735_FillRect(x_pix -2, y_pix + 2, SQUARE_WIDTH, SQUARE_HEIGHT, ST7735_BLUE);
+				drawWall(j, i);
 			} else if (board[i][j] == FRUIT) {
 				//probably do nothing. we may just draw the fruit along with Pacman and the ghosts outside of this loops
 			}

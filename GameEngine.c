@@ -14,7 +14,12 @@
 #define VULN_TIMEOUT 30
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
-
+const coord ghost_init[4] = {
+	{1, 1},
+	{BOARD_SIZE_LR - 2, 1},
+	{BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2},
+	{BOARD_SIZE_LR - 2, BOARD_SIZE_UD - 2}
+};
 TopLevelState InGame = {
 	&GameEngine_updateState,
 	&GameEngine_upPressed,
@@ -34,13 +39,33 @@ coord directions[4] = {
 uint8_t ghosts_vulnerable = FALSE;
 uint8_t wakaing = FALSE;
 uint8_t eat_ghost = FALSE;
+int8_t num_lives = 0;
 
 // public functions
 void GameEngine_Init(){
 	//ActiveState_set(&InGame);
-	srand(0);
+	num_lives = 3;
 }
 
+// reset sprites to their requisite corners
+void GameEngine_reset(){
+	uint8_t i;
+	p.bmp[RIGHT] = pacman_r;
+	board[p.y][p.x] = EMPTY;
+	p.x = PACMAN_INITIAL_X;
+	p.y = PACMAN_INITIAL_Y;
+	board[p.y][p.x] = PACMAN;
+	for (i = 1; i < NUM_SPRITES;++i){
+		if (sprites[i]->stored_code == PACMAN || sprites[i]->stored_code == GHOST){
+			board[sprites[i]->y][sprites[i]->x] = EMPTY;
+		} else {
+			board[sprites[i]->y][sprites[i]->x] = sprites[i]->stored_code;
+		}
+		sprites[i]->x = ghost_init[i - 1].hor;
+		sprites[i]->y = ghost_init[i - 1].vert;
+		board[sprites[i]->y][sprites[i]->x] = sprites[i]->code;
+	}
+}
 void GameEngine_updateState(){
 	uint8_t i;
 	GraphicsEngine_drawScore();
@@ -89,7 +114,7 @@ void GameEngine_startPressed(){
 }
 
 void GameEngine_playSound(){
-	// TODO - have at least one active sound wave to step through
+	// have at least one active sound wave to step through
 	if (!wakaing){
 		if (song_playing) music_stop();
 		wakaing = TRUE;
@@ -111,12 +136,11 @@ void GameEngine_playSound(){
 	}
 }
 void GameEngine_drawInitial(){
-	// TODO - full board redraw
-	GraphicsEngine_drawInitBoard();
+	// full board redraw
+	GraphicsEngine_drawBoard();
 }
 void GameEngine_pacmanUpdateMotion(sprite* this) {
 	this->motion = this->scheduled_motion;
-	//GameEngine_playWaka();
 }
 void GameEngine_ghostUpdateMotion(sprite* this) {
 	uint8_t i;
@@ -176,6 +200,7 @@ void eatGhost(sprite* s){
 	eat_ghost = TRUE;
 }
 void die(void){
+	wakaing = FALSE;
 	ActiveState_set(&Stop);
 }
 void collideWithGhost(sprite* s){
