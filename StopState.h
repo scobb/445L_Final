@@ -4,6 +4,7 @@
 #include "stdint.h"
 extern TopLevelState Stop;
 extern uint8_t see_scores;
+extern uint8_t die_done;
 void StopState_startPressed(void);
 void StopState_upPressed(void);
 void StopState_downPressed(void);

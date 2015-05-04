@@ -53,6 +53,7 @@ const unsigned short pacman_death_7[] = {
 };
 
 uint8_t die_play = FALSE;
+uint8_t die_done = FALSE;
 
 
 const unsigned short* bmps[DEATH_CYCLES] = {pacman_death_1, pacman_death_2, pacman_death_3, pacman_death_4,
@@ -89,12 +90,11 @@ void StopState_updateState(void){
 		p.bmp[RIGHT] = bmps[death_step++];
 		drawSprite(&p);
 	} else {
-		if (!see_scores){
+		if (!see_scores && die_done){
 			ScoreEngine_displayFinalScore();
 			see_scores = TRUE;
 		}
 	}
-	// TODO - draw pacman unfold
 }
 void StopState_playSound(void){
 	// TODO - pacman death sound

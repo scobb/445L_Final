@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "GameEngine.h"
+#include "StopState.h"
 
 //this file was adapted from code from this webpage 
 //http://stackoverflow.com/questions/16075233/reading-and-processing-wav-file-data-in-c-c
@@ -111,8 +112,10 @@ uint8_t debug = 0;
 void music_stop(void){
 	Fresult = f_close(&Handle);
 	TIMER2_CTL_R = 0x00000000;
-	//if (!looped) free(f_name);
 	song_playing = FALSE;
+	if (!strcmp(current_song, "die.wav")){
+		die_done = TRUE;
+	}
 }
 
 void music_play(const char* fileName){

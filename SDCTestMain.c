@@ -211,8 +211,7 @@ int main(void){
 	music_init();
 	ScoreEngine_init();
   EnableInterrupts();
-	ScoreEngine_displayScores();
-	/*
+	//ScoreEngine_displayScores();
 	GameEngine_Init();
 	ActiveState_set(&Start);
 	
@@ -229,6 +228,6 @@ int main(void){
 		}
 		
 	}
-	*/
+	
 }
 
