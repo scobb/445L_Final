@@ -35,11 +35,19 @@ Section Cross References
     sdctestmain.o(i.main) refers to heartbeat.o(i.Heartbeat_Init) for Heartbeat_Init
     sdctestmain.o(i.main) refers to buttonmanager.o(i.ButtonManager_Init) for ButtonManager_Init
     sdctestmain.o(i.main) refers to st7735.o(i.Output_Init) for Output_Init
-    sdctestmain.o(i.main) refers to printf3.o(i.__0printf$3) for __2printf
     sdctestmain.o(i.main) refers to max5353.o(i.DAC_Init) for DAC_Init
     sdctestmain.o(i.main) refers to frequencytimer.o(i.FrequencyTimer_Init) for FrequencyTimer_Init
-    sdctestmain.o(i.main) refers to sdctestmain.o(i.music_test) for music_test
-    sdctestmain.o(i.main) refers to wavreader.o(.data) for looped
+    sdctestmain.o(i.main) refers to wavreader.o(i.music_init) for music_init
+    sdctestmain.o(i.main) refers to scoreengine.o(i.ScoreEngine_init) for ScoreEngine_init
+    sdctestmain.o(i.main) refers to startup.o(.text) for EnableInterrupts
+    sdctestmain.o(i.main) refers to gameengine.o(i.GameEngine_Init) for GameEngine_Init
+    sdctestmain.o(i.main) refers to activestate.o(i.ActiveState_set) for ActiveState_set
+    sdctestmain.o(i.main) refers to activestate.o(i.ActiveState_updateState) for ActiveState_updateState
+    sdctestmain.o(i.main) refers to activestate.o(i.ActiveState_playSound) for ActiveState_playSound
+    sdctestmain.o(i.main) refers to activestate.o(i.ActiveState_drawInitial) for ActiveState_drawInitial
+    sdctestmain.o(i.main) refers to startstate.o(.data) for Start
+    sdctestmain.o(i.main) refers to heartbeat.o(.data) for updateStateSemaphore
+    sdctestmain.o(i.main) refers to activestate.o(.data) for needInitialDraw
     sdctestmain.o(i.music_test) refers to wavreader.o(i.music_init) for music_init
     sdctestmain.o(i.music_test) refers to wavreader.o(i.music_play) for music_play
     sdctestmain.o(i.music_test) refers to wavreader.o(i.load_more) for load_more
@@ -156,34 +164,42 @@ Section Cross References
     st7735.o(i.setAddrWindow) refers to st7735.o(i.writecommand) for writecommand
     st7735.o(i.setAddrWindow) refers to st7735.o(i.writedata) for writedata
     st7735.o(i.setAddrWindow) refers to st7735.o(.data) for ColStart
-    gameengine.o(i.GameEngine_Init) refers to graphicsengine.o(i.GraphicsEngine_drawInitBoard) for GraphicsEngine_drawInitBoard
-    gameengine.o(i.GameEngine_Init) refers to activestate.o(i.ActiveState_set) for ActiveState_set
     gameengine.o(i.GameEngine_Init) refers to rand.o(.text) for srand
-    gameengine.o(i.GameEngine_Init) refers to gameengine.o(.data) for InGame
     gameengine.o(i.GameEngine_downPressed) refers to gameengine.o(i.scheduleIfValidDirection) for scheduleIfValidDirection
+    gameengine.o(i.GameEngine_drawInitial) refers to graphicsengine.o(i.GraphicsEngine_drawInitBoard) for GraphicsEngine_drawInitBoard
     gameengine.o(i.GameEngine_ghostUpdateMotion) refers to gameengine.o(i.isValidDirection) for isValidDirection
     gameengine.o(i.GameEngine_ghostUpdateMotion) refers to rand.o(.text) for rand
     gameengine.o(i.GameEngine_ghostUpdatePosition) refers to gameengine.o(i.GameEngine_updatePositionCommon) for GameEngine_updatePositionCommon
-    gameengine.o(i.GameEngine_ghostUpdatePosition) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
-    gameengine.o(i.GameEngine_ghostUpdatePosition) refers to printf3.o(i.__0printf$3) for __2printf
+    gameengine.o(i.GameEngine_ghostUpdatePosition) refers to gameengine.o(i.collideWithGhost) for collideWithGhost
     gameengine.o(i.GameEngine_ghostUpdatePosition) refers to graphicsengine.o(.data) for board
     gameengine.o(i.GameEngine_leftPressed) refers to gameengine.o(i.scheduleIfValidDirection) for scheduleIfValidDirection
     gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to gameengine.o(i.GameEngine_updatePositionCommon) for GameEngine_updatePositionCommon
-    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
-    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to printf3.o(i.__0printf$3) for __2printf
-    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to graphicsengine.o(.data) for board
+    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to scoreengine.o(i.ScoreEngine_update) for ScoreEngine_update
+    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to gameengine.o(i.bigDotEaten) for bigDotEaten
+    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to gameengine.o(i.collideWithGhost) for collideWithGhost
+    gameengine.o(i.GameEngine_pacmanUpdatePosition) refers to graphicsengine.o(.data) for sprites
+    gameengine.o(i.GameEngine_playSound) refers to wavreader.o(i.music_stop) for music_stop
     gameengine.o(i.GameEngine_playSound) refers to wavreader.o(i.music_play) for music_play
     gameengine.o(i.GameEngine_playSound) refers to wavreader.o(i.load_more) for load_more
-    gameengine.o(i.GameEngine_playSound) refers to wavreader.o(.data) for needMore
+    gameengine.o(i.GameEngine_playSound) refers to gameengine.o(.data) for wakaing
+    gameengine.o(i.GameEngine_playSound) refers to wavreader.o(.data) for song_playing
     gameengine.o(i.GameEngine_rightPressed) refers to gameengine.o(i.scheduleIfValidDirection) for scheduleIfValidDirection
     gameengine.o(i.GameEngine_startPressed) refers to activestate.o(i.ActiveState_set) for ActiveState_set
     gameengine.o(i.GameEngine_startPressed) refers to pausestate.o(.data) for Paused
     gameengine.o(i.GameEngine_upPressed) refers to gameengine.o(i.scheduleIfValidDirection) for scheduleIfValidDirection
     gameengine.o(i.GameEngine_updatePositionCommon) refers to graphicsengine.o(.data) for board
     gameengine.o(i.GameEngine_updatePositionCommon) refers to gameengine.o(.data) for directions
+    gameengine.o(i.GameEngine_updateState) refers to graphicsengine.o(i.GraphicsEngine_drawScore) for GraphicsEngine_drawScore
     gameengine.o(i.GameEngine_updateState) refers to graphicsengine.o(i.drawSprite) for drawSprite
     gameengine.o(i.GameEngine_updateState) refers to heartbeat.o(.data) for Heartbeat_count
     gameengine.o(i.GameEngine_updateState) refers to graphicsengine.o(.data) for sprites
+    gameengine.o(i.bigDotEaten) refers to graphicsengine.o(.data) for sprites
+    gameengine.o(i.collideWithGhost) refers to gameengine.o(i.eatGhost) for eatGhost
+    gameengine.o(i.collideWithGhost) refers to gameengine.o(i.die) for die
+    gameengine.o(i.die) refers to activestate.o(i.ActiveState_set) for ActiveState_set
+    gameengine.o(i.die) refers to stopstate.o(.data) for Stop
+    gameengine.o(i.eatGhost) refers to scoreengine.o(i.ScoreEngine_update) for ScoreEngine_update
+    gameengine.o(i.eatGhost) refers to gameengine.o(.data) for eat_ghost
     gameengine.o(i.isValidDirection) refers to gameengine.o(.data) for directions
     gameengine.o(i.isValidDirection) refers to graphicsengine.o(.data) for board
     gameengine.o(i.scheduleIfValidDirection) refers to gameengine.o(i.isValidDirection) for isValidDirection
@@ -427,10 +443,13 @@ Section Cross References
     activestate.o(i.ActiveState_startPressed) refers to activestate.o(.data) for activeState
     activestate.o(i.ActiveState_upPressed) refers to activestate.o(.data) for activeState
     activestate.o(i.ActiveState_updateState) refers to activestate.o(.data) for activeState
+    pausestate.o(i.PauseState_playSound) refers to wavreader.o(i.music_stop) for music_stop
+    pausestate.o(i.PauseState_playSound) refers to wavreader.o(.data) for song_playing
     pausestate.o(i.PauseState_startPressed) refers to activestate.o(i.ActiveState_set) for ActiveState_set
     pausestate.o(i.PauseState_startPressed) refers to activestate.o(i.ActiveState_get) for ActiveState_get
     pausestate.o(i.PauseState_startPressed) refers to gameengine.o(.data) for InGame
     pausestate.o(.data) refers to pausestate.o(i.PauseState_startPressed) for PauseState_startPressed
+    pausestate.o(.data) refers to pausestate.o(i.PauseState_playSound) for PauseState_playSound
     pausestate.o(.data) refers to pausestate.o(i.PauseState_drawInitial) for PauseState_drawInitial
     graphicsengine.o(i.GraphicsEngine_drawBoard) refers to st7735.o(i.ST7735_FillScreen) for ST7735_FillScreen
     graphicsengine.o(i.GraphicsEngine_drawBoard) refers to graphicsengine.o(i.ind_to_pix) for ind_to_pix
@@ -438,14 +457,26 @@ Section Cross References
     graphicsengine.o(i.GraphicsEngine_drawBoard) refers to graphicsengine.o(i.drawDot) for drawDot
     graphicsengine.o(i.GraphicsEngine_drawBoard) refers to st7735.o(i.ST7735_FillRect) for ST7735_FillRect
     graphicsengine.o(i.GraphicsEngine_drawBoard) refers to graphicsengine.o(.data) for board
+    graphicsengine.o(i.GraphicsEngine_drawCursor) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
+    graphicsengine.o(i.GraphicsEngine_drawCursor) refers to printf3.o(i.__0printf$3) for __2printf
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to st7735.o(i.ST7735_FillScreen) for ST7735_FillScreen
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(i.ind_to_pix) for ind_to_pix
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to st7735.o(i.ST7735_DrawPixel) for ST7735_DrawPixel
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(i.drawDot) for drawDot
-    graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to st7735.o(i.ST7735_FillRect) for ST7735_FillRect
+    graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(i.drawBigDot) for drawBigDot
+    graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(i.drawWall) for drawWall
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(i.drawSprite) for drawSprite
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(.constdata) for init_board
     graphicsengine.o(i.GraphicsEngine_drawInitBoard) refers to graphicsengine.o(.data) for sprites
+    graphicsengine.o(i.GraphicsEngine_drawScore) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
+    graphicsengine.o(i.GraphicsEngine_drawScore) refers to scoreengine.o(i.ScoreEngine_getScore) for ScoreEngine_getScore
+    graphicsengine.o(i.GraphicsEngine_drawScore) refers to printf3.o(i.__0printf$3) for __2printf
+    graphicsengine.o(i.GraphicsEngine_drawTitle) refers to st7735.o(i.ST7735_DrawBitmap) for ST7735_DrawBitmap
+    graphicsengine.o(i.GraphicsEngine_drawTitle) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
+    graphicsengine.o(i.GraphicsEngine_drawTitle) refers to printf3.o(i.__0printf$3) for __2printf
+    graphicsengine.o(i.GraphicsEngine_drawTitle) refers to graphicsengine.o(.constdata) for pacman_title
+    graphicsengine.o(i.drawBigDot) refers to graphicsengine.o(i.ind_to_pix) for ind_to_pix
+    graphicsengine.o(i.drawBigDot) refers to st7735.o(i.ST7735_FillRect) for ST7735_FillRect
     graphicsengine.o(i.drawCommon) refers to graphicsengine.o(i.ind_to_pix) for ind_to_pix
     graphicsengine.o(i.drawDot) refers to graphicsengine.o(i.ind_to_pix) for ind_to_pix
     graphicsengine.o(i.drawDot) refers to st7735.o(i.ST7735_DrawPixel) for ST7735_DrawPixel
@@ -456,13 +487,34 @@ Section Cross References
     graphicsengine.o(i.drawSprite) refers to graphicsengine.o(.data) for board
     graphicsengine.o(i.drawSprite) refers to heartbeat.o(.data) for Heartbeat_count
     graphicsengine.o(i.drawSprite) refers to gameengine.o(.data) for directions
+    graphicsengine.o(i.drawWall) refers to graphicsengine.o(i.ind_to_pix) for ind_to_pix
+    graphicsengine.o(i.drawWall) refers to st7735.o(i.ST7735_FillRect) for ST7735_FillRect
     graphicsengine.o(.data) refers to graphicsengine.o(.constdata) for pacman_u
     graphicsengine.o(.data) refers to gameengine.o(i.GameEngine_pacmanUpdateMotion) for GameEngine_pacmanUpdateMotion
     graphicsengine.o(.data) refers to gameengine.o(i.GameEngine_pacmanUpdatePosition) for GameEngine_pacmanUpdatePosition
     graphicsengine.o(.data) refers to gameengine.o(i.GameEngine_ghostUpdateMotion) for GameEngine_ghostUpdateMotion
     graphicsengine.o(.data) refers to gameengine.o(i.GameEngine_ghostUpdatePosition) for GameEngine_ghostUpdatePosition
-    startstate.o(i.StartState_downPressed) refers to startstate.o(.data) for cursorLocation
-    startstate.o(i.StartState_upPressed) refers to startstate.o(.data) for cursorLocation
+    startstate.o(i.StartState_downPressed) refers to startstate.o(i.swapCursor) for swapCursor
+    startstate.o(i.StartState_downPressed) refers to startstate.o(.data) for needRedraw
+    startstate.o(i.StartState_drawInitial) refers to graphicsengine.o(i.GraphicsEngine_drawTitle) for GraphicsEngine_drawTitle
+    startstate.o(i.StartState_drawInitial) refers to graphicsengine.o(i.GraphicsEngine_drawCursor) for GraphicsEngine_drawCursor
+    startstate.o(i.StartState_drawInitial) refers to startstate.o(.data) for cursorLocation
+    startstate.o(i.StartState_playSound) refers to wavreader.o(i.music_stop) for music_stop
+    startstate.o(i.StartState_playSound) refers to wavreader.o(i.music_play) for music_play
+    startstate.o(i.StartState_playSound) refers to wavreader.o(i.load_more) for load_more
+    startstate.o(i.StartState_playSound) refers to startstate.o(.data) for playing
+    startstate.o(i.StartState_playSound) refers to wavreader.o(.data) for song_playing
+    startstate.o(i.StartState_startPressed) refers to wavreader.o(i.music_stop) for music_stop
+    startstate.o(i.StartState_startPressed) refers to activestate.o(i.ActiveState_set) for ActiveState_set
+    startstate.o(i.StartState_startPressed) refers to wavreader.o(.data) for song_playing
+    startstate.o(i.StartState_startPressed) refers to startstate.o(.data) for cursorLocation
+    startstate.o(i.StartState_startPressed) refers to gameengine.o(.data) for InGame
+    startstate.o(i.StartState_startPressed) refers to scoreengine.o(.data) for TopScores
+    startstate.o(i.StartState_upPressed) refers to startstate.o(i.swapCursor) for swapCursor
+    startstate.o(i.StartState_upPressed) refers to startstate.o(.data) for needRedraw
+    startstate.o(i.StartState_updateState) refers to graphicsengine.o(i.GraphicsEngine_drawCursor) for GraphicsEngine_drawCursor
+    startstate.o(i.StartState_updateState) refers to startstate.o(.data) for needRedraw
+    startstate.o(i.swapCursor) refers to startstate.o(.data) for cursorLocation
     startstate.o(.data) refers to startstate.o(i.StartState_updateState) for StartState_updateState
     startstate.o(.data) refers to startstate.o(i.StartState_upPressed) for StartState_upPressed
     startstate.o(.data) refers to startstate.o(i.StartState_downPressed) for StartState_downPressed
@@ -471,6 +523,21 @@ Section Cross References
     startstate.o(.data) refers to startstate.o(i.StartState_drawInitial) for StartState_drawInitial
     pregamestate.o(.data) refers to pregamestate.o(i.PregameState_updateState) for PregameState_updateState
     pregamestate.o(.data) refers to pregamestate.o(i.PregameState_drawInitial) for PregameState_drawInitial
+    stopstate.o(i.StopState_playSound) refers to wavreader.o(i.music_stop) for music_stop
+    stopstate.o(i.StopState_playSound) refers to wavreader.o(i.music_play) for music_play
+    stopstate.o(i.StopState_playSound) refers to wavreader.o(i.load_more) for load_more
+    stopstate.o(i.StopState_playSound) refers to stopstate.o(.data) for die_play
+    stopstate.o(i.StopState_playSound) refers to wavreader.o(.data) for song_playing
+    stopstate.o(i.StopState_startPressed) refers to graphicsengine.o(i.GraphicsEngine_drawBoard) for GraphicsEngine_drawBoard
+    stopstate.o(i.StopState_startPressed) refers to activestate.o(i.ActiveState_set) for ActiveState_set
+    stopstate.o(i.StopState_startPressed) refers to stopstate.o(.data) for death_step
+    stopstate.o(i.StopState_startPressed) refers to gameengine.o(.data) for InGame
+    stopstate.o(i.StopState_updateState) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
+    stopstate.o(i.StopState_updateState) refers to graphicsengine.o(i.drawSprite) for drawSprite
+    stopstate.o(i.StopState_updateState) refers to scoreengine.o(i.ScoreEngine_displayFinalScore) for ScoreEngine_displayFinalScore
+    stopstate.o(i.StopState_updateState) refers to graphicsengine.o(.data) for p
+    stopstate.o(i.StopState_updateState) refers to stopstate.o(.data) for death_step
+    stopstate.o(.data) refers to stopstate.o(.constdata) for pacman_death_1
     stopstate.o(.data) refers to stopstate.o(i.StopState_updateState) for StopState_updateState
     stopstate.o(.data) refers to stopstate.o(i.StopState_startPressed) for StopState_startPressed
     stopstate.o(.data) refers to stopstate.o(i.StopState_playSound) for StopState_playSound
@@ -489,17 +556,15 @@ Section Cross References
     wavreader.o(i.load_more) refers to ff.o(i.f_read) for f_read
     wavreader.o(i.load_more) refers to wavreader.o(i.music_play) for music_play
     wavreader.o(i.load_more) refers to wavreader.o(i.music_stop) for music_stop
+    wavreader.o(i.load_more) refers to strcmp.o(.text) for strcmp
     wavreader.o(i.load_more) refers to wavreader.o(.data) for needMore
     wavreader.o(i.load_more) refers to wavreader.o(.bss) for secondbuffer
     wavreader.o(i.music_init) refers to ff.o(i.f_mount) for f_mount
     wavreader.o(i.music_init) refers to max5353.o(i.DAC_Init) for DAC_Init
     wavreader.o(i.music_init) refers to wavreader.o(.bss) for g_sFatFs
     wavreader.o(i.music_init) refers to wavreader.o(.data) for MountFresult
-    wavreader.o(i.music_play) refers to strcmp.o(.text) for strcmp
     wavreader.o(i.music_play) refers to wavreader.o(i.music_stop) for music_stop
-    wavreader.o(i.music_play) refers to strlen.o(.text) for strlen
-    wavreader.o(i.music_play) refers to malloc.o(i.malloc) for malloc
-    wavreader.o(i.music_play) refers to memcpya.o(.text) for __aeabi_memcpy
+    wavreader.o(i.music_play) refers to strcmp.o(.text) for strcmp
     wavreader.o(i.music_play) refers to ff.o(i.f_open) for f_open
     wavreader.o(i.music_play) refers to ff.o(i.f_read) for f_read
     wavreader.o(i.music_play) refers to timer2a.o(i.Timer2A_Init) for Timer2A_Init
@@ -507,33 +572,34 @@ Section Cross References
     wavreader.o(i.music_play) refers to wavreader.o(.bss) for Handle
     wavreader.o(i.music_play) refers to wavreader.o(i.handler) for handler
     wavreader.o(i.music_stop) refers to ff.o(i.f_close) for f_close
-    wavreader.o(i.music_stop) refers to malloc.o(i.free) for free
+    wavreader.o(i.music_stop) refers to strcmp.o(.text) for strcmp
     wavreader.o(i.music_stop) refers to wavreader.o(.bss) for Handle
     wavreader.o(i.music_stop) refers to wavreader.o(.data) for Fresult
+    wavreader.o(i.music_stop) refers to stopstate.o(.data) for die_done
     timer2a.o(i.Timer2A_Handler) refers to timer2a.o(.data) for TimerTask
     timer2a.o(i.Timer2A_Init) refers to startup.o(.text) for StartCritical
     timer2a.o(i.Timer2A_Init) refers to timer2a.o(.data) for TimerTask
+    scoreengine.o(i.ScoreEngine_displayFinalScore) refers to st7735.o(i.ST7735_FillScreen) for ST7735_FillScreen
     scoreengine.o(i.ScoreEngine_displayFinalScore) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
     scoreengine.o(i.ScoreEngine_displayFinalScore) refers to printf3.o(i.__0printf$3) for __2printf
     scoreengine.o(i.ScoreEngine_displayFinalScore) refers to scoreengine.o(.data) for score
-    scoreengine.o(i.ScoreEngine_displayScores) refers to calloc.o(.text) for calloc
-    scoreengine.o(i.ScoreEngine_displayScores) refers to printf3.o(i.__0printf$3) for __2printf
+    scoreengine.o(i.ScoreEngine_displayScores) refers to st7735.o(i.ST7735_FillScreen) for ST7735_FillScreen
     scoreengine.o(i.ScoreEngine_displayScores) refers to ff.o(i.f_open) for f_open
-    scoreengine.o(i.ScoreEngine_displayScores) refers to st7735.o(i.ST7735_Color565) for ST7735_Color565
-    scoreengine.o(i.ScoreEngine_displayScores) refers to st7735.o(i.ST7735_DrawString) for ST7735_DrawString
     scoreengine.o(i.ScoreEngine_displayScores) refers to ff.o(i.f_read) for f_read
-    scoreengine.o(i.ScoreEngine_displayScores) refers to st7735.o(i.ST7735_SetCursor) for ST7735_SetCursor
-    scoreengine.o(i.ScoreEngine_displayScores) refers to st7735.o(i.ST7735_SetTextColor) for ST7735_SetTextColor
-    scoreengine.o(i.ScoreEngine_displayScores) refers to st7735.o(i.ST7735_OutUDec) for ST7735_OutUDec
+    scoreengine.o(i.ScoreEngine_displayScores) refers to printf3.o(i.__0printf$3) for __2printf
     scoreengine.o(i.ScoreEngine_displayScores) refers to ff.o(i.f_close) for f_close
-    scoreengine.o(i.ScoreEngine_displayScores) refers to strtol.o(.text) for strtol
-    scoreengine.o(i.ScoreEngine_displayScores) refers to printf3.o(i.__0sprintf$3) for __2sprintf
-    scoreengine.o(i.ScoreEngine_displayScores) refers to ff.o(i.f_write) for f_write
+    scoreengine.o(i.ScoreEngine_displayScores) refers to atoi.o(.text) for atoi
     scoreengine.o(i.ScoreEngine_displayScores) refers to wavreader.o(.bss) for Handle
     scoreengine.o(i.ScoreEngine_displayScores) refers to wavreader.o(.data) for Fresult
-    scoreengine.o(i.ScoreEngine_displayScores) refers to scoreengine.o(.data) for score
+    scoreengine.o(i.ScoreEngine_displayScores) refers to scoreengine.o(.data) for reads
+    scoreengine.o(i.ScoreEngine_displayScores) refers to scoreengine.o(.constdata) for .constdata
+    scoreengine.o(i.ScoreEngine_getScore) refers to scoreengine.o(.data) for score
     scoreengine.o(i.ScoreEngine_init) refers to scoreengine.o(.data) for score
+    scoreengine.o(i.ScoreEngine_startPressed) refers to activestate.o(i.ActiveState_set) for ActiveState_set
+    scoreengine.o(i.ScoreEngine_startPressed) refers to startstate.o(.data) for Start
     scoreengine.o(i.ScoreEngine_update) refers to scoreengine.o(.data) for score
+    scoreengine.o(.data) refers to scoreengine.o(i.ScoreEngine_startPressed) for ScoreEngine_startPressed
+    scoreengine.o(.data) refers to scoreengine.o(i.ScoreEngine_displayScores) for ScoreEngine_displayScores
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
@@ -778,42 +844,8 @@ Section Cross References
     printfa.o(i._printf_pre_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
     printfa.o(i._snputc) refers (Special) to iusefp.o(.text) for __I$use$fp
     printfa.o(i._sputc) refers (Special) to iusefp.o(.text) for __I$use$fp
-    malloc.o(i.free) refers to mvars.o(.data) for __microlib_freelist
-    malloc.o(i.malloc) refers to mvars.o(.data) for __microlib_freelist_initialised
-    malloc.o(i.malloc) refers to mvars.o(.data) for __microlib_freelist
-    malloc.o(i.malloc) refers to startup.o(HEAP) for __heap_base
-    mallocr.o(i.__free$realloc) refers to mvars.o(.data) for __microlib_freelist
-    mallocr.o(i.__malloc$realloc) refers to mallocr.o(i.internal_alloc) for internal_alloc
-    mallocr.o(i.__malloc$realloc) refers to mvars.o(.data) for __microlib_freelist_initialised
-    mallocr.o(i.__malloc$realloc) refers to startup.o(HEAP) for __heap_base
-    mallocr.o(i.__malloc$realloc) refers to mvars.o(.data) for __microlib_freelist
-    mallocr.o(i.internal_alloc) refers to memcpya.o(.text) for __aeabi_memcpy
-    mallocr.o(i.internal_alloc) refers to mvars.o(.data) for __microlib_freelist
-    mallocr.o(i.realloc) refers to mallocr.o(i.__free$realloc) for __free$realloc
-    mallocr.o(i.realloc) refers to mallocr.o(i.internal_alloc) for internal_alloc
-    mallocr.o(i.realloc) refers to mallocr.o(i.__malloc$realloc) for __malloc$realloc
-    mallocr.o(i.realloc) refers to mvars.o(.data) for __microlib_freelist
-    malloca.o(i.__aligned_malloc) refers to mvars.o(.data) for __microlib_freelist_initialised
-    malloca.o(i.__aligned_malloc) refers to mvars.o(.data) for __microlib_freelist
-    malloca.o(i.__aligned_malloc) refers to startup.o(HEAP) for __heap_base
-    malloca.o(i.__free$memalign) refers to mvars.o(.data) for __microlib_freelist
-    malloca.o(i.__malloc$memalign) refers to malloca.o(i.__aligned_malloc) for __aligned_malloc
-    mallocra.o(i.__aligned_malloc$realloc) refers to mallocra.o(i.internal_alloc) for internal_alloc
-    mallocra.o(i.__aligned_malloc$realloc) refers to mvars.o(.data) for __microlib_freelist_initialised
-    mallocra.o(i.__aligned_malloc$realloc) refers to startup.o(HEAP) for __heap_base
-    mallocra.o(i.__aligned_malloc$realloc) refers to mvars.o(.data) for __microlib_freelist
-    mallocra.o(i.__free$realloc$memalign) refers to mvars.o(.data) for __microlib_freelist
-    mallocra.o(i.__malloc$realloc$memalign) refers to mallocra.o(i.__aligned_malloc$realloc) for __aligned_malloc$realloc
-    mallocra.o(i.__realloc$memalign) refers to mallocra.o(i.__free$realloc$memalign) for __free$realloc$memalign
-    mallocra.o(i.__realloc$memalign) refers to mallocra.o(i.internal_alloc) for internal_alloc
-    mallocra.o(i.__realloc$memalign) refers to mallocra.o(i.__malloc$realloc$memalign) for __malloc$realloc$memalign
-    mallocra.o(i.__realloc$memalign) refers to mvars.o(.data) for __microlib_freelist
-    mallocra.o(i.internal_alloc) refers to memcpya.o(.text) for __aeabi_memcpy
-    mallocra.o(i.internal_alloc) refers to mvars.o(.data) for __microlib_freelist
-    calloc.o(.text) refers to malloc.o(i.malloc) for malloc
-    strtol.o(.text) refers to ctype_o.o(.text) for __rt_ctype_table
-    strtol.o(.text) refers to _strtoul.o(.text) for _strtoul
-    strtol.o(.text) refers to errno.o(i.__aeabi_errno_addr) for __aeabi_errno_addr
+    atoi.o(.text) refers to errno.o(i.__aeabi_errno_addr) for __aeabi_errno_addr
+    atoi.o(.text) refers to strtol.o(.text) for strtol
     entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
     entry2.o(.ARM.Collect$$$$00002712) refers to startup.o(STACK) for __initial_sp
     entry2.o(__vectab_stack_and_reset_area) refers to startup.o(STACK) for __initial_sp
@@ -823,6 +855,20 @@ Section Cross References
     entry9b.o(.ARM.Collect$$$$0000000C) refers to sdctestmain.o(i.main) for main
     uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
     uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    errno.o(i.__aeabi_errno_addr) refers to errno.o(.data) for .data
+    errno.o(i.__read_errno) refers to errno.o(.data) for .data
+    errno.o(i.__set_errno) refers to errno.o(.data) for .data
+    strtol.o(.text) refers to ctype_o.o(.text) for __rt_ctype_table
+    strtol.o(.text) refers to _strtoul.o(.text) for _strtoul
+    strtol.o(.text) refers to errno.o(i.__aeabi_errno_addr) for __aeabi_errno_addr
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    dfixul.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dfixul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
     ctype_o.o(.text) refers to ctype_o.o(.constdata) for .constdata
     ctype_o.o(.constdata) refers to ctype_o.o(.constdata) for __ctype_table
     isalnum_o.o(.text) refers to ctype_o.o(.text) for __rt_ctype_table
@@ -837,19 +883,8 @@ Section Cross References
     isspace_o.o(.text) refers to ctype_o.o(.text) for __rt_ctype_table
     isupper_o.o(.text) refers to ctype_o.o(.text) for __rt_ctype_table
     isxdigit_o.o(.text) refers to ctype_o.o(.text) for __rt_ctype_table
-    errno.o(i.__aeabi_errno_addr) refers to errno.o(.data) for .data
-    errno.o(i.__read_errno) refers to errno.o(.data) for .data
-    errno.o(i.__set_errno) refers to errno.o(.data) for .data
     _strtoul.o(.text) refers to _chval.o(.text) for _chval
     _strtoul.o(.text) refers to errno.o(i.__aeabi_errno_addr) for __aeabi_errno_addr
-    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
-    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
-    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
-    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
-    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
-    dfixul.o(.text) refers to llushr.o(.text) for __aeabi_llsr
-    dfixul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
-    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
     depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
     depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
 
@@ -858,15 +893,16 @@ Section Cross References
 
 Removing Unused input sections from the image.
 
+    Removing startup.o(HEAP), (0 bytes).
     Removing sdctestmain.o(i.FileSystemTest), (736 bytes).
     Removing sdctestmain.o(i.diskError), (176 bytes).
+    Removing sdctestmain.o(i.music_test), (40 bytes).
     Removing sdctestmain.o(.constdata), (17 bytes).
     Removing st7735.o(i.Output_Clear), (10 bytes).
     Removing st7735.o(i.Output_Color), (12 bytes).
     Removing st7735.o(i.Output_Off), (8 bytes).
     Removing st7735.o(i.Output_On), (8 bytes).
     Removing st7735.o(i.ST7735_Color565), (24 bytes).
-    Removing st7735.o(i.ST7735_DrawBitmap), (288 bytes).
     Removing st7735.o(i.ST7735_DrawChar), (268 bytes).
     Removing st7735.o(i.ST7735_DrawFastHLine), (124 bytes).
     Removing st7735.o(i.ST7735_DrawFastVLine), (124 bytes).
@@ -889,23 +925,6 @@ Removing Unused input sections from the image.
     Removing st7735.o(i.fgetc), (6 bytes).
     Removing st7735.o(i.fillmessage), (72 bytes).
     Removing st7735.o(.bss), (12 bytes).
-    Removing gameengine.o(i.GameEngine_Init), (24 bytes).
-    Removing gameengine.o(i.GameEngine_downPressed), (10 bytes).
-    Removing gameengine.o(i.GameEngine_drawInitial), (2 bytes).
-    Removing gameengine.o(i.GameEngine_ghostUpdateMotion), (68 bytes).
-    Removing gameengine.o(i.GameEngine_ghostUpdatePosition), (96 bytes).
-    Removing gameengine.o(i.GameEngine_leftPressed), (10 bytes).
-    Removing gameengine.o(i.GameEngine_pacmanUpdateMotion), (6 bytes).
-    Removing gameengine.o(i.GameEngine_pacmanUpdatePosition), (172 bytes).
-    Removing gameengine.o(i.GameEngine_playSound), (36 bytes).
-    Removing gameengine.o(i.GameEngine_rightPressed), (10 bytes).
-    Removing gameengine.o(i.GameEngine_startPressed), (16 bytes).
-    Removing gameengine.o(i.GameEngine_upPressed), (10 bytes).
-    Removing gameengine.o(i.GameEngine_updatePositionCommon), (232 bytes).
-    Removing gameengine.o(i.GameEngine_updateState), (92 bytes).
-    Removing gameengine.o(i.isValidDirection), (96 bytes).
-    Removing gameengine.o(i.scheduleIfValidDirection), (24 bytes).
-    Removing gameengine.o(.data), (41 bytes).
     Removing max5353.o(i.DAC_Out2), (44 bytes).
     Removing frequencytimer.o(i.FrequencyTimer_arm), (68 bytes).
     Removing frequencytimer.o(i.FrequencyTimer_disarm), (52 bytes).
@@ -932,41 +951,10 @@ Removing Unused input sections from the image.
     Removing ff.o(i.f_write), (470 bytes).
     Removing ff.o(i.get_fileinfo), (116 bytes).
     Removing ff.o(.constdata), (44 bytes).
-    Removing activestate.o(i.ActiveState_drawInitial), (32 bytes).
-    Removing activestate.o(i.ActiveState_get), (12 bytes).
-    Removing activestate.o(i.ActiveState_set), (44 bytes).
-    Removing activestate.o(i.ActiveState_updateState), (32 bytes).
-    Removing pausestate.o(i.PauseState_drawInitial), (2 bytes).
-    Removing pausestate.o(i.PauseState_startPressed), (24 bytes).
-    Removing pausestate.o(.data), (32 bytes).
-    Removing graphicsengine.o(i.GraphicsEngine_drawBoard), (256 bytes).
-    Removing graphicsengine.o(i.GraphicsEngine_drawInitBoard), (280 bytes).
-    Removing graphicsengine.o(i.drawCommon), (24 bytes).
-    Removing graphicsengine.o(i.drawDot), (38 bytes).
-    Removing graphicsengine.o(i.drawSprite), (252 bytes).
-    Removing graphicsengine.o(i.ind_to_pix), (24 bytes).
-    Removing graphicsengine.o(.constdata), (1008 bytes).
-    Removing graphicsengine.o(.data), (640 bytes).
-    Removing startstate.o(i.StartState_downPressed), (28 bytes).
-    Removing startstate.o(i.StartState_drawInitial), (2 bytes).
-    Removing startstate.o(i.StartState_playSound), (2 bytes).
-    Removing startstate.o(i.StartState_startPressed), (2 bytes).
-    Removing startstate.o(i.StartState_upPressed), (28 bytes).
-    Removing startstate.o(i.StartState_updateState), (2 bytes).
-    Removing startstate.o(.data), (36 bytes).
     Removing pregamestate.o(i.PregameState_drawInitial), (2 bytes).
     Removing pregamestate.o(i.PregameState_updateState), (2 bytes).
     Removing pregamestate.o(.data), (32 bytes).
-    Removing stopstate.o(i.StopState_playSound), (2 bytes).
-    Removing stopstate.o(i.StopState_startPressed), (2 bytes).
-    Removing stopstate.o(i.StopState_updateState), (2 bytes).
-    Removing stopstate.o(.data), (32 bytes).
     Removing wavreader.o(i.handler2), (244 bytes).
-    Removing scoreengine.o(i.ScoreEngine_displayFinalScore), (68 bytes).
-    Removing scoreengine.o(i.ScoreEngine_displayScores), (952 bytes).
-    Removing scoreengine.o(i.ScoreEngine_init), (12 bytes).
-    Removing scoreengine.o(i.ScoreEngine_update), (72 bytes).
-    Removing scoreengine.o(.data), (4 bytes).
     Removing dadd.o(.text), (334 bytes).
     Removing dmul.o(.text), (228 bytes).
     Removing ddiv.o(.text), (222 bytes).
@@ -974,7 +962,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (40 bytes).
     Removing depilogue.o(.text), (190 bytes).
 
-115 unused section(s) (total 15314 bytes) removed from the image.
+68 unused section(s) (total 10175 bytes) removed from the image.
 
 ==============================================================================
 
@@ -985,66 +973,61 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      644  startup.o(RESET)
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalnum_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isblank_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalpha_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  iscntrl_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ispunct_o.o ABSOLUTE
+    ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isdigit_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isgraph_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  islower_o.o ABSOLUTE
-    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isprint_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalnum_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isalpha_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isxdigit_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  iscntrl_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ctype_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isupper_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  ispunct_o.o ABSOLUTE
     ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isspace_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isprint_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  islower_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isgraph_o.o ABSOLUTE
+    ../clib/microlib/ctype/ctype.c           0x00000000   Number         0  isblank_o.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/microlib/malloc/calloc.c         0x00000000   Number         0  calloc.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
-    ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
     ../clib/microlib/stdlib/rand.c           0x00000000   Number         0  rand.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/strcmp.c         0x00000000   Number         0  strcmp.o ABSOLUTE
-    ../clib/microlib/string/strlen.c         0x00000000   Number         0  strlen.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
-    ../clib/scanf.c                          0x00000000   Number         0  strtol.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  _chval.o ABSOLUTE
     ../clib/scanf.c                          0x00000000   Number         0  _strtoul.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  strtol.o ABSOLUTE
+    ../clib/scanf.c                          0x00000000   Number         0  atoi.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
@@ -1090,168 +1073,233 @@ Image Symbol Table
     .emb_text                                0x00000298   Section        6  st7735.o(.emb_text)
     .text                                    0x000002a0   Section       28  startup.o(.text)
     .text                                    0x000002bc   Section        0  llushr.o(.text)
-    .text                                    0x000002dc   Section        0  memcpya.o(.text)
-    .text                                    0x00000300   Section        0  strlen.o(.text)
-    .text                                    0x0000030e   Section        0  strcmp.o(.text)
-    .text                                    0x0000032a   Section        0  uidiv.o(.text)
-    .text                                    0x00000358   Section       36  init.o(.text)
-    i.ActiveState_downPressed                0x0000037c   Section        0  activestate.o(i.ActiveState_downPressed)
-    i.ActiveState_leftPressed                0x0000039c   Section        0  activestate.o(i.ActiveState_leftPressed)
-    i.ActiveState_playSound                  0x000003bc   Section        0  activestate.o(i.ActiveState_playSound)
-    i.ActiveState_rightPressed               0x000003dc   Section        0  activestate.o(i.ActiveState_rightPressed)
-    i.ActiveState_startPressed               0x000003fc   Section        0  activestate.o(i.ActiveState_startPressed)
-    i.ActiveState_upPressed                  0x00000414   Section        0  activestate.o(i.ActiveState_upPressed)
-    i.ButtonManager_Init                     0x00000434   Section        0  buttonmanager.o(i.ButtonManager_Init)
-    i.CS_Init                                0x00000440   Section        0  diskio.o(i.CS_Init)
-    i.CheckDebounce                          0x000004ec   Section        0  buttonmanager.o(i.CheckDebounce)
-    i.DAC_Init                               0x0000052c   Section        0  max5353.o(i.DAC_Init)
-    i.DAC_Out                                0x000005d0   Section        0  max5353.o(i.DAC_Out)
-    i.DC_Init                                0x000005e8   Section        0  st7735.o(i.DC_Init)
-    i.Delay1ms                               0x00000678   Section        0  st7735.o(i.Delay1ms)
-    i.FrequencyTimer_Init                    0x00000690   Section        0  frequencytimer.o(i.FrequencyTimer_Init)
-    i.GPIOPortD_Handler                      0x00000708   Section        0  buttonmanager.o(i.GPIOPortD_Handler)
-    i.GPIOPortE_Handler                      0x0000075c   Section        0  buttonmanager.o(i.GPIOPortE_Handler)
-    i.Heartbeat_Init                         0x000007c4   Section        0  heartbeat.o(i.Heartbeat_Init)
-    i.Heartbeat_blink                        0x00000878   Section        0  heartbeat.o(i.Heartbeat_blink)
-    i.Output_Init                            0x0000088c   Section        0  st7735.o(i.Output_Init)
-    i.PLL_Init                               0x0000089c   Section        0  pll.o(i.PLL_Init)
-    i.PortD_Init                             0x00000918   Section        0  buttonmanager.o(i.PortD_Init)
-    i.PortE_Init                             0x00000a10   Section        0  buttonmanager.o(i.PortE_Init)
-    i.SSI2_Init                              0x00000b08   Section        0  diskio.o(i.SSI2_Init)
-    i.ST7735_DrawCharS                       0x00000c54   Section        0  st7735.o(i.ST7735_DrawCharS)
-    i.ST7735_DrawPixel                       0x00000d48   Section        0  st7735.o(i.ST7735_DrawPixel)
-    i.ST7735_DrawString                      0x00000d90   Section        0  st7735.o(i.ST7735_DrawString)
-    i.ST7735_FillRect                        0x00000de8   Section        0  st7735.o(i.ST7735_FillRect)
-    i.ST7735_FillScreen                      0x00000e94   Section        0  st7735.o(i.ST7735_FillScreen)
-    i.ST7735_InitR                           0x00000eb8   Section        0  st7735.o(i.ST7735_InitR)
-    i.ST7735_OutChar                         0x00000f34   Section        0  st7735.o(i.ST7735_OutChar)
-    i.ST7735_SetCursor                       0x00001008   Section        0  st7735.o(i.ST7735_SetCursor)
-    i.SysTick_Init                           0x00001028   Section        0  systick.o(i.SysTick_Init)
-    i.SysTick_Wait                           0x00001040   Section        0  systick.o(i.SysTick_Wait)
-    i.SysTick_Wait10ms                       0x00001060   Section        0  systick.o(i.SysTick_Wait10ms)
-    i.TIMER1_Init                            0x0000107c   Section        0  heartbeat.o(i.TIMER1_Init)
-    i.Timer0A_Handler                        0x00001110   Section        0  frequencytimer.o(i.Timer0A_Handler)
-    i.Timer1A_Handler                        0x00001124   Section        0  heartbeat.o(i.Timer1A_Handler)
-    i.Timer2A_Handler                        0x00001164   Section        0  timer2a.o(i.Timer2A_Handler)
-    i.Timer2A_Init                           0x0000117c   Section        0  timer2a.o(i.Timer2A_Init)
-    i.Timer5A_Handler                        0x000011f0   Section        0  diskio.o(i.Timer5A_Handler)
-    i.Timer5_Init                            0x00001204   Section        0  diskio.o(i.Timer5_Init)
-    i.__0printf$3                            0x00001270   Section        0  printf3.o(i.__0printf$3)
-    i.__scatterload_copy                     0x00001290   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x0000129e   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x000012a0   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i._printf_core                           0x000012b0   Section        0  printf3.o(i._printf_core)
-    _printf_core                             0x000012b1   Thumb Code   436  printf3.o(i._printf_core)
-    i.check_fs                               0x00001468   Section        0  ff.o(i.check_fs)
-    check_fs                                 0x00001469   Thumb Code   140  ff.o(i.check_fs)
-    i.chk_chr                                0x000014f8   Section        0  ff.o(i.chk_chr)
-    chk_chr                                  0x000014f9   Thumb Code    24  ff.o(i.chk_chr)
-    i.clust2sect                             0x00001510   Section        0  ff.o(i.clust2sect)
-    i.commandList                            0x0000152a   Section        0  st7735.o(i.commandList)
-    commandList                              0x0000152b   Thumb Code    86  st7735.o(i.commandList)
-    i.commonInit                             0x00001580   Section        0  st7735.o(i.commonInit)
-    commonInit                               0x00001581   Thumb Code   514  st7735.o(i.commonInit)
-    i.create_chain                           0x000017c8   Section        0  ff.o(i.create_chain)
-    create_chain                             0x000017c9   Thumb Code   214  ff.o(i.create_chain)
-    i.create_name                            0x000018a0   Section        0  ff.o(i.create_name)
-    create_name                              0x000018a1   Thumb Code   418  ff.o(i.create_name)
-    i.deselect                               0x00001a54   Section        0  diskio.o(i.deselect)
-    deselect                                 0x00001a55   Thumb Code    18  diskio.o(i.deselect)
-    i.dir_alloc                              0x00001a6c   Section        0  ff.o(i.dir_alloc)
-    dir_alloc                                0x00001a6d   Thumb Code    92  ff.o(i.dir_alloc)
-    i.dir_find                               0x00001ac8   Section        0  ff.o(i.dir_find)
-    dir_find                                 0x00001ac9   Thumb Code    92  ff.o(i.dir_find)
-    i.dir_next                               0x00001b24   Section        0  ff.o(i.dir_next)
-    dir_next                                 0x00001b25   Thumb Code   270  ff.o(i.dir_next)
-    i.dir_register                           0x00001c32   Section        0  ff.o(i.dir_register)
-    dir_register                             0x00001c33   Thumb Code    58  ff.o(i.dir_register)
-    i.dir_sdi                                0x00001c6c   Section        0  ff.o(i.dir_sdi)
-    dir_sdi                                  0x00001c6d   Thumb Code   158  ff.o(i.dir_sdi)
-    i.disk_initialize                        0x00001d0c   Section        0  diskio.o(i.disk_initialize)
-    i.disk_ioctl                             0x00001e68   Section        0  diskio.o(i.disk_ioctl)
-    i.disk_read                              0x00002090   Section        0  diskio.o(i.disk_read)
-    i.disk_status                            0x00002120   Section        0  diskio.o(i.disk_status)
-    i.disk_timerproc                         0x00002134   Section        0  diskio.o(i.disk_timerproc)
-    i.disk_write                             0x00002174   Section        0  diskio.o(i.disk_write)
-    i.f_close                                0x00002228   Section        0  ff.o(i.f_close)
-    i.f_mount                                0x00002248   Section        0  ff.o(i.f_mount)
-    i.f_open                                 0x000022a4   Section        0  ff.o(i.f_open)
-    i.f_read                                 0x00002404   Section        0  ff.o(i.f_read)
-    i.f_sync                                 0x000025a4   Section        0  ff.o(i.f_sync)
-    i.find_volume                            0x00002654   Section        0  ff.o(i.find_volume)
-    find_volume                              0x00002655   Thumb Code   890  ff.o(i.find_volume)
-    i.follow_path                            0x000029e0   Section        0  ff.o(i.follow_path)
-    follow_path                              0x000029e1   Thumb Code   176  ff.o(i.follow_path)
-    i.fputc                                  0x00002a90   Section        0  st7735.o(i.fputc)
-    i.free                                   0x00002aa0   Section        0  malloc.o(i.free)
-    i.get_fat                                0x00002af0   Section        0  ff.o(i.get_fat)
-    i.get_ldnumber                           0x00002be2   Section        0  ff.o(i.get_ldnumber)
-    get_ldnumber                             0x00002be3   Thumb Code    74  ff.o(i.get_ldnumber)
-    i.handler                                0x00002c2c   Section        0  wavreader.o(i.handler)
-    i.init_spi                               0x00002d7c   Section        0  diskio.o(i.init_spi)
-    init_spi                                 0x00002d7d   Thumb Code    34  diskio.o(i.init_spi)
-    i.ld_clust                               0x00002da8   Section        0  ff.o(i.ld_clust)
-    ld_clust                                 0x00002da9   Thumb Code    32  ff.o(i.ld_clust)
-    i.load_more                              0x00002dc8   Section        0  wavreader.o(i.load_more)
-    i.main                                   0x00002e70   Section        0  sdctestmain.o(i.main)
-    i.malloc                                 0x00002eb8   Section        0  malloc.o(i.malloc)
-    i.mem_cmp                                0x00002f24   Section        0  ff.o(i.mem_cmp)
-    mem_cmp                                  0x00002f25   Thumb Code    38  ff.o(i.mem_cmp)
-    i.mem_cpy                                0x00002f4a   Section        0  ff.o(i.mem_cpy)
-    mem_cpy                                  0x00002f4b   Thumb Code    26  ff.o(i.mem_cpy)
-    i.mem_set                                0x00002f64   Section        0  ff.o(i.mem_set)
-    mem_set                                  0x00002f65   Thumb Code    20  ff.o(i.mem_set)
-    i.move_window                            0x00002f78   Section        0  ff.o(i.move_window)
-    move_window                              0x00002f79   Thumb Code    52  ff.o(i.move_window)
-    i.music_init                             0x00002fac   Section        0  wavreader.o(i.music_init)
-    i.music_play                             0x00002fd0   Section        0  wavreader.o(i.music_play)
-    i.music_stop                             0x000032ac   Section        0  wavreader.o(i.music_stop)
-    i.music_test                             0x000032e4   Section        0  sdctestmain.o(i.music_test)
-    i.pushColor                              0x0000330c   Section        0  st7735.o(i.pushColor)
-    pushColor                                0x0000330d   Thumb Code    18  st7735.o(i.pushColor)
-    i.put_fat                                0x0000331e   Section        0  ff.o(i.put_fat)
-    i.rcvr_datablock                         0x00003464   Section        0  diskio.o(i.rcvr_datablock)
-    rcvr_datablock                           0x00003465   Thumb Code    66  diskio.o(i.rcvr_datablock)
-    i.rcvr_spi                               0x000034ac   Section        0  diskio.o(i.rcvr_spi)
-    rcvr_spi                                 0x000034ad   Thumb Code    40  diskio.o(i.rcvr_spi)
-    i.rcvr_spi_multi                         0x000034d8   Section        0  diskio.o(i.rcvr_spi_multi)
-    rcvr_spi_multi                           0x000034d9   Thumb Code    24  diskio.o(i.rcvr_spi_multi)
-    i.remove_chain                           0x000034f0   Section        0  ff.o(i.remove_chain)
-    remove_chain                             0x000034f1   Thumb Code   108  ff.o(i.remove_chain)
-    i.select                                 0x0000355c   Section        0  diskio.o(i.select)
-    select                                   0x0000355d   Thumb Code    48  diskio.o(i.select)
-    i.send_cmd                               0x00003594   Section        0  diskio.o(i.send_cmd)
-    send_cmd                                 0x00003595   Thumb Code   150  diskio.o(i.send_cmd)
-    i.setAddrWindow                          0x0000362c   Section        0  st7735.o(i.setAddrWindow)
-    setAddrWindow                            0x0000362d   Thumb Code   106  st7735.o(i.setAddrWindow)
-    i.st_clust                               0x000036a0   Section        0  ff.o(i.st_clust)
-    st_clust                                 0x000036a1   Thumb Code    16  ff.o(i.st_clust)
-    i.sync_fs                                0x000036b0   Section        0  ff.o(i.sync_fs)
-    sync_fs                                  0x000036b1   Thumb Code   200  ff.o(i.sync_fs)
-    i.sync_window                            0x00003778   Section        0  ff.o(i.sync_window)
-    sync_window                              0x00003779   Thumb Code    82  ff.o(i.sync_window)
-    i.validate                               0x000037ca   Section        0  ff.o(i.validate)
-    validate                                 0x000037cb   Thumb Code    54  ff.o(i.validate)
-    i.wait_ready                             0x00003800   Section        0  diskio.o(i.wait_ready)
-    wait_ready                               0x00003801   Thumb Code    42  diskio.o(i.wait_ready)
-    i.writecommand                           0x00003830   Section        0  st7735.o(i.writecommand)
-    writecommand                             0x00003831   Thumb Code    66  st7735.o(i.writecommand)
-    i.writedata                              0x00003888   Section        0  st7735.o(i.writedata)
-    writedata                                0x00003889   Thumb Code    70  st7735.o(i.writedata)
-    i.xchg_spi                               0x000038e4   Section        0  diskio.o(i.xchg_spi)
-    xchg_spi                                 0x000038e5   Thumb Code    48  diskio.o(i.xchg_spi)
-    i.xmit_datablock                         0x00003918   Section        0  diskio.o(i.xmit_datablock)
-    xmit_datablock                           0x00003919   Thumb Code    76  diskio.o(i.xmit_datablock)
-    i.xmit_spi_multi                         0x00003964   Section        0  diskio.o(i.xmit_spi_multi)
-    xmit_spi_multi                           0x00003965   Thumb Code    40  diskio.o(i.xmit_spi_multi)
-    .constdata                               0x00003990   Section       60  buttonmanager.o(.constdata)
-    .constdata                               0x000039cc   Section     2018  st7735.o(.constdata)
-    Font                                     0x000039cc   Data        1275  st7735.o(.constdata)
-    Bcmd                                     0x00003ec7   Data         103  st7735.o(.constdata)
-    Rcmd1                                    0x00003f2e   Data          59  st7735.o(.constdata)
-    Rcmd2green                               0x00003f69   Data          13  st7735.o(.constdata)
-    Rcmd2red                                 0x00003f76   Data          13  st7735.o(.constdata)
-    Rcmd3                                    0x00003f83   Data          43  st7735.o(.constdata)
+    .text                                    0x000002dc   Section        0  rand.o(.text)
+    .text                                    0x00000300   Section        0  memcpya.o(.text)
+    .text                                    0x00000324   Section        0  strcmp.o(.text)
+    .text                                    0x00000340   Section        0  atoi.o(.text)
+    .text                                    0x0000035a   Section        0  uidiv.o(.text)
+    .text                                    0x00000386   Section        0  strtol.o(.text)
+    .text                                    0x000003f8   Section       36  init.o(.text)
+    .text                                    0x0000041c   Section        0  ctype_o.o(.text)
+    .text                                    0x00000424   Section        0  _strtoul.o(.text)
+    .text                                    0x000004c2   Section        0  _chval.o(.text)
+    .text                                    0x000004de   Section        0  __dczerorl2.o(.text)
+    i.ActiveState_downPressed                0x0000053c   Section        0  activestate.o(i.ActiveState_downPressed)
+    i.ActiveState_drawInitial                0x0000055c   Section        0  activestate.o(i.ActiveState_drawInitial)
+    i.ActiveState_get                        0x0000057c   Section        0  activestate.o(i.ActiveState_get)
+    i.ActiveState_leftPressed                0x00000588   Section        0  activestate.o(i.ActiveState_leftPressed)
+    i.ActiveState_playSound                  0x000005a8   Section        0  activestate.o(i.ActiveState_playSound)
+    i.ActiveState_rightPressed               0x000005c8   Section        0  activestate.o(i.ActiveState_rightPressed)
+    i.ActiveState_set                        0x000005e8   Section        0  activestate.o(i.ActiveState_set)
+    i.ActiveState_startPressed               0x00000614   Section        0  activestate.o(i.ActiveState_startPressed)
+    i.ActiveState_upPressed                  0x0000062c   Section        0  activestate.o(i.ActiveState_upPressed)
+    i.ActiveState_updateState                0x0000064c   Section        0  activestate.o(i.ActiveState_updateState)
+    i.ButtonManager_Init                     0x0000066c   Section        0  buttonmanager.o(i.ButtonManager_Init)
+    i.CS_Init                                0x00000678   Section        0  diskio.o(i.CS_Init)
+    i.CheckDebounce                          0x00000724   Section        0  buttonmanager.o(i.CheckDebounce)
+    i.DAC_Init                               0x00000764   Section        0  max5353.o(i.DAC_Init)
+    i.DAC_Out                                0x00000808   Section        0  max5353.o(i.DAC_Out)
+    i.DC_Init                                0x00000820   Section        0  st7735.o(i.DC_Init)
+    i.Delay1ms                               0x000008b0   Section        0  st7735.o(i.Delay1ms)
+    i.FrequencyTimer_Init                    0x000008c8   Section        0  frequencytimer.o(i.FrequencyTimer_Init)
+    i.GPIOPortD_Handler                      0x00000940   Section        0  buttonmanager.o(i.GPIOPortD_Handler)
+    i.GPIOPortE_Handler                      0x00000994   Section        0  buttonmanager.o(i.GPIOPortE_Handler)
+    i.GameEngine_Init                        0x000009f0   Section        0  gameengine.o(i.GameEngine_Init)
+    i.GameEngine_downPressed                 0x000009fa   Section        0  gameengine.o(i.GameEngine_downPressed)
+    i.GameEngine_drawInitial                 0x00000a04   Section        0  gameengine.o(i.GameEngine_drawInitial)
+    i.GameEngine_ghostUpdateMotion           0x00000a0c   Section        0  gameengine.o(i.GameEngine_ghostUpdateMotion)
+    i.GameEngine_ghostUpdatePosition         0x00000a50   Section        0  gameengine.o(i.GameEngine_ghostUpdatePosition)
+    i.GameEngine_leftPressed                 0x00000acc   Section        0  gameengine.o(i.GameEngine_leftPressed)
+    i.GameEngine_pacmanUpdateMotion          0x00000ad6   Section        0  gameengine.o(i.GameEngine_pacmanUpdateMotion)
+    i.GameEngine_pacmanUpdatePosition        0x00000adc   Section        0  gameengine.o(i.GameEngine_pacmanUpdatePosition)
+    i.GameEngine_playSound                   0x00000b6c   Section        0  gameengine.o(i.GameEngine_playSound)
+    i.GameEngine_rightPressed                0x00000bf0   Section        0  gameengine.o(i.GameEngine_rightPressed)
+    i.GameEngine_startPressed                0x00000bfc   Section        0  gameengine.o(i.GameEngine_startPressed)
+    i.GameEngine_upPressed                   0x00000c0c   Section        0  gameengine.o(i.GameEngine_upPressed)
+    i.GameEngine_updatePositionCommon        0x00000c18   Section        0  gameengine.o(i.GameEngine_updatePositionCommon)
+    i.GameEngine_updateState                 0x00000d00   Section        0  gameengine.o(i.GameEngine_updateState)
+    i.GraphicsEngine_drawBoard               0x00000d60   Section        0  graphicsengine.o(i.GraphicsEngine_drawBoard)
+    i.GraphicsEngine_drawCursor              0x00000e60   Section        0  graphicsengine.o(i.GraphicsEngine_drawCursor)
+    i.GraphicsEngine_drawInitBoard           0x00000e98   Section        0  graphicsengine.o(i.GraphicsEngine_drawInitBoard)
+    i.GraphicsEngine_drawScore               0x00000f80   Section        0  graphicsengine.o(i.GraphicsEngine_drawScore)
+    i.GraphicsEngine_drawTitle               0x00000fa8   Section        0  graphicsengine.o(i.GraphicsEngine_drawTitle)
+    i.Heartbeat_Init                         0x00000ff0   Section        0  heartbeat.o(i.Heartbeat_Init)
+    i.Heartbeat_blink                        0x000010a4   Section        0  heartbeat.o(i.Heartbeat_blink)
+    i.Output_Init                            0x000010b8   Section        0  st7735.o(i.Output_Init)
+    i.PLL_Init                               0x000010c8   Section        0  pll.o(i.PLL_Init)
+    i.PauseState_drawInitial                 0x00001144   Section        0  pausestate.o(i.PauseState_drawInitial)
+    i.PauseState_playSound                   0x00001148   Section        0  pausestate.o(i.PauseState_playSound)
+    i.PauseState_startPressed                0x0000115c   Section        0  pausestate.o(i.PauseState_startPressed)
+    i.PortD_Init                             0x00001174   Section        0  buttonmanager.o(i.PortD_Init)
+    i.PortE_Init                             0x0000126c   Section        0  buttonmanager.o(i.PortE_Init)
+    i.SSI2_Init                              0x00001364   Section        0  diskio.o(i.SSI2_Init)
+    i.ST7735_DrawBitmap                      0x000014b0   Section        0  st7735.o(i.ST7735_DrawBitmap)
+    i.ST7735_DrawCharS                       0x000015d0   Section        0  st7735.o(i.ST7735_DrawCharS)
+    i.ST7735_DrawPixel                       0x000016c4   Section        0  st7735.o(i.ST7735_DrawPixel)
+    i.ST7735_DrawString                      0x0000170c   Section        0  st7735.o(i.ST7735_DrawString)
+    i.ST7735_FillRect                        0x00001764   Section        0  st7735.o(i.ST7735_FillRect)
+    i.ST7735_FillScreen                      0x00001810   Section        0  st7735.o(i.ST7735_FillScreen)
+    i.ST7735_InitR                           0x00001834   Section        0  st7735.o(i.ST7735_InitR)
+    i.ST7735_OutChar                         0x000018b0   Section        0  st7735.o(i.ST7735_OutChar)
+    i.ST7735_SetCursor                       0x00001984   Section        0  st7735.o(i.ST7735_SetCursor)
+    i.ScoreEngine_displayFinalScore          0x000019a4   Section        0  scoreengine.o(i.ScoreEngine_displayFinalScore)
+    i.ScoreEngine_displayScores              0x000019f0   Section        0  scoreengine.o(i.ScoreEngine_displayScores)
+    i.ScoreEngine_getScore                   0x00001b4c   Section        0  scoreengine.o(i.ScoreEngine_getScore)
+    i.ScoreEngine_init                       0x00001b58   Section        0  scoreengine.o(i.ScoreEngine_init)
+    i.ScoreEngine_startPressed               0x00001b64   Section        0  scoreengine.o(i.ScoreEngine_startPressed)
+    i.ScoreEngine_update                     0x00001b74   Section        0  scoreengine.o(i.ScoreEngine_update)
+    i.StartState_downPressed                 0x00001bc0   Section        0  startstate.o(i.StartState_downPressed)
+    i.StartState_drawInitial                 0x00001bd4   Section        0  startstate.o(i.StartState_drawInitial)
+    i.StartState_playSound                   0x00001be8   Section        0  startstate.o(i.StartState_playSound)
+    i.StartState_startPressed                0x00001c34   Section        0  startstate.o(i.StartState_startPressed)
+    i.StartState_upPressed                   0x00001c68   Section        0  startstate.o(i.StartState_upPressed)
+    i.StartState_updateState                 0x00001c7c   Section        0  startstate.o(i.StartState_updateState)
+    i.StopState_playSound                    0x00001c98   Section        0  stopstate.o(i.StopState_playSound)
+    i.StopState_startPressed                 0x00001ce0   Section        0  stopstate.o(i.StopState_startPressed)
+    i.StopState_updateState                  0x00001d00   Section        0  stopstate.o(i.StopState_updateState)
+    i.SysTick_Init                           0x00001d68   Section        0  systick.o(i.SysTick_Init)
+    i.SysTick_Wait                           0x00001d80   Section        0  systick.o(i.SysTick_Wait)
+    i.SysTick_Wait10ms                       0x00001da0   Section        0  systick.o(i.SysTick_Wait10ms)
+    i.TIMER1_Init                            0x00001dbc   Section        0  heartbeat.o(i.TIMER1_Init)
+    i.Timer0A_Handler                        0x00001e50   Section        0  frequencytimer.o(i.Timer0A_Handler)
+    i.Timer1A_Handler                        0x00001e64   Section        0  heartbeat.o(i.Timer1A_Handler)
+    i.Timer2A_Handler                        0x00001ea4   Section        0  timer2a.o(i.Timer2A_Handler)
+    i.Timer2A_Init                           0x00001ebc   Section        0  timer2a.o(i.Timer2A_Init)
+    i.Timer5A_Handler                        0x00001f30   Section        0  diskio.o(i.Timer5A_Handler)
+    i.Timer5_Init                            0x00001f44   Section        0  diskio.o(i.Timer5_Init)
+    i.__0printf$3                            0x00001fb0   Section        0  printf3.o(i.__0printf$3)
+    i.__aeabi_errno_addr                     0x00001fd0   Section        0  errno.o(i.__aeabi_errno_addr)
+    i.__scatterload_copy                     0x00001fd8   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00001fe6   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00001fe8   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._printf_core                           0x00001ff8   Section        0  printf3.o(i._printf_core)
+    _printf_core                             0x00001ff9   Thumb Code   436  printf3.o(i._printf_core)
+    i.bigDotEaten                            0x000021b0   Section        0  gameengine.o(i.bigDotEaten)
+    i.check_fs                               0x000021dc   Section        0  ff.o(i.check_fs)
+    check_fs                                 0x000021dd   Thumb Code   140  ff.o(i.check_fs)
+    i.chk_chr                                0x0000226c   Section        0  ff.o(i.chk_chr)
+    chk_chr                                  0x0000226d   Thumb Code    24  ff.o(i.chk_chr)
+    i.clust2sect                             0x00002284   Section        0  ff.o(i.clust2sect)
+    i.collideWithGhost                       0x0000229e   Section        0  gameengine.o(i.collideWithGhost)
+    i.commandList                            0x000022bc   Section        0  st7735.o(i.commandList)
+    commandList                              0x000022bd   Thumb Code    86  st7735.o(i.commandList)
+    i.commonInit                             0x00002314   Section        0  st7735.o(i.commonInit)
+    commonInit                               0x00002315   Thumb Code   514  st7735.o(i.commonInit)
+    i.create_chain                           0x0000255c   Section        0  ff.o(i.create_chain)
+    create_chain                             0x0000255d   Thumb Code   214  ff.o(i.create_chain)
+    i.create_name                            0x00002634   Section        0  ff.o(i.create_name)
+    create_name                              0x00002635   Thumb Code   418  ff.o(i.create_name)
+    i.deselect                               0x000027e8   Section        0  diskio.o(i.deselect)
+    deselect                                 0x000027e9   Thumb Code    18  diskio.o(i.deselect)
+    i.die                                    0x00002800   Section        0  gameengine.o(i.die)
+    i.dir_alloc                              0x00002810   Section        0  ff.o(i.dir_alloc)
+    dir_alloc                                0x00002811   Thumb Code    92  ff.o(i.dir_alloc)
+    i.dir_find                               0x0000286c   Section        0  ff.o(i.dir_find)
+    dir_find                                 0x0000286d   Thumb Code    92  ff.o(i.dir_find)
+    i.dir_next                               0x000028c8   Section        0  ff.o(i.dir_next)
+    dir_next                                 0x000028c9   Thumb Code   270  ff.o(i.dir_next)
+    i.dir_register                           0x000029d6   Section        0  ff.o(i.dir_register)
+    dir_register                             0x000029d7   Thumb Code    58  ff.o(i.dir_register)
+    i.dir_sdi                                0x00002a10   Section        0  ff.o(i.dir_sdi)
+    dir_sdi                                  0x00002a11   Thumb Code   158  ff.o(i.dir_sdi)
+    i.disk_initialize                        0x00002ab0   Section        0  diskio.o(i.disk_initialize)
+    i.disk_ioctl                             0x00002c0c   Section        0  diskio.o(i.disk_ioctl)
+    i.disk_read                              0x00002e34   Section        0  diskio.o(i.disk_read)
+    i.disk_status                            0x00002ec4   Section        0  diskio.o(i.disk_status)
+    i.disk_timerproc                         0x00002ed8   Section        0  diskio.o(i.disk_timerproc)
+    i.disk_write                             0x00002f18   Section        0  diskio.o(i.disk_write)
+    i.drawBigDot                             0x00002fcc   Section        0  graphicsengine.o(i.drawBigDot)
+    i.drawCommon                             0x00002ffa   Section        0  graphicsengine.o(i.drawCommon)
+    i.drawDot                                0x00003012   Section        0  graphicsengine.o(i.drawDot)
+    i.drawSprite                             0x00003038   Section        0  graphicsengine.o(i.drawSprite)
+    i.drawWall                               0x00003208   Section        0  graphicsengine.o(i.drawWall)
+    i.eatGhost                               0x00003238   Section        0  gameengine.o(i.eatGhost)
+    i.f_close                                0x00003268   Section        0  ff.o(i.f_close)
+    i.f_mount                                0x00003288   Section        0  ff.o(i.f_mount)
+    i.f_open                                 0x000032e4   Section        0  ff.o(i.f_open)
+    i.f_read                                 0x00003444   Section        0  ff.o(i.f_read)
+    i.f_sync                                 0x000035e4   Section        0  ff.o(i.f_sync)
+    i.find_volume                            0x00003694   Section        0  ff.o(i.find_volume)
+    find_volume                              0x00003695   Thumb Code   890  ff.o(i.find_volume)
+    i.follow_path                            0x00003a20   Section        0  ff.o(i.follow_path)
+    follow_path                              0x00003a21   Thumb Code   176  ff.o(i.follow_path)
+    i.fputc                                  0x00003ad0   Section        0  st7735.o(i.fputc)
+    i.get_fat                                0x00003ae0   Section        0  ff.o(i.get_fat)
+    i.get_ldnumber                           0x00003bd2   Section        0  ff.o(i.get_ldnumber)
+    get_ldnumber                             0x00003bd3   Thumb Code    74  ff.o(i.get_ldnumber)
+    i.handler                                0x00003c1c   Section        0  wavreader.o(i.handler)
+    i.ind_to_pix                             0x00003d6c   Section        0  graphicsengine.o(i.ind_to_pix)
+    i.init_spi                               0x00003d84   Section        0  diskio.o(i.init_spi)
+    init_spi                                 0x00003d85   Thumb Code    34  diskio.o(i.init_spi)
+    i.isValidDirection                       0x00003db0   Section        0  gameengine.o(i.isValidDirection)
+    i.ld_clust                               0x00003e10   Section        0  ff.o(i.ld_clust)
+    ld_clust                                 0x00003e11   Thumb Code    32  ff.o(i.ld_clust)
+    i.load_more                              0x00003e30   Section        0  wavreader.o(i.load_more)
+    i.main                                   0x00003f10   Section        0  sdctestmain.o(i.main)
+    i.mem_cmp                                0x00003f7c   Section        0  ff.o(i.mem_cmp)
+    mem_cmp                                  0x00003f7d   Thumb Code    38  ff.o(i.mem_cmp)
+    i.mem_cpy                                0x00003fa2   Section        0  ff.o(i.mem_cpy)
+    mem_cpy                                  0x00003fa3   Thumb Code    26  ff.o(i.mem_cpy)
+    i.mem_set                                0x00003fbc   Section        0  ff.o(i.mem_set)
+    mem_set                                  0x00003fbd   Thumb Code    20  ff.o(i.mem_set)
+    i.move_window                            0x00003fd0   Section        0  ff.o(i.move_window)
+    move_window                              0x00003fd1   Thumb Code    52  ff.o(i.move_window)
+    i.music_init                             0x00004004   Section        0  wavreader.o(i.music_init)
+    i.music_play                             0x00004028   Section        0  wavreader.o(i.music_play)
+    i.music_stop                             0x00004350   Section        0  wavreader.o(i.music_stop)
+    i.pushColor                              0x0000439c   Section        0  st7735.o(i.pushColor)
+    pushColor                                0x0000439d   Thumb Code    18  st7735.o(i.pushColor)
+    i.put_fat                                0x000043ae   Section        0  ff.o(i.put_fat)
+    i.rcvr_datablock                         0x000044f4   Section        0  diskio.o(i.rcvr_datablock)
+    rcvr_datablock                           0x000044f5   Thumb Code    66  diskio.o(i.rcvr_datablock)
+    i.rcvr_spi                               0x0000453c   Section        0  diskio.o(i.rcvr_spi)
+    rcvr_spi                                 0x0000453d   Thumb Code    40  diskio.o(i.rcvr_spi)
+    i.rcvr_spi_multi                         0x00004568   Section        0  diskio.o(i.rcvr_spi_multi)
+    rcvr_spi_multi                           0x00004569   Thumb Code    24  diskio.o(i.rcvr_spi_multi)
+    i.remove_chain                           0x00004580   Section        0  ff.o(i.remove_chain)
+    remove_chain                             0x00004581   Thumb Code   108  ff.o(i.remove_chain)
+    i.scheduleIfValidDirection               0x000045ec   Section        0  gameengine.o(i.scheduleIfValidDirection)
+    i.select                                 0x00004604   Section        0  diskio.o(i.select)
+    select                                   0x00004605   Thumb Code    48  diskio.o(i.select)
+    i.send_cmd                               0x0000463c   Section        0  diskio.o(i.send_cmd)
+    send_cmd                                 0x0000463d   Thumb Code   150  diskio.o(i.send_cmd)
+    i.setAddrWindow                          0x000046d4   Section        0  st7735.o(i.setAddrWindow)
+    setAddrWindow                            0x000046d5   Thumb Code   106  st7735.o(i.setAddrWindow)
+    i.st_clust                               0x00004748   Section        0  ff.o(i.st_clust)
+    st_clust                                 0x00004749   Thumb Code    16  ff.o(i.st_clust)
+    i.swapCursor                             0x00004758   Section        0  startstate.o(i.swapCursor)
+    i.sync_fs                                0x00004770   Section        0  ff.o(i.sync_fs)
+    sync_fs                                  0x00004771   Thumb Code   200  ff.o(i.sync_fs)
+    i.sync_window                            0x00004838   Section        0  ff.o(i.sync_window)
+    sync_window                              0x00004839   Thumb Code    82  ff.o(i.sync_window)
+    i.validate                               0x0000488a   Section        0  ff.o(i.validate)
+    validate                                 0x0000488b   Thumb Code    54  ff.o(i.validate)
+    i.wait_ready                             0x000048c0   Section        0  diskio.o(i.wait_ready)
+    wait_ready                               0x000048c1   Thumb Code    42  diskio.o(i.wait_ready)
+    i.writecommand                           0x000048f0   Section        0  st7735.o(i.writecommand)
+    writecommand                             0x000048f1   Thumb Code    66  st7735.o(i.writecommand)
+    i.writedata                              0x00004948   Section        0  st7735.o(i.writedata)
+    writedata                                0x00004949   Thumb Code    70  st7735.o(i.writedata)
+    i.xchg_spi                               0x000049a4   Section        0  diskio.o(i.xchg_spi)
+    xchg_spi                                 0x000049a5   Thumb Code    48  diskio.o(i.xchg_spi)
+    i.xmit_datablock                         0x000049d8   Section        0  diskio.o(i.xmit_datablock)
+    xmit_datablock                           0x000049d9   Thumb Code    76  diskio.o(i.xmit_datablock)
+    i.xmit_spi_multi                         0x00004a24   Section        0  diskio.o(i.xmit_spi_multi)
+    xmit_spi_multi                           0x00004a25   Thumb Code    40  diskio.o(i.xmit_spi_multi)
+    .constdata                               0x00004a50   Section       60  buttonmanager.o(.constdata)
+    .constdata                               0x00004a8c   Section     2018  st7735.o(.constdata)
+    Font                                     0x00004a8c   Data        1275  st7735.o(.constdata)
+    Bcmd                                     0x00004f87   Data         103  st7735.o(.constdata)
+    Rcmd1                                    0x00004fee   Data          59  st7735.o(.constdata)
+    Rcmd2green                               0x00005029   Data          13  st7735.o(.constdata)
+    Rcmd2red                                 0x00005036   Data          13  st7735.o(.constdata)
+    Rcmd3                                    0x00005043   Data          43  st7735.o(.constdata)
+    .constdata                               0x0000526e   Section     5360  graphicsengine.o(.constdata)
+    .constdata                               0x0000675e   Section      350  stopstate.o(.constdata)
+    .constdata                               0x000068bc   Section       80  scoreengine.o(.constdata)
+    .constdata                               0x0000690c   Section      129  ctype_o.o(.constdata)
+    .constdata                               0x00006990   Section        4  ctype_o.o(.constdata)
+    table                                    0x00006990   Data           4  ctype_o.o(.constdata)
     .data                                    0x20000000   Section        2  heartbeat.o(.data)
     .data                                    0x20000004   Section       44  st7735.o(.data)
     _width                                   0x2000000e   Data           2  st7735.o(.data)
@@ -1260,25 +1308,32 @@ Image Symbol Table
     RowStart                                 0x20000019   Data           1  st7735.o(.data)
     Rotation                                 0x2000001a   Data           1  st7735.o(.data)
     TabColor                                 0x2000001b   Data           1  st7735.o(.data)
-    .data                                    0x20000030   Section       13  diskio.o(.data)
-    Stat                                     0x20000030   Data           1  diskio.o(.data)
-    Timer1                                   0x20000034   Data           4  diskio.o(.data)
-    Timer2                                   0x20000038   Data           4  diskio.o(.data)
-    CardType                                 0x2000003c   Data           1  diskio.o(.data)
-    .data                                    0x20000040   Section        6  ff.o(.data)
-    FatFs                                    0x20000040   Data           4  ff.o(.data)
-    Fsid                                     0x20000044   Data           2  ff.o(.data)
-    .data                                    0x20000048   Section        8  activestate.o(.data)
-    .data                                    0x20000050   Section       78  wavreader.o(.data)
-    .data                                    0x200000a0   Section        4  timer2a.o(.data)
-    .data                                    0x200000a4   Section        4  stdout.o(.data)
-    .data                                    0x200000a8   Section        4  mvars.o(.data)
-    .data                                    0x200000ac   Section        4  mvars.o(.data)
-    .bss                                     0x200000b0   Section     2684  wavreader.o(.bss)
-    g_sFatFs                                 0x200000b0   Data         564  wavreader.o(.bss)
-    HEAP                                     0x20000b30   Section        0  startup.o(HEAP)
-    STACK                                    0x20000b30   Section     1024  startup.o(STACK)
-    StackMem                                 0x20000b30   Data           0  startup.o(STACK)
+    .data                                    0x20000030   Section       43  gameengine.o(.data)
+    .data                                    0x2000005c   Section       13  diskio.o(.data)
+    Stat                                     0x2000005c   Data           1  diskio.o(.data)
+    Timer1                                   0x20000060   Data           4  diskio.o(.data)
+    Timer2                                   0x20000064   Data           4  diskio.o(.data)
+    CardType                                 0x20000068   Data           1  diskio.o(.data)
+    .data                                    0x2000006c   Section        6  ff.o(.data)
+    FatFs                                    0x2000006c   Data           4  ff.o(.data)
+    Fsid                                     0x20000070   Data           2  ff.o(.data)
+    .data                                    0x20000074   Section        8  activestate.o(.data)
+    .data                                    0x2000007c   Section       32  pausestate.o(.data)
+    .data                                    0x2000009c   Section      720  graphicsengine.o(.data)
+    .data                                    0x2000036c   Section       36  startstate.o(.data)
+    .data                                    0x20000390   Section       69  stopstate.o(.data)
+    .data                                    0x200003d8   Section       79  wavreader.o(.data)
+    .data                                    0x20000428   Section        4  timer2a.o(.data)
+    .data                                    0x2000042c   Section       48  scoreengine.o(.data)
+    .data                                    0x2000045c   Section        4  rand.o(.data)
+    _rand_state                              0x2000045c   Data           4  rand.o(.data)
+    .data                                    0x20000460   Section        4  stdout.o(.data)
+    .data                                    0x20000464   Section        4  errno.o(.data)
+    _errno                                   0x20000464   Data           4  errno.o(.data)
+    .bss                                     0x20000468   Section     2684  wavreader.o(.bss)
+    g_sFatFs                                 0x20000468   Data         564  wavreader.o(.bss)
+    STACK                                    0x20000ee8   Section     1024  startup.o(STACK)
+    StackMem                                 0x20000ee8   Data           0  startup.o(STACK)
 
     Global Symbols
 
@@ -1330,7 +1385,6 @@ Image Symbol Table
     _printf_x                                0x00000000   Number         0  stubs.o ABSOLUTE
     __cpp_initialize__aeabi_                  - Undefined Weak Reference
     __cxa_finalize                            - Undefined Weak Reference
-    __decompress                              - Undefined Weak Reference
     _clock_init                               - Undefined Weak Reference
     _microlib_exit                            - Undefined Weak Reference
     Reset_Handler                            0x0000026d   Thumb Code     0  startup.o(RESET)
@@ -1468,89 +1522,174 @@ Image Symbol Table
     WaitForInterrupt                         0x000002b7   Thumb Code     0  startup.o(.text)
     __aeabi_llsr                             0x000002bd   Thumb Code    32  llushr.o(.text)
     _ll_ushift_r                             0x000002bd   Thumb Code     0  llushr.o(.text)
-    __aeabi_memcpy                           0x000002dd   Thumb Code    36  memcpya.o(.text)
-    __aeabi_memcpy4                          0x000002dd   Thumb Code     0  memcpya.o(.text)
-    __aeabi_memcpy8                          0x000002dd   Thumb Code     0  memcpya.o(.text)
-    strlen                                   0x00000301   Thumb Code    14  strlen.o(.text)
-    strcmp                                   0x0000030f   Thumb Code    28  strcmp.o(.text)
-    __aeabi_uidiv                            0x0000032b   Thumb Code     0  uidiv.o(.text)
-    __aeabi_uidivmod                         0x0000032b   Thumb Code    44  uidiv.o(.text)
-    __scatterload                            0x00000359   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x00000359   Thumb Code     0  init.o(.text)
-    ActiveState_downPressed                  0x0000037d   Thumb Code    26  activestate.o(i.ActiveState_downPressed)
-    ActiveState_leftPressed                  0x0000039d   Thumb Code    26  activestate.o(i.ActiveState_leftPressed)
-    ActiveState_playSound                    0x000003bd   Thumb Code    26  activestate.o(i.ActiveState_playSound)
-    ActiveState_rightPressed                 0x000003dd   Thumb Code    26  activestate.o(i.ActiveState_rightPressed)
-    ActiveState_startPressed                 0x000003fd   Thumb Code    20  activestate.o(i.ActiveState_startPressed)
-    ActiveState_upPressed                    0x00000415   Thumb Code    26  activestate.o(i.ActiveState_upPressed)
-    ButtonManager_Init                       0x00000435   Thumb Code    12  buttonmanager.o(i.ButtonManager_Init)
-    CS_Init                                  0x00000441   Thumb Code   148  diskio.o(i.CS_Init)
-    CheckDebounce                            0x000004ed   Thumb Code    62  buttonmanager.o(i.CheckDebounce)
-    DAC_Init                                 0x0000052d   Thumb Code   136  max5353.o(i.DAC_Init)
-    DAC_Out                                  0x000005d1   Thumb Code    18  max5353.o(i.DAC_Out)
-    DC_Init                                  0x000005e9   Thumb Code   126  st7735.o(i.DC_Init)
-    Delay1ms                                 0x00000679   Thumb Code    22  st7735.o(i.Delay1ms)
-    FrequencyTimer_Init                      0x00000691   Thumb Code   104  frequencytimer.o(i.FrequencyTimer_Init)
-    GPIOPortD_Handler                        0x00000709   Thumb Code    76  buttonmanager.o(i.GPIOPortD_Handler)
-    GPIOPortE_Handler                        0x0000075d   Thumb Code    94  buttonmanager.o(i.GPIOPortE_Handler)
-    Heartbeat_Init                           0x000007c5   Thumb Code   156  heartbeat.o(i.Heartbeat_Init)
-    Heartbeat_blink                          0x00000879   Thumb Code    14  heartbeat.o(i.Heartbeat_blink)
-    Output_Init                              0x0000088d   Thumb Code    16  st7735.o(i.Output_Init)
-    PLL_Init                                 0x0000089d   Thumb Code   118  pll.o(i.PLL_Init)
-    PortD_Init                               0x00000919   Thumb Code   226  buttonmanager.o(i.PortD_Init)
-    PortE_Init                               0x00000a11   Thumb Code   226  buttonmanager.o(i.PortE_Init)
-    SSI2_Init                                0x00000b09   Thumb Code   288  diskio.o(i.SSI2_Init)
-    ST7735_DrawCharS                         0x00000c55   Thumb Code   232  st7735.o(i.ST7735_DrawCharS)
-    ST7735_DrawPixel                         0x00000d49   Thumb Code    64  st7735.o(i.ST7735_DrawPixel)
-    ST7735_DrawString                        0x00000d91   Thumb Code    86  st7735.o(i.ST7735_DrawString)
-    ST7735_FillRect                          0x00000de9   Thumb Code   164  st7735.o(i.ST7735_FillRect)
-    ST7735_FillScreen                        0x00000e95   Thumb Code    28  st7735.o(i.ST7735_FillScreen)
-    ST7735_InitR                             0x00000eb9   Thumb Code    90  st7735.o(i.ST7735_InitR)
-    ST7735_OutChar                           0x00000f35   Thumb Code   176  st7735.o(i.ST7735_OutChar)
-    ST7735_SetCursor                         0x00001009   Thumb Code    22  st7735.o(i.ST7735_SetCursor)
-    SysTick_Init                             0x00001029   Thumb Code    24  systick.o(i.SysTick_Init)
-    SysTick_Wait                             0x00001041   Thumb Code    32  systick.o(i.SysTick_Wait)
-    SysTick_Wait10ms                         0x00001061   Thumb Code    22  systick.o(i.SysTick_Wait10ms)
-    TIMER1_Init                              0x0000107d   Thumb Code   126  heartbeat.o(i.TIMER1_Init)
-    Timer0A_Handler                          0x00001111   Thumb Code    14  frequencytimer.o(i.Timer0A_Handler)
-    Timer1A_Handler                          0x00001125   Thumb Code    50  heartbeat.o(i.Timer1A_Handler)
-    Timer2A_Handler                          0x00001165   Thumb Code    16  timer2a.o(i.Timer2A_Handler)
-    Timer2A_Init                             0x0000117d   Thumb Code    96  timer2a.o(i.Timer2A_Init)
-    Timer5A_Handler                          0x000011f1   Thumb Code    14  diskio.o(i.Timer5A_Handler)
-    Timer5_Init                              0x00001205   Thumb Code    84  diskio.o(i.Timer5_Init)
-    __0printf$3                              0x00001271   Thumb Code    22  printf3.o(i.__0printf$3)
-    __1printf$3                              0x00001271   Thumb Code     0  printf3.o(i.__0printf$3)
-    __2printf                                0x00001271   Thumb Code     0  printf3.o(i.__0printf$3)
-    __scatterload_copy                       0x00001291   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x0000129f   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x000012a1   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    clust2sect                               0x00001511   Thumb Code    26  ff.o(i.clust2sect)
-    disk_initialize                          0x00001d0d   Thumb Code   330  diskio.o(i.disk_initialize)
-    disk_ioctl                               0x00001e69   Thumb Code   544  diskio.o(i.disk_ioctl)
-    disk_read                                0x00002091   Thumb Code   136  diskio.o(i.disk_read)
-    disk_status                              0x00002121   Thumb Code    14  diskio.o(i.disk_status)
-    disk_timerproc                           0x00002135   Thumb Code    52  diskio.o(i.disk_timerproc)
-    disk_write                               0x00002175   Thumb Code   170  diskio.o(i.disk_write)
-    f_close                                  0x00002229   Thumb Code    32  ff.o(i.f_close)
-    f_mount                                  0x00002249   Thumb Code    86  ff.o(i.f_mount)
-    f_open                                   0x000022a5   Thumb Code   348  ff.o(i.f_open)
-    f_read                                   0x00002405   Thumb Code   414  ff.o(i.f_read)
-    f_sync                                   0x000025a5   Thumb Code   170  ff.o(i.f_sync)
-    fputc                                    0x00002a91   Thumb Code    16  st7735.o(i.fputc)
-    free                                     0x00002aa1   Thumb Code    76  malloc.o(i.free)
-    get_fat                                  0x00002af1   Thumb Code   242  ff.o(i.get_fat)
-    handler                                  0x00002c2d   Thumb Code   300  wavreader.o(i.handler)
-    load_more                                0x00002dc9   Thumb Code   128  wavreader.o(i.load_more)
-    main                                     0x00002e71   Thumb Code    48  sdctestmain.o(i.main)
-    malloc                                   0x00002eb9   Thumb Code    92  malloc.o(i.malloc)
-    music_init                               0x00002fad   Thumb Code    24  wavreader.o(i.music_init)
-    music_play                               0x00002fd1   Thumb Code   616  wavreader.o(i.music_play)
-    music_stop                               0x000032ad   Thumb Code    34  wavreader.o(i.music_stop)
-    music_test                               0x000032e5   Thumb Code    24  sdctestmain.o(i.music_test)
-    put_fat                                  0x0000331f   Thumb Code   326  ff.o(i.put_fat)
-    dBfs                                     0x00003fae   Data         512  st7735.o(.constdata)
-    Region$$Table$$Base                      0x000041b0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000041d0   Number         0  anon$$obj.o(Region$$Table)
+    rand                                     0x000002dd   Thumb Code    20  rand.o(.text)
+    srand                                    0x000002f1   Thumb Code     6  rand.o(.text)
+    __aeabi_memcpy                           0x00000301   Thumb Code    36  memcpya.o(.text)
+    __aeabi_memcpy4                          0x00000301   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memcpy8                          0x00000301   Thumb Code     0  memcpya.o(.text)
+    strcmp                                   0x00000325   Thumb Code    28  strcmp.o(.text)
+    atoi                                     0x00000341   Thumb Code    26  atoi.o(.text)
+    __aeabi_uidiv                            0x0000035b   Thumb Code     0  uidiv.o(.text)
+    __aeabi_uidivmod                         0x0000035b   Thumb Code    44  uidiv.o(.text)
+    strtol                                   0x00000387   Thumb Code   112  strtol.o(.text)
+    __scatterload                            0x000003f9   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x000003f9   Thumb Code     0  init.o(.text)
+    __rt_ctype_table                         0x0000041d   Thumb Code     4  ctype_o.o(.text)
+    _strtoul                                 0x00000425   Thumb Code   158  _strtoul.o(.text)
+    _chval                                   0x000004c3   Thumb Code    28  _chval.o(.text)
+    __decompress                             0x000004df   Thumb Code     0  __dczerorl2.o(.text)
+    __decompress1                            0x000004df   Thumb Code    92  __dczerorl2.o(.text)
+    ActiveState_downPressed                  0x0000053d   Thumb Code    26  activestate.o(i.ActiveState_downPressed)
+    ActiveState_drawInitial                  0x0000055d   Thumb Code    26  activestate.o(i.ActiveState_drawInitial)
+    ActiveState_get                          0x0000057d   Thumb Code     6  activestate.o(i.ActiveState_get)
+    ActiveState_leftPressed                  0x00000589   Thumb Code    26  activestate.o(i.ActiveState_leftPressed)
+    ActiveState_playSound                    0x000005a9   Thumb Code    26  activestate.o(i.ActiveState_playSound)
+    ActiveState_rightPressed                 0x000005c9   Thumb Code    26  activestate.o(i.ActiveState_rightPressed)
+    ActiveState_set                          0x000005e9   Thumb Code    34  activestate.o(i.ActiveState_set)
+    ActiveState_startPressed                 0x00000615   Thumb Code    20  activestate.o(i.ActiveState_startPressed)
+    ActiveState_upPressed                    0x0000062d   Thumb Code    26  activestate.o(i.ActiveState_upPressed)
+    ActiveState_updateState                  0x0000064d   Thumb Code    26  activestate.o(i.ActiveState_updateState)
+    ButtonManager_Init                       0x0000066d   Thumb Code    12  buttonmanager.o(i.ButtonManager_Init)
+    CS_Init                                  0x00000679   Thumb Code   148  diskio.o(i.CS_Init)
+    CheckDebounce                            0x00000725   Thumb Code    62  buttonmanager.o(i.CheckDebounce)
+    DAC_Init                                 0x00000765   Thumb Code   136  max5353.o(i.DAC_Init)
+    DAC_Out                                  0x00000809   Thumb Code    18  max5353.o(i.DAC_Out)
+    DC_Init                                  0x00000821   Thumb Code   126  st7735.o(i.DC_Init)
+    Delay1ms                                 0x000008b1   Thumb Code    22  st7735.o(i.Delay1ms)
+    FrequencyTimer_Init                      0x000008c9   Thumb Code   104  frequencytimer.o(i.FrequencyTimer_Init)
+    GPIOPortD_Handler                        0x00000941   Thumb Code    76  buttonmanager.o(i.GPIOPortD_Handler)
+    GPIOPortE_Handler                        0x00000995   Thumb Code    84  buttonmanager.o(i.GPIOPortE_Handler)
+    GameEngine_Init                          0x000009f1   Thumb Code    10  gameengine.o(i.GameEngine_Init)
+    GameEngine_downPressed                   0x000009fb   Thumb Code    10  gameengine.o(i.GameEngine_downPressed)
+    GameEngine_drawInitial                   0x00000a05   Thumb Code     8  gameengine.o(i.GameEngine_drawInitial)
+    GameEngine_ghostUpdateMotion             0x00000a0d   Thumb Code    68  gameengine.o(i.GameEngine_ghostUpdateMotion)
+    GameEngine_ghostUpdatePosition           0x00000a51   Thumb Code   120  gameengine.o(i.GameEngine_ghostUpdatePosition)
+    GameEngine_leftPressed                   0x00000acd   Thumb Code    10  gameengine.o(i.GameEngine_leftPressed)
+    GameEngine_pacmanUpdateMotion            0x00000ad7   Thumb Code     6  gameengine.o(i.GameEngine_pacmanUpdateMotion)
+    GameEngine_pacmanUpdatePosition          0x00000add   Thumb Code   136  gameengine.o(i.GameEngine_pacmanUpdatePosition)
+    GameEngine_playSound                     0x00000b6d   Thumb Code    88  gameengine.o(i.GameEngine_playSound)
+    GameEngine_rightPressed                  0x00000bf1   Thumb Code    10  gameengine.o(i.GameEngine_rightPressed)
+    GameEngine_startPressed                  0x00000bfd   Thumb Code    10  gameengine.o(i.GameEngine_startPressed)
+    GameEngine_upPressed                     0x00000c0d   Thumb Code    10  gameengine.o(i.GameEngine_upPressed)
+    GameEngine_updatePositionCommon          0x00000c19   Thumb Code   222  gameengine.o(i.GameEngine_updatePositionCommon)
+    GameEngine_updateState                   0x00000d01   Thumb Code    88  gameengine.o(i.GameEngine_updateState)
+    GraphicsEngine_drawBoard                 0x00000d61   Thumb Code   250  graphicsengine.o(i.GraphicsEngine_drawBoard)
+    GraphicsEngine_drawCursor                0x00000e61   Thumb Code    48  graphicsengine.o(i.GraphicsEngine_drawCursor)
+    GraphicsEngine_drawInitBoard             0x00000e99   Thumb Code   222  graphicsengine.o(i.GraphicsEngine_drawInitBoard)
+    GraphicsEngine_drawScore                 0x00000f81   Thumb Code    26  graphicsengine.o(i.GraphicsEngine_drawScore)
+    GraphicsEngine_drawTitle                 0x00000fa9   Thumb Code    48  graphicsengine.o(i.GraphicsEngine_drawTitle)
+    Heartbeat_Init                           0x00000ff1   Thumb Code   156  heartbeat.o(i.Heartbeat_Init)
+    Heartbeat_blink                          0x000010a5   Thumb Code    14  heartbeat.o(i.Heartbeat_blink)
+    Output_Init                              0x000010b9   Thumb Code    16  st7735.o(i.Output_Init)
+    PLL_Init                                 0x000010c9   Thumb Code   118  pll.o(i.PLL_Init)
+    PauseState_drawInitial                   0x00001145   Thumb Code     2  pausestate.o(i.PauseState_drawInitial)
+    PauseState_playSound                     0x00001149   Thumb Code    14  pausestate.o(i.PauseState_playSound)
+    PauseState_startPressed                  0x0000115d   Thumb Code    18  pausestate.o(i.PauseState_startPressed)
+    PortD_Init                               0x00001175   Thumb Code   226  buttonmanager.o(i.PortD_Init)
+    PortE_Init                               0x0000126d   Thumb Code   226  buttonmanager.o(i.PortE_Init)
+    SSI2_Init                                0x00001365   Thumb Code   288  diskio.o(i.SSI2_Init)
+    ST7735_DrawBitmap                        0x000014b1   Thumb Code   280  st7735.o(i.ST7735_DrawBitmap)
+    ST7735_DrawCharS                         0x000015d1   Thumb Code   232  st7735.o(i.ST7735_DrawCharS)
+    ST7735_DrawPixel                         0x000016c5   Thumb Code    64  st7735.o(i.ST7735_DrawPixel)
+    ST7735_DrawString                        0x0000170d   Thumb Code    86  st7735.o(i.ST7735_DrawString)
+    ST7735_FillRect                          0x00001765   Thumb Code   164  st7735.o(i.ST7735_FillRect)
+    ST7735_FillScreen                        0x00001811   Thumb Code    28  st7735.o(i.ST7735_FillScreen)
+    ST7735_InitR                             0x00001835   Thumb Code    90  st7735.o(i.ST7735_InitR)
+    ST7735_OutChar                           0x000018b1   Thumb Code   176  st7735.o(i.ST7735_OutChar)
+    ST7735_SetCursor                         0x00001985   Thumb Code    22  st7735.o(i.ST7735_SetCursor)
+    ScoreEngine_displayFinalScore            0x000019a5   Thumb Code    42  scoreengine.o(i.ScoreEngine_displayFinalScore)
+    ScoreEngine_displayScores                0x000019f1   Thumb Code   302  scoreengine.o(i.ScoreEngine_displayScores)
+    ScoreEngine_getScore                     0x00001b4d   Thumb Code     6  scoreengine.o(i.ScoreEngine_getScore)
+    ScoreEngine_init                         0x00001b59   Thumb Code     8  scoreengine.o(i.ScoreEngine_init)
+    ScoreEngine_startPressed                 0x00001b65   Thumb Code    10  scoreengine.o(i.ScoreEngine_startPressed)
+    ScoreEngine_update                       0x00001b75   Thumb Code    70  scoreengine.o(i.ScoreEngine_update)
+    StartState_downPressed                   0x00001bc1   Thumb Code    14  startstate.o(i.StartState_downPressed)
+    StartState_drawInitial                   0x00001bd5   Thumb Code    16  startstate.o(i.StartState_drawInitial)
+    StartState_playSound                     0x00001be9   Thumb Code    48  startstate.o(i.StartState_playSound)
+    StartState_startPressed                  0x00001c35   Thumb Code    36  startstate.o(i.StartState_startPressed)
+    StartState_upPressed                     0x00001c69   Thumb Code    14  startstate.o(i.StartState_upPressed)
+    StartState_updateState                   0x00001c7d   Thumb Code    18  startstate.o(i.StartState_updateState)
+    StopState_playSound                      0x00001c99   Thumb Code    48  stopstate.o(i.StopState_playSound)
+    StopState_startPressed                   0x00001ce1   Thumb Code    22  stopstate.o(i.StopState_startPressed)
+    StopState_updateState                    0x00001d01   Thumb Code    82  stopstate.o(i.StopState_updateState)
+    SysTick_Init                             0x00001d69   Thumb Code    24  systick.o(i.SysTick_Init)
+    SysTick_Wait                             0x00001d81   Thumb Code    32  systick.o(i.SysTick_Wait)
+    SysTick_Wait10ms                         0x00001da1   Thumb Code    22  systick.o(i.SysTick_Wait10ms)
+    TIMER1_Init                              0x00001dbd   Thumb Code   126  heartbeat.o(i.TIMER1_Init)
+    Timer0A_Handler                          0x00001e51   Thumb Code    14  frequencytimer.o(i.Timer0A_Handler)
+    Timer1A_Handler                          0x00001e65   Thumb Code    50  heartbeat.o(i.Timer1A_Handler)
+    Timer2A_Handler                          0x00001ea5   Thumb Code    16  timer2a.o(i.Timer2A_Handler)
+    Timer2A_Init                             0x00001ebd   Thumb Code    96  timer2a.o(i.Timer2A_Init)
+    Timer5A_Handler                          0x00001f31   Thumb Code    14  diskio.o(i.Timer5A_Handler)
+    Timer5_Init                              0x00001f45   Thumb Code    84  diskio.o(i.Timer5_Init)
+    __0printf$3                              0x00001fb1   Thumb Code    22  printf3.o(i.__0printf$3)
+    __1printf$3                              0x00001fb1   Thumb Code     0  printf3.o(i.__0printf$3)
+    __2printf                                0x00001fb1   Thumb Code     0  printf3.o(i.__0printf$3)
+    __aeabi_errno_addr                       0x00001fd1   Thumb Code     4  errno.o(i.__aeabi_errno_addr)
+    __rt_errno_addr                          0x00001fd1   Thumb Code     0  errno.o(i.__aeabi_errno_addr)
+    __scatterload_copy                       0x00001fd9   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00001fe7   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00001fe9   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    bigDotEaten                              0x000021b1   Thumb Code    38  gameengine.o(i.bigDotEaten)
+    clust2sect                               0x00002285   Thumb Code    26  ff.o(i.clust2sect)
+    collideWithGhost                         0x0000229f   Thumb Code    30  gameengine.o(i.collideWithGhost)
+    die                                      0x00002801   Thumb Code    10  gameengine.o(i.die)
+    disk_initialize                          0x00002ab1   Thumb Code   330  diskio.o(i.disk_initialize)
+    disk_ioctl                               0x00002c0d   Thumb Code   544  diskio.o(i.disk_ioctl)
+    disk_read                                0x00002e35   Thumb Code   136  diskio.o(i.disk_read)
+    disk_status                              0x00002ec5   Thumb Code    14  diskio.o(i.disk_status)
+    disk_timerproc                           0x00002ed9   Thumb Code    52  diskio.o(i.disk_timerproc)
+    disk_write                               0x00002f19   Thumb Code   170  diskio.o(i.disk_write)
+    drawBigDot                               0x00002fcd   Thumb Code    46  graphicsengine.o(i.drawBigDot)
+    drawCommon                               0x00002ffb   Thumb Code    24  graphicsengine.o(i.drawCommon)
+    drawDot                                  0x00003013   Thumb Code    38  graphicsengine.o(i.drawDot)
+    drawSprite                               0x00003039   Thumb Code   452  graphicsengine.o(i.drawSprite)
+    drawWall                                 0x00003209   Thumb Code    46  graphicsengine.o(i.drawWall)
+    eatGhost                                 0x00003239   Thumb Code    42  gameengine.o(i.eatGhost)
+    f_close                                  0x00003269   Thumb Code    32  ff.o(i.f_close)
+    f_mount                                  0x00003289   Thumb Code    86  ff.o(i.f_mount)
+    f_open                                   0x000032e5   Thumb Code   348  ff.o(i.f_open)
+    f_read                                   0x00003445   Thumb Code   414  ff.o(i.f_read)
+    f_sync                                   0x000035e5   Thumb Code   170  ff.o(i.f_sync)
+    fputc                                    0x00003ad1   Thumb Code    16  st7735.o(i.fputc)
+    get_fat                                  0x00003ae1   Thumb Code   242  ff.o(i.get_fat)
+    handler                                  0x00003c1d   Thumb Code   300  wavreader.o(i.handler)
+    ind_to_pix                               0x00003d6d   Thumb Code    24  graphicsengine.o(i.ind_to_pix)
+    isValidDirection                         0x00003db1   Thumb Code    86  gameengine.o(i.isValidDirection)
+    load_more                                0x00003e31   Thumb Code   156  wavreader.o(i.load_more)
+    main                                     0x00003f11   Thumb Code    94  sdctestmain.o(i.main)
+    music_init                               0x00004005   Thumb Code    24  wavreader.o(i.music_init)
+    music_play                               0x00004029   Thumb Code   632  wavreader.o(i.music_play)
+    music_stop                               0x00004351   Thumb Code    42  wavreader.o(i.music_stop)
+    put_fat                                  0x000043af   Thumb Code   326  ff.o(i.put_fat)
+    scheduleIfValidDirection                 0x000045ed   Thumb Code    20  gameengine.o(i.scheduleIfValidDirection)
+    swapCursor                               0x00004759   Thumb Code    20  startstate.o(i.swapCursor)
+    dBfs                                     0x0000506e   Data         512  st7735.o(.constdata)
+    pacman_r                                 0x0000526e   Data          50  graphicsengine.o(.constdata)
+    pacman_l                                 0x000052a0   Data          50  graphicsengine.o(.constdata)
+    pacman_d                                 0x000052d2   Data          50  graphicsengine.o(.constdata)
+    pacman_u                                 0x00005304   Data          50  graphicsengine.o(.constdata)
+    pacman_c                                 0x00005336   Data          50  graphicsengine.o(.constdata)
+    apple                                    0x00005368   Data          50  graphicsengine.o(.constdata)
+    cherry                                   0x0000539a   Data          50  graphicsengine.o(.constdata)
+    blue_ghost                               0x000053cc   Data          40  graphicsengine.o(.constdata)
+    orange_ghost                             0x000053f4   Data          40  graphicsengine.o(.constdata)
+    light_blue_ghost                         0x0000541c   Data          40  graphicsengine.o(.constdata)
+    purple_ghost                             0x00005444   Data          40  graphicsengine.o(.constdata)
+    r_ghost                                  0x0000546c   Data          40  graphicsengine.o(.constdata)
+    ghost_eyes                               0x00005494   Data          40  graphicsengine.o(.constdata)
+    pacman_title                             0x000054bc   Data        4352  graphicsengine.o(.constdata)
+    init_board                               0x000065bc   Data         418  graphicsengine.o(.constdata)
+    pacman_death_1                           0x0000675e   Data          50  stopstate.o(.constdata)
+    pacman_death_2                           0x00006790   Data          50  stopstate.o(.constdata)
+    pacman_death_3                           0x000067c2   Data          50  stopstate.o(.constdata)
+    pacman_death_4                           0x000067f4   Data          50  stopstate.o(.constdata)
+    pacman_death_5                           0x00006826   Data          50  stopstate.o(.constdata)
+    pacman_death_6                           0x00006858   Data          50  stopstate.o(.constdata)
+    pacman_death_7                           0x0000688a   Data          50  stopstate.o(.constdata)
+    __ctype_table                            0x0000690c   Data         129  ctype_o.o(.constdata)
+    Region$$Table$$Base                      0x00006994   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000069b4   Number         0  anon$$obj.o(Region$$Table)
     updateStateSemaphore                     0x20000000   Data           1  heartbeat.o(.data)
     Heartbeat_count                          0x20000001   Data           1  heartbeat.o(.data)
     StX                                      0x20000004   Data           4  st7735.o(.data)
@@ -1562,44 +1701,70 @@ Image Symbol Table
     Ymin                                     0x20000024   Data           4  st7735.o(.data)
     X                                        0x20000028   Data           4  st7735.o(.data)
     Yrange                                   0x2000002c   Data           4  st7735.o(.data)
-    needInitialDraw                          0x20000048   Data           1  activestate.o(.data)
-    activeState                              0x2000004c   Data           4  activestate.o(.data)
-    data_start                               0x20000050   Data           4  wavreader.o(.data)
-    MountFresult                             0x20000054   Data           1  wavreader.o(.data)
-    Fresult                                  0x20000055   Data           1  wavreader.o(.data)
-    chunkid                                  0x20000058   Data           4  wavreader.o(.data)
-    formatsize                               0x2000005c   Data           4  wavreader.o(.data)
-    format                                   0x20000060   Data           2  wavreader.o(.data)
-    channels                                 0x20000062   Data           2  wavreader.o(.data)
-    channelcount                             0x20000064   Data           4  wavreader.o(.data)
-    samplerate                               0x20000068   Data           4  wavreader.o(.data)
-    bitspersecond                            0x2000006c   Data           4  wavreader.o(.data)
-    formatblockalign                         0x20000070   Data           2  wavreader.o(.data)
-    bitdepth                                 0x20000072   Data           2  wavreader.o(.data)
-    headerid                                 0x20000074   Data           4  wavreader.o(.data)
-    memsize                                  0x20000078   Data           4  wavreader.o(.data)
-    riffstyle                                0x2000007c   Data           4  wavreader.o(.data)
-    datasize                                 0x20000080   Data           4  wavreader.o(.data)
-    successfulreads                          0x20000084   Data           4  wavreader.o(.data)
-    successfulwrites                         0x20000088   Data           4  wavreader.o(.data)
-    index                                    0x2000008c   Data           4  wavreader.o(.data)
-    sampleNum                                0x20000090   Data           4  wavreader.o(.data)
-    needMore                                 0x20000094   Data           1  wavreader.o(.data)
-    whichBuffer                              0x20000095   Data           1  wavreader.o(.data)
-    f_name                                   0x20000098   Data           4  wavreader.o(.data)
-    looped                                   0x2000009c   Data           1  wavreader.o(.data)
-    start_play                               0x2000009d   Data           1  wavreader.o(.data)
-    TimerTask                                0x200000a0   Data           4  timer2a.o(.data)
-    __stdout                                 0x200000a4   Data           4  stdout.o(.data)
-    __microlib_freelist                      0x200000a8   Data           4  mvars.o(.data)
-    __microlib_freelist_initialised          0x200000ac   Data           4  mvars.o(.data)
-    Handle                                   0x200002e4   Data         548  wavreader.o(.bss)
-    Handle2                                  0x20000508   Data         548  wavreader.o(.bss)
-    buffer                                   0x2000072c   Data         512  wavreader.o(.bss)
-    secondbuffer                             0x2000092c   Data         512  wavreader.o(.bss)
-    __heap_base                              0x20000b30   Data           0  startup.o(HEAP)
-    __heap_limit                             0x20000b30   Data           0  startup.o(HEAP)
-    __initial_sp                             0x20000f30   Data           0  startup.o(STACK)
+    InGame                                   0x20000030   Data          32  gameengine.o(.data)
+    directions                               0x20000050   Data           8  gameengine.o(.data)
+    ghosts_vulnerable                        0x20000058   Data           1  gameengine.o(.data)
+    wakaing                                  0x20000059   Data           1  gameengine.o(.data)
+    eat_ghost                                0x2000005a   Data           1  gameengine.o(.data)
+    needInitialDraw                          0x20000074   Data           1  activestate.o(.data)
+    activeState                              0x20000078   Data           4  activestate.o(.data)
+    Paused                                   0x2000007c   Data          32  pausestate.o(.data)
+    board                                    0x2000009c   Data         418  graphicsengine.o(.data)
+    p                                        0x20000240   Data          56  graphicsengine.o(.data)
+    rg                                       0x20000278   Data          56  graphicsengine.o(.data)
+    bg                                       0x200002b0   Data          56  graphicsengine.o(.data)
+    og                                       0x200002e8   Data          56  graphicsengine.o(.data)
+    pg                                       0x20000320   Data          56  graphicsengine.o(.data)
+    sprites                                  0x20000358   Data          20  graphicsengine.o(.data)
+    cursorLocation                           0x2000036c   Data           1  startstate.o(.data)
+    needRedraw                               0x2000036d   Data           1  startstate.o(.data)
+    playing                                  0x2000036e   Data           1  startstate.o(.data)
+    Start                                    0x20000370   Data          32  startstate.o(.data)
+    die_play                                 0x20000390   Data           1  stopstate.o(.data)
+    die_done                                 0x20000391   Data           1  stopstate.o(.data)
+    bmps                                     0x20000394   Data          28  stopstate.o(.data)
+    death_step                               0x200003b0   Data           1  stopstate.o(.data)
+    Stop                                     0x200003b4   Data          32  stopstate.o(.data)
+    see_scores                               0x200003d4   Data           1  stopstate.o(.data)
+    data_start                               0x200003d8   Data           4  wavreader.o(.data)
+    debug                                    0x200003dc   Data           1  wavreader.o(.data)
+    MountFresult                             0x200003dd   Data           1  wavreader.o(.data)
+    Fresult                                  0x200003de   Data           1  wavreader.o(.data)
+    chunkid                                  0x200003e0   Data           4  wavreader.o(.data)
+    formatsize                               0x200003e4   Data           4  wavreader.o(.data)
+    format                                   0x200003e8   Data           2  wavreader.o(.data)
+    channels                                 0x200003ea   Data           2  wavreader.o(.data)
+    channelcount                             0x200003ec   Data           4  wavreader.o(.data)
+    samplerate                               0x200003f0   Data           4  wavreader.o(.data)
+    bitspersecond                            0x200003f4   Data           4  wavreader.o(.data)
+    formatblockalign                         0x200003f8   Data           2  wavreader.o(.data)
+    bitdepth                                 0x200003fa   Data           2  wavreader.o(.data)
+    headerid                                 0x200003fc   Data           4  wavreader.o(.data)
+    memsize                                  0x20000400   Data           4  wavreader.o(.data)
+    riffstyle                                0x20000404   Data           4  wavreader.o(.data)
+    datasize                                 0x20000408   Data           4  wavreader.o(.data)
+    successfulreads                          0x2000040c   Data           4  wavreader.o(.data)
+    successfulwrites                         0x20000410   Data           4  wavreader.o(.data)
+    index                                    0x20000414   Data           4  wavreader.o(.data)
+    sampleNum                                0x20000418   Data           4  wavreader.o(.data)
+    needMore                                 0x2000041c   Data           1  wavreader.o(.data)
+    whichBuffer                              0x2000041d   Data           1  wavreader.o(.data)
+    current_song                             0x20000420   Data           4  wavreader.o(.data)
+    looped                                   0x20000424   Data           1  wavreader.o(.data)
+    start_play                               0x20000425   Data           1  wavreader.o(.data)
+    song_playing                             0x20000426   Data           1  wavreader.o(.data)
+    TimerTask                                0x20000428   Data           4  timer2a.o(.data)
+    found_score                              0x2000042c   Data           1  scoreengine.o(.data)
+    TopScores                                0x20000430   Data          32  scoreengine.o(.data)
+    score                                    0x20000450   Data           4  scoreengine.o(.data)
+    reads                                    0x20000454   Data           4  scoreengine.o(.data)
+    writes                                   0x20000458   Data           4  scoreengine.o(.data)
+    __stdout                                 0x20000460   Data           4  stdout.o(.data)
+    Handle                                   0x2000069c   Data         548  wavreader.o(.bss)
+    Handle2                                  0x200008c0   Data         548  wavreader.o(.bss)
+    buffer                                   0x20000ae4   Data         512  wavreader.o(.bss)
+    secondbuffer                             0x20000ce4   Data         512  wavreader.o(.bss)
+    __initial_sp                             0x200012e8   Data           0  startup.o(STACK)
 
 
 
@@ -1609,183 +1774,260 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00004280, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00006e1c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00006af0])
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x000041d0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x000069b4, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000284   Code   RO            3  * RESET               startup.o
-    0x00000284   0x00000000   Code   RO         1470  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x00000284   0x00000004   Code   RO         1779    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000288   0x00000004   Code   RO         1782    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x0000028c   0x00000000   Code   RO         1784    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x0000028c   0x00000000   Code   RO         1786    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x0000028c   0x00000008   Code   RO         1787    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x00000294   0x00000000   Code   RO         1789    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x00000294   0x00000000   Code   RO         1791    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x00000294   0x00000004   Code   RO         1780    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
-    0x00000298   0x00000006   Code   RO          219    .emb_text           st7735.o
+    0x00000284   0x00000000   Code   RO         1561  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x00000284   0x00000004   Code   RO         1838    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000288   0x00000004   Code   RO         1841    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x0000028c   0x00000000   Code   RO         1843    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x0000028c   0x00000000   Code   RO         1845    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x0000028c   0x00000008   Code   RO         1846    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x00000294   0x00000000   Code   RO         1848    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x00000294   0x00000000   Code   RO         1850    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x00000294   0x00000004   Code   RO         1839    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x00000298   0x00000006   Code   RO          226    .emb_text           st7735.o
     0x0000029e   0x00000002   PAD
     0x000002a0   0x0000001c   Code   RO            4    .text               startup.o
-    0x000002bc   0x00000020   Code   RO         1473    .text               mc_w.l(llushr.o)
-    0x000002dc   0x00000024   Code   RO         1478    .text               mc_w.l(memcpya.o)
-    0x00000300   0x0000000e   Code   RO         1480    .text               mc_w.l(strlen.o)
-    0x0000030e   0x0000001c   Code   RO         1482    .text               mc_w.l(strcmp.o)
-    0x0000032a   0x0000002c   Code   RO         1794    .text               mc_w.l(uidiv.o)
-    0x00000356   0x00000002   PAD
-    0x00000358   0x00000024   Code   RO         1848    .text               mc_w.l(init.o)
-    0x0000037c   0x00000020   Code   RO         1087    i.ActiveState_downPressed  activestate.o
-    0x0000039c   0x00000020   Code   RO         1090    i.ActiveState_leftPressed  activestate.o
-    0x000003bc   0x00000020   Code   RO         1091    i.ActiveState_playSound  activestate.o
-    0x000003dc   0x00000020   Code   RO         1092    i.ActiveState_rightPressed  activestate.o
-    0x000003fc   0x00000018   Code   RO         1094    i.ActiveState_startPressed  activestate.o
-    0x00000414   0x00000020   Code   RO         1095    i.ActiveState_upPressed  activestate.o
-    0x00000434   0x0000000c   Code   RO          152    i.ButtonManager_Init  buttonmanager.o
-    0x00000440   0x000000ac   Code   RO          671    i.CS_Init           diskio.o
-    0x000004ec   0x0000003e   Code   RO          153    i.CheckDebounce     buttonmanager.o
-    0x0000052a   0x00000002   PAD
-    0x0000052c   0x000000a4   Code   RO          614    i.DAC_Init          max5353.o
-    0x000005d0   0x00000018   Code   RO          615    i.DAC_Out           max5353.o
-    0x000005e8   0x00000090   Code   RO          220    i.DC_Init           st7735.o
-    0x00000678   0x00000016   Code   RO          221    i.Delay1ms          st7735.o
-    0x0000068e   0x00000002   PAD
-    0x00000690   0x00000078   Code   RO          638    i.FrequencyTimer_Init  frequencytimer.o
-    0x00000708   0x00000054   Code   RO          154    i.GPIOPortD_Handler  buttonmanager.o
-    0x0000075c   0x00000068   Code   RO          155    i.GPIOPortE_Handler  buttonmanager.o
-    0x000007c4   0x000000b4   Code   RO          116    i.Heartbeat_Init    heartbeat.o
-    0x00000878   0x00000014   Code   RO          117    i.Heartbeat_blink   heartbeat.o
-    0x0000088c   0x00000010   Code   RO          224    i.Output_Init       st7735.o
-    0x0000089c   0x0000007c   Code   RO          104    i.PLL_Init          pll.o
-    0x00000918   0x000000f8   Code   RO          156    i.PortD_Init        buttonmanager.o
-    0x00000a10   0x000000f8   Code   RO          157    i.PortE_Init        buttonmanager.o
-    0x00000b08   0x0000014c   Code   RO          672    i.SSI2_Init         diskio.o
-    0x00000c54   0x000000f4   Code   RO          230    i.ST7735_DrawCharS  st7735.o
-    0x00000d48   0x00000048   Code   RO          233    i.ST7735_DrawPixel  st7735.o
-    0x00000d90   0x00000056   Code   RO          234    i.ST7735_DrawString  st7735.o
-    0x00000de6   0x00000002   PAD
-    0x00000de8   0x000000ac   Code   RO          235    i.ST7735_FillRect   st7735.o
-    0x00000e94   0x00000024   Code   RO          236    i.ST7735_FillScreen  st7735.o
-    0x00000eb8   0x0000007c   Code   RO          238    i.ST7735_InitR      st7735.o
-    0x00000f34   0x000000d4   Code   RO          240    i.ST7735_OutChar    st7735.o
-    0x00001008   0x00000020   Code   RO          251    i.ST7735_SetCursor  st7735.o
-    0x00001028   0x00000018   Code   RO          195    i.SysTick_Init      systick.o
-    0x00001040   0x00000020   Code   RO          196    i.SysTick_Wait      systick.o
-    0x00001060   0x0000001c   Code   RO          197    i.SysTick_Wait10ms  systick.o
-    0x0000107c   0x00000094   Code   RO          118    i.TIMER1_Init       heartbeat.o
-    0x00001110   0x00000014   Code   RO          641    i.Timer0A_Handler   frequencytimer.o
-    0x00001124   0x00000040   Code   RO          119    i.Timer1A_Handler   heartbeat.o
-    0x00001164   0x00000018   Code   RO         1405    i.Timer2A_Handler   timer2a.o
-    0x0000117c   0x00000074   Code   RO         1406    i.Timer2A_Init      timer2a.o
-    0x000011f0   0x00000014   Code   RO          673    i.Timer5A_Handler   diskio.o
-    0x00001204   0x0000006c   Code   RO          674    i.Timer5_Init       diskio.o
-    0x00001270   0x00000020   Code   RO         1575    i.__0printf$3       mc_w.l(printf3.o)
-    0x00001290   0x0000000e   Code   RO         1860    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0000129e   0x00000002   Code   RO         1861    i.__scatterload_null  mc_w.l(handlers.o)
-    0x000012a0   0x0000000e   Code   RO         1862    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x000012ae   0x00000002   PAD
-    0x000012b0   0x000001b8   Code   RO         1582    i._printf_core      mc_w.l(printf3.o)
-    0x00001468   0x00000090   Code   RO          797    i.check_fs          ff.o
-    0x000014f8   0x00000018   Code   RO          798    i.chk_chr           ff.o
-    0x00001510   0x0000001a   Code   RO          799    i.clust2sect        ff.o
-    0x0000152a   0x00000056   Code   RO          255    i.commandList       st7735.o
-    0x00001580   0x00000248   Code   RO          256    i.commonInit        st7735.o
-    0x000017c8   0x000000d6   Code   RO          800    i.create_chain      ff.o
-    0x0000189e   0x00000002   PAD
-    0x000018a0   0x000001b4   Code   RO          801    i.create_name       ff.o
-    0x00001a54   0x00000018   Code   RO          675    i.deselect          diskio.o
-    0x00001a6c   0x0000005c   Code   RO          802    i.dir_alloc         ff.o
-    0x00001ac8   0x0000005c   Code   RO          803    i.dir_find          ff.o
-    0x00001b24   0x0000010e   Code   RO          804    i.dir_next          ff.o
-    0x00001c32   0x0000003a   Code   RO          806    i.dir_register      ff.o
-    0x00001c6c   0x0000009e   Code   RO          808    i.dir_sdi           ff.o
-    0x00001d0a   0x00000002   PAD
-    0x00001d0c   0x0000015c   Code   RO          676    i.disk_initialize   diskio.o
-    0x00001e68   0x00000228   Code   RO          677    i.disk_ioctl        diskio.o
-    0x00002090   0x00000090   Code   RO          678    i.disk_read         diskio.o
-    0x00002120   0x00000014   Code   RO          679    i.disk_status       diskio.o
-    0x00002134   0x00000040   Code   RO          680    i.disk_timerproc    diskio.o
-    0x00002174   0x000000b4   Code   RO          681    i.disk_write        diskio.o
-    0x00002228   0x00000020   Code   RO          811    i.f_close           ff.o
-    0x00002248   0x0000005c   Code   RO          819    i.f_mount           ff.o
-    0x000022a4   0x00000160   Code   RO          820    i.f_open            ff.o
-    0x00002404   0x0000019e   Code   RO          822    i.f_read            ff.o
-    0x000025a2   0x00000002   PAD
-    0x000025a4   0x000000b0   Code   RO          827    i.f_sync            ff.o
-    0x00002654   0x0000038c   Code   RO          832    i.find_volume       ff.o
-    0x000029e0   0x000000b0   Code   RO          833    i.follow_path       ff.o
-    0x00002a90   0x00000010   Code   RO          260    i.fputc             st7735.o
-    0x00002aa0   0x00000050   Code   RO         1747    i.free              mc_w.l(malloc.o)
-    0x00002af0   0x000000f2   Code   RO          834    i.get_fat           ff.o
-    0x00002be2   0x0000004a   Code   RO          836    i.get_ldnumber      ff.o
-    0x00002c2c   0x00000150   Code   RO         1335    i.handler           wavreader.o
-    0x00002d7c   0x0000002c   Code   RO          682    i.init_spi          diskio.o
-    0x00002da8   0x00000020   Code   RO          837    i.ld_clust          ff.o
-    0x00002dc8   0x000000a8   Code   RO         1337    i.load_more         wavreader.o
-    0x00002e70   0x00000048   Code   RO           14    i.main              sdctestmain.o
-    0x00002eb8   0x0000006c   Code   RO         1748    i.malloc            mc_w.l(malloc.o)
-    0x00002f24   0x00000026   Code   RO          838    i.mem_cmp           ff.o
-    0x00002f4a   0x0000001a   Code   RO          839    i.mem_cpy           ff.o
-    0x00002f64   0x00000014   Code   RO          840    i.mem_set           ff.o
-    0x00002f78   0x00000034   Code   RO          841    i.move_window       ff.o
-    0x00002fac   0x00000024   Code   RO         1338    i.music_init        wavreader.o
-    0x00002fd0   0x000002dc   Code   RO         1339    i.music_play        wavreader.o
-    0x000032ac   0x00000038   Code   RO         1340    i.music_stop        wavreader.o
-    0x000032e4   0x00000028   Code   RO           15    i.music_test        sdctestmain.o
-    0x0000330c   0x00000012   Code   RO          261    i.pushColor         st7735.o
-    0x0000331e   0x00000146   Code   RO          842    i.put_fat           ff.o
-    0x00003464   0x00000048   Code   RO          683    i.rcvr_datablock    diskio.o
-    0x000034ac   0x0000002c   Code   RO          684    i.rcvr_spi          diskio.o
-    0x000034d8   0x00000018   Code   RO          685    i.rcvr_spi_multi    diskio.o
-    0x000034f0   0x0000006c   Code   RO          843    i.remove_chain      ff.o
-    0x0000355c   0x00000038   Code   RO          686    i.select            diskio.o
-    0x00003594   0x00000096   Code   RO          687    i.send_cmd          diskio.o
-    0x0000362a   0x00000002   PAD
-    0x0000362c   0x00000074   Code   RO          262    i.setAddrWindow     st7735.o
-    0x000036a0   0x00000010   Code   RO          844    i.st_clust          ff.o
-    0x000036b0   0x000000c8   Code   RO          845    i.sync_fs           ff.o
-    0x00003778   0x00000052   Code   RO          846    i.sync_window       ff.o
-    0x000037ca   0x00000036   Code   RO          847    i.validate          ff.o
-    0x00003800   0x00000030   Code   RO          688    i.wait_ready        diskio.o
-    0x00003830   0x00000058   Code   RO          263    i.writecommand      st7735.o
-    0x00003888   0x0000005c   Code   RO          264    i.writedata         st7735.o
-    0x000038e4   0x00000034   Code   RO          689    i.xchg_spi          diskio.o
-    0x00003918   0x0000004c   Code   RO          690    i.xmit_datablock    diskio.o
-    0x00003964   0x0000002c   Code   RO          691    i.xmit_spi_multi    diskio.o
-    0x00003990   0x0000003c   Data   RO          158    .constdata          buttonmanager.o
-    0x000039cc   0x000007e2   Data   RO          266    .constdata          st7735.o
-    0x000041ae   0x00000002   PAD
-    0x000041b0   0x00000020   Data   RO         1858    Region$$Table       anon$$obj.o
+    0x000002bc   0x00000020   Code   RO         1564    .text               mc_w.l(llushr.o)
+    0x000002dc   0x00000024   Code   RO         1566    .text               mc_w.l(rand.o)
+    0x00000300   0x00000024   Code   RO         1569    .text               mc_w.l(memcpya.o)
+    0x00000324   0x0000001c   Code   RO         1571    .text               mc_w.l(strcmp.o)
+    0x00000340   0x0000001a   Code   RO         1836    .text               mc_w.l(atoi.o)
+    0x0000035a   0x0000002c   Code   RO         1853    .text               mc_w.l(uidiv.o)
+    0x00000386   0x00000070   Code   RO         1864    .text               mc_w.l(strtol.o)
+    0x000003f6   0x00000002   PAD
+    0x000003f8   0x00000024   Code   RO         1877    .text               mc_w.l(init.o)
+    0x0000041c   0x00000008   Code   RO         1883    .text               mc_w.l(ctype_o.o)
+    0x00000424   0x0000009e   Code   RO         1911    .text               mc_w.l(_strtoul.o)
+    0x000004c2   0x0000001c   Code   RO         1915    .text               mc_w.l(_chval.o)
+    0x000004de   0x0000005c   Code   RO         1925    .text               mc_w.l(__dczerorl2.o)
+    0x0000053a   0x00000002   PAD
+    0x0000053c   0x00000020   Code   RO         1125    i.ActiveState_downPressed  activestate.o
+    0x0000055c   0x00000020   Code   RO         1126    i.ActiveState_drawInitial  activestate.o
+    0x0000057c   0x0000000c   Code   RO         1127    i.ActiveState_get   activestate.o
+    0x00000588   0x00000020   Code   RO         1128    i.ActiveState_leftPressed  activestate.o
+    0x000005a8   0x00000020   Code   RO         1129    i.ActiveState_playSound  activestate.o
+    0x000005c8   0x00000020   Code   RO         1130    i.ActiveState_rightPressed  activestate.o
+    0x000005e8   0x0000002c   Code   RO         1131    i.ActiveState_set   activestate.o
+    0x00000614   0x00000018   Code   RO         1132    i.ActiveState_startPressed  activestate.o
+    0x0000062c   0x00000020   Code   RO         1133    i.ActiveState_upPressed  activestate.o
+    0x0000064c   0x00000020   Code   RO         1134    i.ActiveState_updateState  activestate.o
+    0x0000066c   0x0000000c   Code   RO          159    i.ButtonManager_Init  buttonmanager.o
+    0x00000678   0x000000ac   Code   RO          709    i.CS_Init           diskio.o
+    0x00000724   0x0000003e   Code   RO          160    i.CheckDebounce     buttonmanager.o
+    0x00000762   0x00000002   PAD
+    0x00000764   0x000000a4   Code   RO          652    i.DAC_Init          max5353.o
+    0x00000808   0x00000018   Code   RO          653    i.DAC_Out           max5353.o
+    0x00000820   0x00000090   Code   RO          227    i.DC_Init           st7735.o
+    0x000008b0   0x00000016   Code   RO          228    i.Delay1ms          st7735.o
+    0x000008c6   0x00000002   PAD
+    0x000008c8   0x00000078   Code   RO          676    i.FrequencyTimer_Init  frequencytimer.o
+    0x00000940   0x00000054   Code   RO          161    i.GPIOPortD_Handler  buttonmanager.o
+    0x00000994   0x0000005c   Code   RO          162    i.GPIOPortE_Handler  buttonmanager.o
+    0x000009f0   0x0000000a   Code   RO          505    i.GameEngine_Init   gameengine.o
+    0x000009fa   0x0000000a   Code   RO          506    i.GameEngine_downPressed  gameengine.o
+    0x00000a04   0x00000008   Code   RO          507    i.GameEngine_drawInitial  gameengine.o
+    0x00000a0c   0x00000044   Code   RO          508    i.GameEngine_ghostUpdateMotion  gameengine.o
+    0x00000a50   0x0000007c   Code   RO          509    i.GameEngine_ghostUpdatePosition  gameengine.o
+    0x00000acc   0x0000000a   Code   RO          510    i.GameEngine_leftPressed  gameengine.o
+    0x00000ad6   0x00000006   Code   RO          511    i.GameEngine_pacmanUpdateMotion  gameengine.o
+    0x00000adc   0x00000090   Code   RO          512    i.GameEngine_pacmanUpdatePosition  gameengine.o
+    0x00000b6c   0x00000084   Code   RO          513    i.GameEngine_playSound  gameengine.o
+    0x00000bf0   0x0000000a   Code   RO          514    i.GameEngine_rightPressed  gameengine.o
+    0x00000bfa   0x00000002   PAD
+    0x00000bfc   0x00000010   Code   RO          515    i.GameEngine_startPressed  gameengine.o
+    0x00000c0c   0x0000000a   Code   RO          516    i.GameEngine_upPressed  gameengine.o
+    0x00000c16   0x00000002   PAD
+    0x00000c18   0x000000e8   Code   RO          517    i.GameEngine_updatePositionCommon  gameengine.o
+    0x00000d00   0x00000060   Code   RO          518    i.GameEngine_updateState  gameengine.o
+    0x00000d60   0x00000100   Code   RO         1227    i.GraphicsEngine_drawBoard  graphicsengine.o
+    0x00000e60   0x00000038   Code   RO         1228    i.GraphicsEngine_drawCursor  graphicsengine.o
+    0x00000e98   0x000000e8   Code   RO         1229    i.GraphicsEngine_drawInitBoard  graphicsengine.o
+    0x00000f80   0x00000028   Code   RO         1230    i.GraphicsEngine_drawScore  graphicsengine.o
+    0x00000fa8   0x00000048   Code   RO         1231    i.GraphicsEngine_drawTitle  graphicsengine.o
+    0x00000ff0   0x000000b4   Code   RO          123    i.Heartbeat_Init    heartbeat.o
+    0x000010a4   0x00000014   Code   RO          124    i.Heartbeat_blink   heartbeat.o
+    0x000010b8   0x00000010   Code   RO          231    i.Output_Init       st7735.o
+    0x000010c8   0x0000007c   Code   RO          111    i.PLL_Init          pll.o
+    0x00001144   0x00000002   Code   RO         1197    i.PauseState_drawInitial  pausestate.o
+    0x00001146   0x00000002   PAD
+    0x00001148   0x00000014   Code   RO         1198    i.PauseState_playSound  pausestate.o
+    0x0000115c   0x00000018   Code   RO         1199    i.PauseState_startPressed  pausestate.o
+    0x00001174   0x000000f8   Code   RO          163    i.PortD_Init        buttonmanager.o
+    0x0000126c   0x000000f8   Code   RO          164    i.PortE_Init        buttonmanager.o
+    0x00001364   0x0000014c   Code   RO          710    i.SSI2_Init         diskio.o
+    0x000014b0   0x00000120   Code   RO          235    i.ST7735_DrawBitmap  st7735.o
+    0x000015d0   0x000000f4   Code   RO          237    i.ST7735_DrawCharS  st7735.o
+    0x000016c4   0x00000048   Code   RO          240    i.ST7735_DrawPixel  st7735.o
+    0x0000170c   0x00000056   Code   RO          241    i.ST7735_DrawString  st7735.o
+    0x00001762   0x00000002   PAD
+    0x00001764   0x000000ac   Code   RO          242    i.ST7735_FillRect   st7735.o
+    0x00001810   0x00000024   Code   RO          243    i.ST7735_FillScreen  st7735.o
+    0x00001834   0x0000007c   Code   RO          245    i.ST7735_InitR      st7735.o
+    0x000018b0   0x000000d4   Code   RO          247    i.ST7735_OutChar    st7735.o
+    0x00001984   0x00000020   Code   RO          258    i.ST7735_SetCursor  st7735.o
+    0x000019a4   0x0000004c   Code   RO         1505    i.ScoreEngine_displayFinalScore  scoreengine.o
+    0x000019f0   0x0000015c   Code   RO         1506    i.ScoreEngine_displayScores  scoreengine.o
+    0x00001b4c   0x0000000c   Code   RO         1507    i.ScoreEngine_getScore  scoreengine.o
+    0x00001b58   0x0000000c   Code   RO         1508    i.ScoreEngine_init  scoreengine.o
+    0x00001b64   0x00000010   Code   RO         1509    i.ScoreEngine_startPressed  scoreengine.o
+    0x00001b74   0x0000004c   Code   RO         1510    i.ScoreEngine_update  scoreengine.o
+    0x00001bc0   0x00000014   Code   RO         1307    i.StartState_downPressed  startstate.o
+    0x00001bd4   0x00000014   Code   RO         1308    i.StartState_drawInitial  startstate.o
+    0x00001be8   0x0000004c   Code   RO         1309    i.StartState_playSound  startstate.o
+    0x00001c34   0x00000034   Code   RO         1310    i.StartState_startPressed  startstate.o
+    0x00001c68   0x00000014   Code   RO         1311    i.StartState_upPressed  startstate.o
+    0x00001c7c   0x0000001c   Code   RO         1312    i.StartState_updateState  startstate.o
+    0x00001c98   0x00000048   Code   RO         1385    i.StopState_playSound  stopstate.o
+    0x00001ce0   0x00000020   Code   RO         1386    i.StopState_startPressed  stopstate.o
+    0x00001d00   0x00000068   Code   RO         1387    i.StopState_updateState  stopstate.o
+    0x00001d68   0x00000018   Code   RO          202    i.SysTick_Init      systick.o
+    0x00001d80   0x00000020   Code   RO          203    i.SysTick_Wait      systick.o
+    0x00001da0   0x0000001c   Code   RO          204    i.SysTick_Wait10ms  systick.o
+    0x00001dbc   0x00000094   Code   RO          125    i.TIMER1_Init       heartbeat.o
+    0x00001e50   0x00000014   Code   RO          679    i.Timer0A_Handler   frequencytimer.o
+    0x00001e64   0x00000040   Code   RO          126    i.Timer1A_Handler   heartbeat.o
+    0x00001ea4   0x00000018   Code   RO         1481    i.Timer2A_Handler   timer2a.o
+    0x00001ebc   0x00000074   Code   RO         1482    i.Timer2A_Init      timer2a.o
+    0x00001f30   0x00000014   Code   RO          711    i.Timer5A_Handler   diskio.o
+    0x00001f44   0x0000006c   Code   RO          712    i.Timer5_Init       diskio.o
+    0x00001fb0   0x00000020   Code   RO         1664    i.__0printf$3       mc_w.l(printf3.o)
+    0x00001fd0   0x00000008   Code   RO         1857    i.__aeabi_errno_addr  mc_w.l(errno.o)
+    0x00001fd8   0x0000000e   Code   RO         1919    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00001fe6   0x00000002   Code   RO         1920    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00001fe8   0x0000000e   Code   RO         1921    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00001ff6   0x00000002   PAD
+    0x00001ff8   0x000001b8   Code   RO         1671    i._printf_core      mc_w.l(printf3.o)
+    0x000021b0   0x0000002c   Code   RO          519    i.bigDotEaten       gameengine.o
+    0x000021dc   0x00000090   Code   RO          835    i.check_fs          ff.o
+    0x0000226c   0x00000018   Code   RO          836    i.chk_chr           ff.o
+    0x00002284   0x0000001a   Code   RO          837    i.clust2sect        ff.o
+    0x0000229e   0x0000001e   Code   RO          520    i.collideWithGhost  gameengine.o
+    0x000022bc   0x00000056   Code   RO          262    i.commandList       st7735.o
+    0x00002312   0x00000002   PAD
+    0x00002314   0x00000248   Code   RO          263    i.commonInit        st7735.o
+    0x0000255c   0x000000d6   Code   RO          838    i.create_chain      ff.o
+    0x00002632   0x00000002   PAD
+    0x00002634   0x000001b4   Code   RO          839    i.create_name       ff.o
+    0x000027e8   0x00000018   Code   RO          713    i.deselect          diskio.o
+    0x00002800   0x00000010   Code   RO          521    i.die               gameengine.o
+    0x00002810   0x0000005c   Code   RO          840    i.dir_alloc         ff.o
+    0x0000286c   0x0000005c   Code   RO          841    i.dir_find          ff.o
+    0x000028c8   0x0000010e   Code   RO          842    i.dir_next          ff.o
+    0x000029d6   0x0000003a   Code   RO          844    i.dir_register      ff.o
+    0x00002a10   0x0000009e   Code   RO          846    i.dir_sdi           ff.o
+    0x00002aae   0x00000002   PAD
+    0x00002ab0   0x0000015c   Code   RO          714    i.disk_initialize   diskio.o
+    0x00002c0c   0x00000228   Code   RO          715    i.disk_ioctl        diskio.o
+    0x00002e34   0x00000090   Code   RO          716    i.disk_read         diskio.o
+    0x00002ec4   0x00000014   Code   RO          717    i.disk_status       diskio.o
+    0x00002ed8   0x00000040   Code   RO          718    i.disk_timerproc    diskio.o
+    0x00002f18   0x000000b4   Code   RO          719    i.disk_write        diskio.o
+    0x00002fcc   0x0000002e   Code   RO         1232    i.drawBigDot        graphicsengine.o
+    0x00002ffa   0x00000018   Code   RO         1233    i.drawCommon        graphicsengine.o
+    0x00003012   0x00000026   Code   RO         1234    i.drawDot           graphicsengine.o
+    0x00003038   0x000001d0   Code   RO         1235    i.drawSprite        graphicsengine.o
+    0x00003208   0x0000002e   Code   RO         1236    i.drawWall          graphicsengine.o
+    0x00003236   0x00000002   PAD
+    0x00003238   0x00000030   Code   RO          522    i.eatGhost          gameengine.o
+    0x00003268   0x00000020   Code   RO          849    i.f_close           ff.o
+    0x00003288   0x0000005c   Code   RO          857    i.f_mount           ff.o
+    0x000032e4   0x00000160   Code   RO          858    i.f_open            ff.o
+    0x00003444   0x0000019e   Code   RO          860    i.f_read            ff.o
+    0x000035e2   0x00000002   PAD
+    0x000035e4   0x000000b0   Code   RO          865    i.f_sync            ff.o
+    0x00003694   0x0000038c   Code   RO          870    i.find_volume       ff.o
+    0x00003a20   0x000000b0   Code   RO          871    i.follow_path       ff.o
+    0x00003ad0   0x00000010   Code   RO          267    i.fputc             st7735.o
+    0x00003ae0   0x000000f2   Code   RO          872    i.get_fat           ff.o
+    0x00003bd2   0x0000004a   Code   RO          874    i.get_ldnumber      ff.o
+    0x00003c1c   0x00000150   Code   RO         1416    i.handler           wavreader.o
+    0x00003d6c   0x00000018   Code   RO         1237    i.ind_to_pix        graphicsengine.o
+    0x00003d84   0x0000002c   Code   RO          720    i.init_spi          diskio.o
+    0x00003db0   0x00000060   Code   RO          523    i.isValidDirection  gameengine.o
+    0x00003e10   0x00000020   Code   RO          875    i.ld_clust          ff.o
+    0x00003e30   0x000000e0   Code   RO         1418    i.load_more         wavreader.o
+    0x00003f10   0x0000006c   Code   RO           14    i.main              sdctestmain.o
+    0x00003f7c   0x00000026   Code   RO          876    i.mem_cmp           ff.o
+    0x00003fa2   0x0000001a   Code   RO          877    i.mem_cpy           ff.o
+    0x00003fbc   0x00000014   Code   RO          878    i.mem_set           ff.o
+    0x00003fd0   0x00000034   Code   RO          879    i.move_window       ff.o
+    0x00004004   0x00000024   Code   RO         1419    i.music_init        wavreader.o
+    0x00004028   0x00000328   Code   RO         1420    i.music_play        wavreader.o
+    0x00004350   0x0000004c   Code   RO         1421    i.music_stop        wavreader.o
+    0x0000439c   0x00000012   Code   RO          268    i.pushColor         st7735.o
+    0x000043ae   0x00000146   Code   RO          880    i.put_fat           ff.o
+    0x000044f4   0x00000048   Code   RO          721    i.rcvr_datablock    diskio.o
+    0x0000453c   0x0000002c   Code   RO          722    i.rcvr_spi          diskio.o
+    0x00004568   0x00000018   Code   RO          723    i.rcvr_spi_multi    diskio.o
+    0x00004580   0x0000006c   Code   RO          881    i.remove_chain      ff.o
+    0x000045ec   0x00000018   Code   RO          524    i.scheduleIfValidDirection  gameengine.o
+    0x00004604   0x00000038   Code   RO          724    i.select            diskio.o
+    0x0000463c   0x00000096   Code   RO          725    i.send_cmd          diskio.o
+    0x000046d2   0x00000002   PAD
+    0x000046d4   0x00000074   Code   RO          269    i.setAddrWindow     st7735.o
+    0x00004748   0x00000010   Code   RO          882    i.st_clust          ff.o
+    0x00004758   0x00000018   Code   RO         1313    i.swapCursor        startstate.o
+    0x00004770   0x000000c8   Code   RO          883    i.sync_fs           ff.o
+    0x00004838   0x00000052   Code   RO          884    i.sync_window       ff.o
+    0x0000488a   0x00000036   Code   RO          885    i.validate          ff.o
+    0x000048c0   0x00000030   Code   RO          726    i.wait_ready        diskio.o
+    0x000048f0   0x00000058   Code   RO          270    i.writecommand      st7735.o
+    0x00004948   0x0000005c   Code   RO          271    i.writedata         st7735.o
+    0x000049a4   0x00000034   Code   RO          727    i.xchg_spi          diskio.o
+    0x000049d8   0x0000004c   Code   RO          728    i.xmit_datablock    diskio.o
+    0x00004a24   0x0000002c   Code   RO          729    i.xmit_spi_multi    diskio.o
+    0x00004a50   0x0000003c   Data   RO          165    .constdata          buttonmanager.o
+    0x00004a8c   0x000007e2   Data   RO          273    .constdata          st7735.o
+    0x0000526e   0x000014f0   Data   RO         1238    .constdata          graphicsengine.o
+    0x0000675e   0x0000015e   Data   RO         1388    .constdata          stopstate.o
+    0x000068bc   0x00000050   Data   RO         1511    .constdata          scoreengine.o
+    0x0000690c   0x00000081   Data   RO         1884    .constdata          mc_w.l(ctype_o.o)
+    0x0000698d   0x00000003   PAD
+    0x00006990   0x00000004   Data   RO         1885    .constdata          mc_w.l(ctype_o.o)
+    0x00006994   0x00000020   Data   RO         1917    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Base: 0x20000000, Size: 0x000000b0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Base: 0x20000000, Size: 0x00000468, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x0000013c])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000002   Data   RW          120    .data               heartbeat.o
+    0x20000000   0x00000002   Data   RW          127    .data               heartbeat.o
     0x20000002   0x00000002   PAD
-    0x20000004   0x0000002c   Data   RW          267    .data               st7735.o
-    0x20000030   0x0000000d   Data   RW          692    .data               diskio.o
-    0x2000003d   0x00000003   PAD
-    0x20000040   0x00000006   Data   RW          849    .data               ff.o
-    0x20000046   0x00000002   PAD
-    0x20000048   0x00000008   Data   RW         1097    .data               activestate.o
-    0x20000050   0x0000004e   Data   RW         1342    .data               wavreader.o
-    0x2000009e   0x00000002   PAD
-    0x200000a0   0x00000004   Data   RW         1407    .data               timer2a.o
-    0x200000a4   0x00000004   Data   RW         1793    .data               mc_w.l(stdout.o)
-    0x200000a8   0x00000004   Data   RW         1826    .data               mc_w.l(mvars.o)
-    0x200000ac   0x00000004   Data   RW         1827    .data               mc_w.l(mvars.o)
+    0x20000004   0x0000002c   Data   RW          274    .data               st7735.o
+    0x20000030   0x0000002b   Data   RW          525    .data               gameengine.o
+    0x2000005b   0x00000001   PAD
+    0x2000005c   0x0000000d   Data   RW          730    .data               diskio.o
+    0x20000069   0x00000003   PAD
+    0x2000006c   0x00000006   Data   RW          887    .data               ff.o
+    0x20000072   0x00000002   PAD
+    0x20000074   0x00000008   Data   RW         1135    .data               activestate.o
+    0x2000007c   0x00000020   Data   RW         1200    .data               pausestate.o
+    0x2000009c   0x000002d0   Data   RW         1239    .data               graphicsengine.o
+    0x2000036c   0x00000024   Data   RW         1314    .data               startstate.o
+    0x20000390   0x00000045   Data   RW         1389    .data               stopstate.o
+    0x200003d5   0x00000003   PAD
+    0x200003d8   0x0000004f   Data   RW         1423    .data               wavreader.o
+    0x20000427   0x00000001   PAD
+    0x20000428   0x00000004   Data   RW         1483    .data               timer2a.o
+    0x2000042c   0x00000030   Data   RW         1512    .data               scoreengine.o
+    0x2000045c   0x00000004   Data   RW         1567    .data               mc_w.l(rand.o)
+    0x20000460   0x00000004   Data   RW         1852    .data               mc_w.l(stdout.o)
+    0x20000464   0x00000004   Data   RW         1860    .data               mc_w.l(errno.o)
 
 
-    Execution Region ER_ZI (Base: 0x200000b0, Size: 0x00000e80, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Base: 0x20000468, Size: 0x00000e80, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x200000b0   0x00000a7c   Zero   RW         1341    .bss                wavreader.o
-    0x20000b2c   0x00000004   PAD
-    0x20000b30   0x00000000   Zero   RW            2    HEAP                startup.o
-    0x20000b30   0x00000400   Zero   RW            1    STACK               startup.o
+    0x20000468   0x00000a7c   Zero   RW         1422    .bss                wavreader.o
+    0x20000ee4   0x00000004   PAD
+    0x20000ee8   0x00000400   Zero   RW            1    STACK               startup.o
 
 
 ==============================================================================
@@ -1795,30 +2037,41 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       184         34          0          8          0       2872   activestate.o
-       758         62         60          0          0       3467   buttonmanager.o
-      2574        208          0         13          0      11769   diskio.o
-      4934         56          0          6          0      21380   ff.o
-       140         22          0          0          0        840   frequencytimer.o
-       412         66          0          2          0       2230   heartbeat.o
-       188         34          0          0          0        785   max5353.o
-       124          6          0          0          0        363   pll.o
-       112         40          0          0          0      10636   sdctestmain.o
-      2166        258       2018         44          0      12131   st7735.o
-       672        622          0          0       1024        860   startup.o
-        84          6          0          0          0       1637   systick.o
-       140         28          0          4          0       1301   timer2a.o
-      1328        226          0         78       2684       4720   wavreader.o
+       304         62          0          8          0       4556   activestate.o
+       746         60         60          0          0       3495   buttonmanager.o
+      2574        208          0         13          0      11865   diskio.o
+      4934         56          0          6          0      21508   ff.o
+       140         22          0          0          0        848   frequencytimer.o
+      1134        112          0         43          0       9960   gameengine.o
+      1298         74       5360        720          0       8283   graphicsengine.o
+       412         66          0          2          0       2258   heartbeat.o
+       188         34          0          0          0        793   max5353.o
+        46         12          0         32          0       1299   pausestate.o
+       124          6          0          0          0        367   pll.o
+       540        102         80         48          0       3225   scoreengine.o
+       108         14          0          0          0      11859   sdctestmain.o
+      2454        266       2018         44          0      13079   st7735.o
+       240         74          0         36          0       3022   startstate.o
+       672        622          0          0       1024        868   startup.o
+       208         56        350         69          0       2340   stopstate.o
+        84          6          0          0          0       1657   systick.o
+       140         28          0          4          0       1321   timer2a.o
+      1480        326          0         79       2684       5033   wavreader.o
 
     ----------------------------------------------------------------------
-     13832       1668       2112        164       3712      74991   Object Totals
+     17852       2206       7900       1116       3712     107636   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        16          0          2          9          4          0   (incl. Padding)
+        26          0          0         12          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
 
+        92          0          0          0          0          0   __dczerorl2.o
+        28          0          0          0          0         68   _chval.o
+       158          0          0          0          0         92   _strtoul.o
+        26          0          0          0          0         80   atoi.o
+         8          4        133          0          0         68   ctype_o.o
          0          0          0          0          0          0   entry.o
          0          0          0          0          0          0   entry10a.o
          0          0          0          0          0          0   entry11a.o
@@ -1827,30 +2080,30 @@ Image component sizes
          0          0          0          0          0          0   entry7b.o
          0          0          0          0          0          0   entry8b.o
          8          4          0          0          0          0   entry9a.o
+         8          4          0          4          0         68   errno.o
         30          0          0          0          0          0   handlers.o
         36          8          0          0          0         68   init.o
         32          0          0          0          0         68   llushr.o
-       188         20          0          0          0        160   malloc.o
         36          0          0          0          0         68   memcpya.o
-         0          0          0          8          0          0   mvars.o
        472         14          0          0          0        180   printf3.o
+        36         10          0          4          0        136   rand.o
          0          0          0          4          0          0   stdout.o
         28          0          0          0          0         76   strcmp.o
-        14          0          0          0          0         68   strlen.o
+       112          0          0          0          0         88   strtol.o
         44          0          0          0          0         80   uidiv.o
 
     ----------------------------------------------------------------------
-       904         50          0         12          0        768   Library Totals
-         4          0          0          0          0          0   (incl. Padding)
+      1172         48        136         12          0       1140   Library Totals
+         6          0          3          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-       900         50          0         12          0        768   mc_w.l
+      1166         48        133         12          0       1140   mc_w.l
 
     ----------------------------------------------------------------------
-       904         50          0         12          0        768   Library Totals
+      1172         48        136         12          0       1140   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -1859,15 +2112,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     14736       1718       2112        176       3712      70143   Grand Totals
-     14736       1718       2112        176       3712      70143   ELF Image Totals
-     14736       1718       2112        176          0          0   ROM Totals
+     19024       2254       8036       1128       3712     100300   Grand Totals
+     19024       2254       8036        316       3712     100300   ELF Image Totals (compressed)
+     19024       2254       8036        316          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                16848 (  16.45kB)
-    Total RW  Size (RW Data + ZI Data)              3888 (   3.80kB)
-    Total ROM Size (Code + RO Data + RW Data)      17024 (  16.63kB)
+    Total RO  Size (Code + RO Data)                27060 (  26.43kB)
+    Total RW  Size (RW Data + ZI Data)              4840 (   4.73kB)
+    Total ROM Size (Code + RO Data + RW Data)      27376 (  26.73kB)
 
 ==============================================================================
 

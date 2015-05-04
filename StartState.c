@@ -4,8 +4,8 @@
 #include "GameEngine.h"
 #include "ActiveState.h"
 #include "GraphicsEngine.h"
-#define TOP 1
-#define BOTTOM 0
+#include "ScoreEngine.h"
+#include "WavReader.h"
 #ifndef FALSE
 #define FALSE 0
 #define TRUE 1
@@ -13,6 +13,8 @@
 uint8_t cursorLocation = TOP;
 uint8_t needRedraw = FALSE;
 uint8_t playing = FALSE;
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
 TopLevelState Start =  {
 	&StartState_updateState,
 	&StartState_upPressed,
@@ -24,7 +26,7 @@ TopLevelState Start =  {
 	&StartState_drawInitial,
 };
 void StartState_playSound(void) {
-	// TODO - a song?
+	// play dat song
 	if (!playing){
 		if (song_playing) music_stop();
 		looped = FALSE;
@@ -36,24 +38,38 @@ void StartState_playSound(void) {
 	}
 }
 void StartState_startPressed(void){
-	// TODO - check the location of the cursor, forward to appropriate new state
-	ActiveState_set(&InGame);
+	// check the location of the cursor, forward to appropriate new state
+	if (song_playing) {
+		music_stop();
+	}
+	if (cursorLocation == TOP){
+		ActiveState_set(&InGame);
+	} else {
+		ActiveState_set(&TopScores);
+	}
+}
+void swapCursor(void){
+	// helper function - swap cursor position
+	cursorLocation = cursorLocation == TOP ? BOTTOM : TOP;
 }
 void StartState_upPressed(void){
-	cursorLocation ^= 1;
+	swapCursor();
 	needRedraw = TRUE;
 }
 void StartState_downPressed(void){
-	cursorLocation ^= 1;
+	swapCursor();
 	needRedraw = TRUE;
 }
 void StartState_drawInitial(void){
-	// TODO - draw title screen
+	// draw title screen
 	GraphicsEngine_drawTitle();
-	// TODO - draw cursor
+	
+	// draw cursor
+	GraphicsEngine_drawCursor(cursorLocation);
 }
 void StartState_updateState(void){
 	if (needRedraw){
-		// TODO - erase opposite cursor position, draw current cursor position
+		// erase opposite cursor position, draw current cursor position
+		GraphicsEngine_drawCursor(cursorLocation);
 	}
 }

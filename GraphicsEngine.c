@@ -6,6 +6,7 @@
 #include "GameEngine.h"
 #include "Heartbeat.h"
 #include "ScoreEngine.h"
+#include "StartState.h"
 
 #define BOARD_START_X 8
 #define BOARD_END_Y 148
@@ -349,6 +350,14 @@ void drawSprite(sprite* s){
 											s->bmp[s->motion], s->width, s->height);
 	}
 }
+void GraphicsEngine_drawCursor(uint8_t pos){
+	ST7735_SetCursor(2, pos - 1);
+	printf(" ");
+	ST7735_SetCursor(2, pos + 1);
+	printf(" ");
+	ST7735_SetCursor(2, pos);
+	printf(">");
+}
 void GraphicsEngine_drawInitBoard(){
 	// set initial position, number of ghosts, dots
 	uint8_t i, j, x_pix, y_pix;
@@ -422,4 +431,8 @@ void GraphicsEngine_drawBoard(void){
 
 void GraphicsEngine_drawTitle(){
 	ST7735_DrawBitmap(0, 60, pacman_title, 128, 18);
+	ST7735_SetCursor(4, TOP);
+	printf("Play");
+	ST7735_SetCursor(4, BOTTOM);
+	printf("Top scores");
 }

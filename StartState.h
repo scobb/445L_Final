@@ -2,6 +2,8 @@
 #define _START_STATE_H_
 #include "TopLevelState.h"
 
+#define TOP 11
+#define BOTTOM 12
 extern TopLevelState Start;
 void StartState_startPressed(void);
 void StartState_upPressed(void);

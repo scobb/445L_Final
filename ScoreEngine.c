@@ -9,6 +9,8 @@
 #include "diskio.h"
 #include "WavReader.h"
 #include "GraphicsEngine.h"
+#include "ActiveState.h"
+#include "StartState.h"
 
 #define FILETESTSIZE 10000
 #define SCORE_SIZE 5
@@ -18,6 +20,8 @@
 uint32_t score;
 uint8_t found_score = FALSE;
 UINT reads, writes;
+long StartCritical (void);    // previous I bit, disable interrupts
+void EndCritical(long sr);    // restore I bit to previous value
 TopLevelState TopScores =  {
 	0,
 	0,
@@ -38,7 +42,7 @@ uint32_t ScoreEngine_getScore(void){
 }
 
 void ScoreEngine_startPressed(){
-	
+	ActiveState_set(&Start);
 }
 
 void ScoreEngine_update(uint8_t object){
@@ -89,7 +93,7 @@ void ScoreEngine_displayScores(){
 			else {
 				if (index < 5){
 					//score is lower than 5 digits, so let's fill the back end of this array with 0's
-					for (index; index <= 5; index++){
+					for (; index <= 5; index++){
 						scores[total_index][index] = 0;
 					}
 				}
@@ -105,19 +109,17 @@ void ScoreEngine_displayScores(){
 		printf("We're sorry, the scores on the \nSD card were too high to print to \nthis screen.");
 	}
 	Fresult = f_close(&Handle);
-	
 	//Now let's loop through and print to the screen
-	i = 0;
 	if (score == 0){
 		//Means we got here from the home screen
-		for (i; i < total_index; i++){
+		for (i = 0; i < total_index; i++){
 			printf("%s\n", scores[i]);
 		}
 	}
 	else {
 		//Means we finished a game
 		uint8_t found_score = FALSE;
-		for (i; i < total_index+1; i++){
+		for (i = 0; i < total_index+1; i++){
 			if (i < total_index && atoi(scores[i]) > score){
 				//This means we print the score we read in
 				printf("%s\n", scores[i]);
@@ -140,6 +142,9 @@ void ScoreEngine_displayScores(){
 		for (i; i < total_index; i++){
 			
 		}
+	printf("total_index: %u\n", total_index);
+	for (i = 0; i < total_index; i++){
+		printf("%s\n", scores[i]);
 	}
 	*/
 }

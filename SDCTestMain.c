@@ -202,16 +202,11 @@ int main(void){
 	Heartbeat_Init();							// heartbeat
   ButtonManager_Init();					// button interrupt enable
 	Output_Init();								// Display, SSI2 enable
-	//printf("PACMAN Player 1\n");
 	DAC_Init(2048);								// SSI0 enable
 	FrequencyTimer_Init();
-	//looped = TRUE;
-	//FrequencyTimer_arm(5000000);
-	//music_test();
 	music_init();
 	ScoreEngine_init();
   EnableInterrupts();
-	//ScoreEngine_displayScores();
 	GameEngine_Init();
 	ActiveState_set(&Start);
 	
