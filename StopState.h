@@ -8,6 +8,8 @@ extern uint8_t die_done;
 void StopState_startPressed(void);
 void StopState_upPressed(void);
 void StopState_downPressed(void);
+void StopState_leftPressed(void);
+void StopState_rightPressed(void);
 void StopState_updateState(void);
 void StopState_playSound(void);
 

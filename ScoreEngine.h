@@ -4,6 +4,8 @@
 #include "stdint.h"
 #include "TopLevelState.h"
 extern TopLevelState TopScores;
+extern uint8_t initial;
+extern char current_initial[];
 void ScoreEngine_init(void);
 void ScoreEngine_update(uint8_t object);
 void ScoreEngine_startPressed(void);

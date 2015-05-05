@@ -19,7 +19,11 @@
 
 uint32_t score;
 uint8_t found_score = FALSE;
+uint8_t initial;
+char current_initial[3];
 UINT reads, writes;
+
+
 long StartCritical (void);    // previous I bit, disable interrupts
 void EndCritical(long sr);    // restore I bit to previous value
 TopLevelState TopScores =  {
@@ -69,19 +73,36 @@ void ScoreEngine_displayFinalScore(){
 	printf("Game Over");
 	ST7735_SetCursor(3, 7);
 	printf("Final Score: %d", score);
+	ST7735_SetCursor(3, 9);
+	printf("Enter Initials");
+	ST7735_SetCursor(3, 10);
+	printf("a");
+	ST7735_SetCursor(5, 10);
+	printf("a");
+	ST7735_SetCursor(7, 10);
+	printf("a");
+	ST7735_SetCursor(3, 11);
+	printf("^");
+	initial = 0;
+	current_initial[initial] = 'a';
+	current_initial[1] = 'a';
+	current_initial[2] = 'a';
 }
 
 void ScoreEngine_displayScores(){
 	//f_open and f_read/f_write
 	//unsigned char current_score[6];
 	unsigned char scores[25][6];
+	unsigned char initials[25][4];
+	uint8_t is_initials = TRUE;
 	uint8_t index = 0;
 	uint32_t total_index = 0;
+	uint8_t initial_index = 0;
 	int i = 0;
 	
 	ST7735_FillScreen(0);
 	ST7735_SetCursor(0, 0);
-	printf("High Scores");
+	printf("High Scores\n");
 	Fresult = f_open(&Handle, "scores.txt", FA_READ);
 	Fresult = f_read(&Handle, buffer, 512, &reads);
 	if (Fresult == FR_OK){
@@ -89,9 +110,22 @@ void ScoreEngine_displayScores(){
 			char c = buffer[i];
 			if (c != ','){
 				if (c == '!') break;
+				else if (c == '-') {
+					initials[total_index][3] = 0;
+					is_initials = FALSE;
+					initial_index = 0;
+					i++;
+					continue;
+				}
 				//digit, so let's add it to a string
-				scores[total_index][index] = c;
-				index++;
+				if (is_initials){
+					initials[total_index][initial_index] = c;
+					initial_index++;
+				}
+				else{
+					scores[total_index][index] = c;
+					index++;
+				}
 			}
 			else {
 				if (index < 5){
@@ -104,6 +138,7 @@ void ScoreEngine_displayScores(){
 				//printf("%s\n", current_score);
 				total_index++;
 				index = 0;
+				is_initials = TRUE;
 			}
 			i++;
 		}
@@ -116,7 +151,7 @@ void ScoreEngine_displayScores(){
 	if (score == 0){
 		//Means we got here from the home screen
 		for (i = 0; i < total_index; i++){
-			printf("%s\n", scores[i]);
+			printf("%s - %s\n", initials[i], scores[i]);
 		}
 	}
 	else {
@@ -125,15 +160,15 @@ void ScoreEngine_displayScores(){
 		for (i = 0; i < total_index+1; i++){
 			if ((i < total_index && atoi(scores[i]) > score) || found_score){
 				//This means we print the score we read in
-				printf("%s\n", scores[i]);
+				printf("%s - %s\n", initials[i], scores[i]);
 			}
 			else if (i < total_index && atoi(scores[i]) <= score && !found_score){
-				printf("%u\n", score);
-				printf("%s\n", scores[i]);
+				printf("%c%c%c - %u\n", current_initial[0], current_initial[1], current_initial[2], score);
+				printf("%s - %s\n", initials[i], scores[i]);
 				found_score = TRUE;
 			}
 			else if (!found_score && i == total_index){
-				printf("%u\n", score);
+				printf("%c%c%c - %u\n", current_initial[0], current_initial[1], current_initial[2], score);
 			}
 		}
 	}
@@ -148,16 +183,21 @@ void ScoreEngine_displayScores(){
 			if (atoi(scores[i]) <= score && !found_score){
 				//We need to put our score in first
 				char our_score[7];
-				int j;
+				char our_initials[4];
+				j = 0;
+				
+				for (j = 0; j < 3; j++){
+					our_initials[j] = current_initial[j];
+				}
+				j = 0;
+				
 				sprintf(our_score, "%u", score);
-				while (our_score[j] != 0) j++;
+				while (our_score[j] >= '0' && our_score[j] <= '9') j++;
 				our_score[j] = ',';
 				j++;
-				/*
-				for (; j < 7; j++){
-					our_score[j] = 0;
-				}
-				*/
+				
+				f_write(&Handle, our_initials, j, &writes);
+				f_write(&Handle, "-", 1, &writes);
 				f_write(&Handle, our_score, j, &writes);
 				found_score = TRUE;
 			}
@@ -170,23 +210,35 @@ void ScoreEngine_displayScores(){
 					break;
 				}
 			}
+			f_write(&Handle, initials[i], 3, &writes);
+			f_write(&Handle, "-", 1, &writes);
 			f_write(&Handle, current_score, ++j, &writes);
 		}
 		
 		if (!found_score && score != 0){
 			char our_score[7];
-			int j;
-			sprintf(our_score, "%u", score);
-			while (our_score[j] != 0) j++;
-			our_score[j] = ',';
-			for (; j < 7; j++){
-				our_score[j] = 0;
+			char our_initials[4];
+			int j = 0;
+			
+			for (j = 0; j < 3; j++){
+				our_initials[j] = current_initial[j];
 			}
-			f_write(&Handle, our_score, 7, &writes);
+			j = 0;
+			
+			sprintf(our_score, "%u", score);
+			while (our_score[j] >= '0' && our_score[j] <= '9') j++;
+			our_score[j] = ',';
+			j++;
+			
+			f_write(&Handle, our_initials, j, &writes);
+			f_write(&Handle, "-", 1, &writes);
+			f_write(&Handle, our_score, j, &writes);
 		}
 		
 		//Write the sentinel
 		f_write(&Handle, "!", 1, &writes);
 	}
 	Fresult = f_close(&Handle);
+	
+	score = 0;
 }
