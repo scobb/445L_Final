@@ -196,23 +196,24 @@ void ScoreEngine_displayScores(){
 				our_score[j] = ',';
 				j++;
 				
-				f_write(&Handle, our_initials, j, &writes);
+				f_write(&Handle, our_initials, 3, &writes);
 				f_write(&Handle, "-", 1, &writes);
 				f_write(&Handle, our_score, j, &writes);
 				found_score = TRUE;
 			}
 			
 			for (j = 0; j < 7; j++){
-				if (scores[i][j] != 0) current_score[j] = scores[i][j];
+				if (scores[i][j] >= '0' && scores[i][j] <= '9') current_score[j] = scores[i][j];
 				else {
 					//We need to put a comma here
 					current_score[j] = ',';
 					break;
 				}
 			}
+			j++;
 			f_write(&Handle, initials[i], 3, &writes);
 			f_write(&Handle, "-", 1, &writes);
-			f_write(&Handle, current_score, ++j, &writes);
+			f_write(&Handle, current_score, j, &writes);
 		}
 		
 		if (!found_score && score != 0){
@@ -230,7 +231,7 @@ void ScoreEngine_displayScores(){
 			our_score[j] = ',';
 			j++;
 			
-			f_write(&Handle, our_initials, j, &writes);
+			f_write(&Handle, our_initials, 3, &writes);
 			f_write(&Handle, "-", 1, &writes);
 			f_write(&Handle, our_score, j, &writes);
 		}
